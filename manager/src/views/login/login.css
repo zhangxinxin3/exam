@@ -1,0 +1,76 @@
+.wrapper{
+    width: 100%;
+    height: 100%;
+    background:blue;
+    position: relative;
+}
+.wrap{
+    width:400px;
+    height:300px;
+    background:#fff;
+    padding:20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top:60%;
+    left:70%;
+    margin-top:-240px;
+    margin-left:-210px;
+}
+.writeIn{
+    width: 100%;
+    height:45px;
+    border:solid 1px #ccc;
+    margin:15px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.writeIn img{
+    width:25px;
+    height: 25px;
+    margin:0 10px;
+}
+.writeIn input{
+    flex:1;
+    height:100%;
+    border: solid 1px #fff;
+    padding: 0 5px;
+    box-sizing: border-box;
+}
+.check{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    box-sizing: border-box;
+    align-items: center;
+}
+.check div{
+    display: flex;
+    align-items: center;
+}
+.check p{
+    margin:0;
+}
+.check div span{
+    width:15px;
+    height: 15px;
+    border:solid 1px #ccc;
+    margin-right: 5px;
+}
+.check>p{
+    color: blue;
+}
+.btn{
+    width: 100%;
+    height:40px;
+    margin-top:15px;
+    background: blue;
+    color:#fff;
+    line-height: 40px;
+    text-align: center;
+    border: none;
+    letter-spacing:5px;
+}
