@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import { connect  } from 'dva';
-// import { Link } from 'dva/router';
+import { Link } from 'dva/router';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import './loginPage.scss';
 
@@ -72,8 +72,8 @@ function LoginPage(props){
                 忘记密码
             </a>
             <Button type="primary" htmlType="submit" className="login-form-button" disabled={flag}>
-                {/* <Link to="/main">登陆</Link> */}
-                登陆
+                <Link to="/main">登陆</Link>
+                {/* 登陆 */}
             </Button>
         </Form.Item>
     </Form>
