@@ -8,9 +8,7 @@ function LoginPage(props){
     useEffect(()=>{
         if(props.isLogin===1){
             message.success('登陆成功')
-            console.log('props.history', props.location.search);
             let pathName = decodeURIComponent(props.location.search.split('=')[1]);
-            console.log(pathName)
             props.history.replace(pathName);
         }else if(props.isLogin === -1){
             message.error('登陆失败')

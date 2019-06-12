@@ -25,7 +25,7 @@ export default {
         }else{
           if (getToken()){
              dispatch(routerRedux.replace({
-                pathname: `/main`
+                pathname: `/`
             }))
           }
         }
