@@ -9,13 +9,13 @@ import View from "./Class/view/view";
 const { Header, Content, Sider } = Layout;
 function MainPage(props) {
   return (
-    <Layout>
+    <Layout style={{height:"100%"}}>
       <Header>头</Header>
       <Layout>
         <Sider>
           <Menus />
         </Sider>
-        <Content>
+        <Content style={{height:"100%"}}>
           <Switch>
             <Route path="/questions/add" component={Add}></Route>
             <Route path="/questions/type" component={null}></Route>
