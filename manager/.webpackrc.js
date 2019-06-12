@@ -1,7 +1,7 @@
-import path from 'path';
+const path = require("path");
 
 export default {
-    alias:{
-        '@':path.resolve('src')
-    }
+  alias: {
+    '@': path.resolve('src')
+  }
 }

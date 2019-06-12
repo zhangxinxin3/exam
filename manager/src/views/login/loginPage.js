@@ -1,69 +1,74 @@
-import React, {useEffect} from 'react';
+import React,{useEffect} from 'react';
+import { connect  } from 'dva';
 import { Form, Icon, Input, Button, Checkbox, message } from 'antd';
-import { connect } from 'dva';
-import './loginPage.scss';
+import styles from './loginPage.scss';
 
 function LoginPage(props){
-  useEffect(()=>{
-    if (props.isLogin === 1){
-      message.success('登陆成功');
-      let pathName = decodeURIComponent(props.history.location.search.split('=')[1]);
-      props.history.replace(pathName);
-    }else if(props.isLogin === -1){
-      message.error('用户名或密码错误')
-    }
-  }, [props.isLogin]);
+    let {login} = props;    
+    useEffect(()=>{
+        if(props.isLogin===1){
+            message.success('登陆成功')
+            console.log('props.history', props.location.search);
+            let pathName = decodeURIComponent(props.location.search.split('=')[1]);
+            console.log(pathName)
+            props.history.replace(pathName);
+        }else if(props.isLogin === -1){
+            message.error('登陆失败')
+        }
+    },[props.isLogin])
 
-  let handleSubmit = e => {
-    e.preventDefault();
-    props.form.validateFields((err, values) => {
-      if (!err) {
-        props.login({
-          user_name: values.username,
-          user_pwd: values.password
-        })
-      }
-    });
-  };
+    let handleSubmit = e => {
+        e.preventDefault();
+        props.form.validateFields((err, values) => {
+            if (!err) {
+                login({
+                    user_name: values.username,
+                    user_pwd: values.password
+                })
+            }
+        });
+    };
 
-  const { getFieldDecorator } = props.form;
-  return  <Form onSubmit={handleSubmit} className="login-form">
-    <Form.Item>
-      {getFieldDecorator('username', {
-        validateTrigger: 'onBlur',
-        rules: [{required: true, message: '请输入正确的用户名'}],
-      })(
-        <Input
-          prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-          placeholder="Username"
-        />,
-      )}
-    </Form.Item>
-    <Form.Item>
-      {getFieldDecorator('password', {
-        rules: [{ pattern: /^(?:(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9])).*$/, message: '请输入正确的密码' }],
-      })(
-        <Input
-          prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-          type="password"
-          placeholder="Password"
-        />,
-      )}
-    </Form.Item>
-    <Form.Item>
-      {getFieldDecorator('remember', {
-        valuePropName: 'checked',
-        initialValue: true,
-      })(<Checkbox>Remember me</Checkbox>)}
-      <a className="login-form-forgot" href="">
-        Forgot password
-      </a>
-      <Button type="primary" htmlType="submit" className="login-form-button">
-        Log in
-      </Button>
-      Or <a href="">register now!</a>
-    </Form.Item>
-  </Form>;
+
+    const { getFieldDecorator } = props.form;
+    return <Form onSubmit={handleSubmit} className={styles.login_form} >
+        <Form.Item>
+            {getFieldDecorator('username', {
+                validateTrigger:'onChange',
+                rules: [{ required: true, message: '请输入用户名' }],
+            })(
+                <Input
+                prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                placeholder="请输入用户名" 
+                />,
+            )}
+        </Form.Item>
+        <Form.Item>
+            {getFieldDecorator('password', {
+                    validateTrigger:'onInput',
+                    rules: [{ pattern: /^(?:(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9])).*$/, message: '请输入用户密码' }],
+            })(
+                <Input
+                prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                type="password"
+                placeholder="请输入用户密码"
+                />,
+            )}
+        </Form.Item>
+        <Form.Item>
+            {getFieldDecorator('remember', {
+                valuePropName: 'checked',
+                initialValue: true,
+            })(<Checkbox>记住密码</Checkbox>)}
+            <a className={styles.login_form_forgot} href="">
+                忘记密码
+            </a>
+            <Button type="primary" htmlType="submit" className={styles.login_form_button}>
+                {/* <Link to="/main">登陆</Link> */}
+                登陆
+            </Button>
+        </Form.Item>
+    </Form>
 }
 
 LoginPage.propTypes = {

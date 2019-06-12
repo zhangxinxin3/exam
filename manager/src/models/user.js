@@ -15,16 +15,17 @@ export default {
   subscriptions: {
     setup({ dispatch, history }) {  // eslint-disable-line
       return history.listen(({ pathname }) => {
+          console.log(pathname)
         if (pathname.indexOf('/login') === -1) {
           if (!getToken()){
             dispatch(routerRedux.replace({
-              pathname: `/login?redirect=${encodeURIComponent(pathname)}`,
+              pathname: `/login?redirect=${encodeURIComponent(pathname)}`
             }))
           }
         }else{
           if (getToken()){
              dispatch(routerRedux.replace({
-              pathname: `/`,
+                pathname: `/main`
             }))
           }
         }
