@@ -1,5 +1,5 @@
-import axios from 'axios'
-
+import axios from "axios";
+import {getToken} from "@/utils/user"
 const service = axios.create({
   baseURL: 'http://169.254.12.250:7001/',
   timeout: 5000 
@@ -7,6 +7,10 @@ const service = axios.create({
 
 service.interceptors.request.use(
   config => {
+    //判断是否有登录态
+    if(getToken()){
+      config.headers['authorization'] = getToken()
+    }
     return config
   },
   error => {
