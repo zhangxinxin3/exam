@@ -1,21 +1,21 @@
-import React,{useEffect} from 'react';
-import { connect  } from 'dva';
+import React, { useEffect } from 'react';
+import { connect } from 'dva';
 import { Form, Icon, Input, Button, Checkbox, message } from 'antd';
 import './loginPage.scss';
 
-function LoginPage(props){
-    let {login} = props;    
-    useEffect(()=>{
-        if(props.isLogin===1){
+function LoginPage(props) {
+    let { login } = props;
+    useEffect(() => {
+        if (props.isLogin === 1) {
             //登陆成功
             message.success('登陆成功')
             let pathName = decodeURIComponent(props.history.location.search.split('-')[1])
             props.history.replace(pathName);
-        }else if(props.isLogin === -1){
+        } else if (props.isLogin === -1) {
             //登陆失败
             message.error('登陆失败')
         }
-    },[props.isLogin])
+    }, [props.isLogin])
 
     let handleSubmit = e => {
         e.preventDefault();
@@ -34,24 +34,24 @@ function LoginPage(props){
     return <Form onSubmit={handleSubmit} className="login-form" >
         <Form.Item>
             {getFieldDecorator('username', {
-                validateTrigger:'onChange',
+                validateTrigger: 'onChange',
                 rules: [{ required: true, message: '请输入用户名' }],
             })(
                 <Input
-                prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                placeholder="请输入用户名" 
+                    prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                    placeholder="请输入用户名"
                 />,
             )}
         </Form.Item>
         <Form.Item>
             {getFieldDecorator('password', {
-                    validateTrigger:'onInput',
-                    rules: [{ pattern: /^(?:(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9])).*$/, message: '请输入用户密码' }],
+                validateTrigger: 'onInput',
+                rules: [{ pattern: /^(?:(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9])).*$/, message: '请输入用户密码' }],
             })(
                 <Input
-                prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                type="password"
-                placeholder="请输入用户密码"
+                    prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                    type="password"
+                    placeholder="请输入用户密码"
                 />,
             )}
         </Form.Item>
@@ -71,29 +71,29 @@ function LoginPage(props){
     </Form>
 }
 
-LoginPage.propTypes={
+LoginPage.propTypes = {
 
 }
 
 LoginPage.defaultProps = {
-    flag:false
+    flag: false
 }
 
-const mapStateToProps = state=>{
-    console.log('state...',state)
+const mapStateToProps = state => {
+    console.log('state...', state)
     return state.user;
 }
 
-const mapDispatchToProps = dispatch=>{
+const mapDispatchToProps = dispatch => {
     return {
-        login(payload){
+        login(payload) {
             console.log(payload)
             dispatch({
-                type:'user/login',
+                type: 'user/login',
                 payload
             })
         }
     };
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Form.create({ name: 'normal_login' })(LoginPage));
+export default connect(mapStateToProps, mapDispatchToProps)(Form.create({ name: 'normal_login' })(LoginPage));

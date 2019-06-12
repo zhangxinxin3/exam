@@ -7,6 +7,19 @@ import Menus from "@/components/Menu";
 import Add from "./Class/add/add";
 const { Header, Content, Sider } = Layout;
 function MainPage(props) {
+  if (Math.power == null) {
+    // 此判断非常重要，如果Math.power 已经在别的地方定义过了，再次这样重新定义，会导致循环引用，从而引发
+    // Uncaught RangeError: Maximum call stack size exceeded 错误
+Math.power = Math.pow;
+
+Math.pow = function(x, y) {
+    if(x != 0) {
+        return Math.pow(x, y);
+    } else {
+        return 0;
+    }
+}
+} // end if
   return (
     <Layout>
       <Header>头</Header>
