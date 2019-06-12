@@ -14,7 +14,6 @@ export default {
     subscriptions: {
         setup({ dispatch, history }) {  // eslint-disable-line
             return history.listen(({ pathname }) => {
-                console.log('pathname...', pathname);
                 if (pathname.indexOf('/') === -1) {
                   // 做token检测
                     if (!getToken()){
