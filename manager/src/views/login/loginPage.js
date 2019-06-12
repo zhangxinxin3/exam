@@ -9,7 +9,7 @@ function LoginPage(props){
         if(props.isLogin===1){
             //登陆成功
             message.success('登陆成功')
-            let pathName = decodeURIComponent(props.history.location.search.split('-')[1])
+            let pathName = decodeURIComponent(props.history.location.search.split('-')[1]);
             props.history.replace(pathName);
         }else if(props.isLogin === -1){
             //登陆失败

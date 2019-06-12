@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { getToken } from './user.js'
 
 const service = axios.create({
     baseURL: 'http://169.254.12.250:7001/',
@@ -7,6 +8,10 @@ const service = axios.create({
 
 service.interceptors.request.use(
     config => {
+        if (getToken()) {
+          config.headers['addUser'] = getToken()
+        }
+        console.log(config)
         return config
     },
     error => {

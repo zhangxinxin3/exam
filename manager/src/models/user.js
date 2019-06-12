@@ -26,7 +26,7 @@ export default {
                     if (getToken()){
                         // 利用redux做路由跳转
                         dispatch(routerRedux.replace({
-                        pathname: '/main',
+                            pathname: '/main',
                         }))
                     }
                 }
