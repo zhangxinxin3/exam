@@ -7,8 +7,8 @@ function RouterConfig({ history }) {
   return (
     <Router history={history}>
       <Switch>
-        <Route path="/" exact component={LoginPage} />
-        <Route path="/main" exact component={MainPage} />
+        <Route path="/main" component={MainPage} />
+        <Route path="/" component={LoginPage} />
       </Switch>
     </Router>
   );

@@ -1,42 +1,34 @@
-import React,{useState,useEffect} from 'react';
+import React,{useEffect} from 'react';
 import { connect  } from 'dva';
-import { Link } from 'dva/router';
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Icon, Input, Button, Checkbox, message } from 'antd';
 import './loginPage.scss';
 
 function LoginPage(props){
-    console.log(useState)
-    let {login,flag} = props;    
+    let {login} = props;    
     useEffect(()=>{
-        // login({
-        //     user_name:"chenmanjie",
-        //     user_pwd:"Chenmanjie123!"
-        // })
-    })
-
-    useState(()=>{
-
-    })
+        if(props.isLogin===1){
+            //登陆成功
+            message.success('登陆成功')
+            let pathName = decodeURIComponent(props.history.location.search.split('-')[1])
+            props.history.replace(pathName);
+        }else if(props.isLogin === -1){
+            //登陆失败
+            message.error('登陆失败')
+        }
+    },[props.isLogin])
 
     let handleSubmit = e => {
         e.preventDefault();
         props.form.validateFields((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
                 login({
                     user_name: values.username,
                     user_pwd: values.password
                 })
-                flag = true;
-            }else{
-                flag = false;
             }
         });
     };
 
-    // let rout = e =>{
-    //     console.log(e)
-    // }
 
     const { getFieldDecorator } = props.form;
     return <Form onSubmit={handleSubmit} className="login-form" >
@@ -47,7 +39,7 @@ function LoginPage(props){
             })(
                 <Input
                 prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                placeholder="请输入用户名"
+                placeholder="请输入用户名" 
                 />,
             )}
         </Form.Item>
@@ -71,9 +63,9 @@ function LoginPage(props){
             <a className="login-form-forgot" href="">
                 忘记密码
             </a>
-            <Button type="primary" htmlType="submit" className="login-form-button" disabled={flag}>
-                <Link to="/main">登陆</Link>
-                {/* 登陆 */}
+            <Button type="primary" htmlType="submit" className="login-form-button">
+                {/* <Link to="/main">登陆</Link> */}
+                登陆
             </Button>
         </Form.Item>
     </Form>
