@@ -5,20 +5,22 @@ import { Layout } from 'antd';
 import { Switch, Route } from "dva/router";
 import Menus from "@/components/Menu";
 import Add from "./Class/add/add";
+import Type from "./Class/type/type";
+import View from "./Class/view/view";
 const { Header, Content, Sider } = Layout;
 function MainPage(props) {
   return (
     <Layout>
       <Header>头</Header>
       <Layout>
-        <Sider>
+        <Sider >
           <Menus />
         </Sider>
         <Content>
           <Switch>
             <Route path="/questions/add" component={Add}></Route>
-            <Route path="/questions/type" component={null}></Route>
-            <Route path="/questions/view" component={null}></Route>
+            <Route path="/questions/type" component={Type}></Route>
+            <Route path="/questions/view" component={View}></Route>
           </Switch>
         </Content>
       </Layout>
