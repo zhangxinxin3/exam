@@ -1,10 +1,11 @@
-import cookie from 'js-cookie'
-let key = 'addUser'
+import Cookie from 'js-cookie';
+
+const key = 'addUser';
 
 export function getToken(){
-    return cookie.get(key)
+  return Cookie.get(key)
 }
 
 export function setToken(value){
-    cookie.set(key,value,{expires:7})
+  Cookie.set(key, value, {expires: 7})
 }
