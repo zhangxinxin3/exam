@@ -6,12 +6,14 @@ export function watch(){
     method: 'GET'
   })
 } 
+
 export function examType(){
     return request({
       url: '/exam/examType',
       method: 'GET'
     })
 } 
+
 export function questionType(){
     return request({
         url: '/exam/getQuestionsType',
@@ -69,4 +71,17 @@ export function condition(params){
             method:'GET'
         })
     }
+    if(params.questions_id){
+        return request({
+            url:'/exam/questions/condition?questions_id='+params.questions_id,
+            method:'GET'
+        })
+    }
 }
+
+// export function questionType(){
+//     return request({
+//         url: '/exam/getQuestionsType',
+//         method: 'GET' 
+//     })
+// }

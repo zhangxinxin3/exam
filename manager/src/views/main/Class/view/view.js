@@ -75,6 +75,21 @@ function View(props) {
         }
     }
 
+    let dialog = (ids) =>{
+        // condition({
+        //     questions_id:ids
+        // })
+
+        console.log(props)
+        let {push} = props.history;
+        push({
+            pathname:`/quactions/dialog?id=${ids}`
+            // query:{
+            //     id:ids
+            // }
+        })
+    }
+
     return <div className={styles.wrapper}>
         <Title level={4}>查看试题</Title>
         <div className={styles.wrapTop}>
@@ -113,7 +128,9 @@ function View(props) {
         <div className={styles.wrap}>
             {
                 allArr.map((item,index)=>{
-                    return <div className={styles.wrap_item} key={index}>
+                    return <div className={styles.wrap_item} key={index} onClick={()=>{
+                        dialog(item.questions_id)
+                    }}>
                         <div className={styles.item_left}>
                             <h4>{item.title}</h4>
                             <div>
@@ -168,6 +185,12 @@ const mapStateToProps = state=>{
               payload:params
           })
       }
+    //   conditions(params){
+    //       dispatch({
+    //           type:'view/conditions',
+    //           payload:params
+    //       })
+    //   }
     }
   }
 
