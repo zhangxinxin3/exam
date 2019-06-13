@@ -45,14 +45,6 @@ function Add(props) {
           </Select>
         </div>
         <div>
-          <p>请选择题目类型：</p>
-          <Select defaultValue="简答题" style={{ width: 120 }}>
-            <Option value="jdt">简答题</Option>
-            <Option value="dmydt">代码阅读题</Option>
-            <Option value="dmbq">代码补全</Option>
-            <Option value="xgbug">修改bug</Option>
-            <Option value="sxdm">手写代码</Option>
-          </Select>
         </div>
         <div className={styles.markcont}>
           <h2>答案信息</h2>
