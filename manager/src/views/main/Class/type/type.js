@@ -44,18 +44,22 @@ function Type(props) {
             props.form.validateFields((err, values) => {
                 if (!err) {
                     uptypeValue(typeValue=values.value)
-                    let flag = types.indexOf(val=>val.类型名称 === typeValue)
-                    if(flag === -1){
-                        types.push({
-                            "key":typeValue,
-                            "类型ID":typeValue,
-                            "类型名称":typeValue,
-                            "操作":""
-                        })      
-                    }
                 }
             });
     };
+
+    let handleOk = e =>{
+        upDialog(!showDialog)
+        let flag = types.indexOf(val=>val.类型名称 === typeValue)
+        if(flag === -1){
+            types.push({
+                "key":typeValue,
+                "类型ID":typeValue,
+                "类型名称":typeValue,
+                "操作":""
+            })      
+        }
+    }
 
     const { getFieldDecorator} = props.form;
     return <div className={styles.wrapper}>
@@ -68,6 +72,7 @@ function Type(props) {
                 okText="确认"
                 cancelText="取消"
                 onCancel={()=>upDialog(!showDialog)}
+                onOk={handleOk}
             >
                 <Form onChange={handleSubmit} >
                     <Form.Item>
