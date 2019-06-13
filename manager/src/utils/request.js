@@ -2,14 +2,15 @@ import axios from 'axios'
 import {getToken} from '@/utils/user'
 
 const service = axios.create({
-  baseURL: 'http://169.254.78.4:7001/',
-  timeout: 5000 
+  baseURL: 'http://169.254.12.250:7001/',
+  timeout: 1000
 })
 
 service.interceptors.request.use(
   config => {
     if (getToken()) {
       config.headers['addUser'] = getToken()
+      config.headers.Authorization = getToken()
     }
     return config
   },
