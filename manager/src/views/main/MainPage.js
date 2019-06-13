@@ -2,7 +2,7 @@ import React from 'react';
 // import { connect } from 'dva';
 import styles from './MainPage.css';
 import { Layout } from 'antd';
-import { Switch, Route } from "dva/router";
+import { Switch, Route, Redirect } from "dva/router";
 import Menus from "@/components/Menu";
 import Add from "./Class/add/add";
 import Type from "./Class/type/type";
@@ -23,18 +23,19 @@ function MainPage(props) {
 // }
 // } // end if
   return (
-    <Layout>
-      <Header className="header">头</Header>
+    <Layout style={{height:"100%"}}>
+      <Header>头</Header>
       <Layout>
         <Sider >
           <Menus />
         </Sider>
-        <Content>
-          <Switch>
-            <Route path="/questions/add" component={Add}></Route>
-            <Route path="/questions/type" component={Type}></Route>
-            <Route path="/questions/view" component={View}></Route>
-          </Switch>
+        <Content style={{height:"100%"}}>
+            <Switch>
+                <Redirect exact from="/" to="/questions/add"></Redirect>
+                <Route path="/questions/add" component={Add}></Route>
+                <Route path="/questions/type" component={null}></Route>
+                <Route path="/questions/view" component={View}></Route>
+            </Switch>
         </Content>
       </Layout>
     </Layout>

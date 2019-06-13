@@ -12,6 +12,7 @@ function Menus(props) {
     >
         <SubMenu
             key="questions"
+            style={{width:"200px"}}
             title={
                 <span>
                     <Icon type="sliders" />

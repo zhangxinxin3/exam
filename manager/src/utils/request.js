@@ -2,8 +2,8 @@ import axios from 'axios'
 import {getToken} from '@/utils/user'
 
 const service = axios.create({
-  baseURL: 'http://169.254.12.250:7001/',
-  timeout: 1000
+  baseURL: 'http://127.0.0.1:7001/',
+  timeout: 5000 
 })
 
 service.interceptors.request.use(
