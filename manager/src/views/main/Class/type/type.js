@@ -1,19 +1,103 @@
-import React ,{useEffect} from "react";
+import React ,{useState,useEffect} from "react";
 import { connect } from 'dva';
+import { Modal, Form, Input, Button, Table } from 'antd';
 import styles from './type.scss';
 
 function Type(props) {
-    return <div></div>
+    let {getType,types}  = props;
+    let [showDialog,upDialog] = useState(false);
+    let [typeValue,uptypeValue] = useState('');
+
+    useEffect(()=>{
+        getType()
+    },[])
+
+    const columns = [
+        {
+          title: '类型ID',
+          dataIndex: '类型ID',
+        },
+        {
+          title: '类型名称',
+          dataIndex: '类型名称',
+        },
+        {
+          title: '操作',
+          dataIndex: '操作',
+        },
+    ];
+
+    props.questionArr.map((item,index)=>{
+        let flag = types.some(val=>val.类型ID === item.questions_type_id)
+        if(!flag){
+            types.push({
+                "key":item.questions_type_id,
+                "类型ID":item.questions_type_id,
+                "类型名称":item.questions_type_text,
+                "操作":""
+            })      
+        }
+    })
+    
+    let handleSubmit = e => {
+            e.preventDefault();
+            props.form.validateFields((err, values) => {
+                if (!err) {
+                    uptypeValue(typeValue=values.value)
+                    let flag = types.indexOf(val=>val.类型名称 === typeValue)
+                    if(flag === -1){
+                        types.push({
+                            "key":typeValue,
+                            "类型ID":typeValue,
+                            "类型名称":typeValue,
+                            "操作":""
+                        })      
+                    }
+                }
+            });
+    };
+
+    const { getFieldDecorator} = props.form;
+    return <div className={styles.wrapper}>
+        <h3 level={3} className={styles.tit}>试题分类</h3>
+        <div className={styles.wrap}>
+            <Button className={styles.btn} onClick={()=>upDialog(!showDialog)}>+ 添加类型</Button>
+            <Modal
+                title="Modal"
+                visible={showDialog}
+                okText="确认"
+                cancelText="取消"
+                onCancel={()=>upDialog(!showDialog)}
+            >
+                <Form onChange={handleSubmit} >
+                    <Form.Item>
+                    {getFieldDecorator('value', {
+                        rules: [{ required: true, message: '请输入类型名称 ' }],
+                    })(
+                        <Input type="text" setfieldsvalue={typeValue} placeholder="请输入类型名称" />,
+                    )}
+                    </Form.Item>
+                </Form>
+            </Modal>
+            <Table columns={columns} dataSource={types} size="middle" />
+        </div>
+    </div>
 }
 
 const mapStateToProps = state=>{
     return {
+       ...state.view
     }
   }
   
   const mapDisaptchToProps = dispatch=>{
     return {
+        getType(){
+            dispatch({
+                type:"view/questionType"
+            })
+        }
     }
   }
 
-export default connect(mapStateToProps, mapDisaptchToProps)(Type);
+export default connect(mapStateToProps, mapDisaptchToProps)(Form.create()(Type));

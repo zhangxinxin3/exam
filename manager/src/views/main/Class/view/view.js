@@ -8,7 +8,6 @@ const { Title } = Typography;
 function View(props) {
     let {look,examType,questionType,getAll,condition,data,examArr,questionArr,allArr} = props;
 
-
     useEffect(()=>{
         look()
         examType()
