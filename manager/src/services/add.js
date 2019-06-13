@@ -11,7 +11,7 @@ export function Addtest(params){
   } 
   
   //获取所有考试类型
-export function testType(){
+export function testType(params){
   return request({
     url:'/exam/examType',
     method:'GET'
@@ -20,7 +20,7 @@ export function testType(){
 
 
 //获取所有课程
-export function allSubject(){
+export function allSubject(params){
   return request({
     url:"/exam/subject",
     method:"GET"
@@ -28,7 +28,7 @@ export function allSubject(){
 }
 
 //获取所有试题类型
-export function allType(){
+export function allType(params){
   return request({
     url:"/exam/getQuestionsType",
     method:"GET"

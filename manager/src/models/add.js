@@ -22,6 +22,13 @@ export default {
             let test = yield call(Addtest, payload);
             console.log(test)
         },
+        // *testtype({payload},{call,put}){
+        //     let type = yield call(testType);
+        //     yield put({
+        //         type:"dataArrs",
+        //         payload : type.data
+        //     })
+        // },
         *testtype({ payload }, { call, put }) {
             let type = yield call(testType);
             console.log(type)
@@ -41,10 +48,10 @@ export default {
         *alltype({ payload }, { call, put }) {
             let alltypes = yield call(allType);
             console.log(alltypes)
-            // yield put({
-            //     type: "typeArrs",
-            //     payload: alltypes.data
-            // })
+            yield put({
+                type: "typeArrs",
+                payload: alltypes.data
+            })
         },
         *fetch({ payload }, { call, put }) {  // eslint-disable-line
             yield put({ type: 'save' });
