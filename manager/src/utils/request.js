@@ -10,8 +10,8 @@ service.interceptors.request.use(
   config => {
     if (getToken()) {
       config.headers['addUser'] = getToken()
+      config.headers.Authorization = getToken()
     }
-    config.headers.Authorization = getToken()
     return config
   },
   error => {

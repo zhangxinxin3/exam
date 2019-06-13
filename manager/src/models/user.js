@@ -19,7 +19,8 @@ export default {
         if (pathname.indexOf('/login') === -1) {
           if (!getToken()){
             dispatch(routerRedux.replace({
-              pathname: `/login?redirect=${encodeURIComponent(pathname)}`
+              pathname: `/login`,
+              search:`?redirect=${encodeURIComponent(pathname)}`
             }))
           }
         }else{
