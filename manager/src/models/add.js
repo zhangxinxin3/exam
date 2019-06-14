@@ -23,16 +23,8 @@ export default {
             let test = yield call(Addtest, payload);
             console.log(test)
         },
-        // *testtype({payload},{call,put}){
-        //     let type = yield call(testType);
-        //     yield put({
-        //         type:"dataArrs",
-        //         payload : type.data
-        //     })
-        // },
         *testtype({ payload }, { call, put }) {
             let type = yield call(testType);
-            // console.log(type)
             yield put({
                 type: "dataArrs",
                 payload: type.data
@@ -40,7 +32,6 @@ export default {
         },
         *allsubject({ payload }, { call, put }) {
             let all = yield call(allSubject);
-            // console.log(all)
             yield put({
                 type: "subArrs",
                 payload: all.data
@@ -48,7 +39,6 @@ export default {
         },
         *alltype({ payload }, { call, put }) {
             let alltypes = yield call(allType);
-            // console.log(alltypes)
             yield put({
                 type: "typeArrs",
                 payload: alltypes.data

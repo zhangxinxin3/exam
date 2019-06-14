@@ -95,7 +95,7 @@ function Add(props) {
   )
 }
 Add
-//props的类型检查
+//props的Leixing检查
 localStorage.propTypes = {
 
 }
