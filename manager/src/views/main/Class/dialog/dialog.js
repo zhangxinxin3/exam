@@ -1,4 +1,4 @@
-import React ,{useState,useEffect} from "react";
+import React ,{useEffect} from "react";
 import { connect } from 'dva';
 import styles from './dialog.scss';
 
@@ -26,13 +26,15 @@ function Dialog(props) {
                             <span>{item.exam_name}</span>
                         </div>
                         <h5>{item.title}</h5>
+
                         <p>{item.questions_stem}</p> 
                     </div>
-                    <div className={styles.wrapRight}></div>
+                    <div className={styles.wrapRight}>
+                        <p>{item.questions_answer}</p> 
+                    </div>
                 </div>
             })
         }
-        
     </div>
 }
 

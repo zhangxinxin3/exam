@@ -6,8 +6,9 @@ import Add from "./Class/add/add";
 import Type from "./Class/type/type";
 import View from "./Class/view/view";
 import Dialog from "./Class/dialog/dialog";
+import Edit from "./Class/edit/edit";
 const { Header, Content, Sider } = Layout;
-function MainPage(props) {
+function MainPage() {
   return (
     <Layout style={{height:"100%"}}>
       <Header>头</Header>
@@ -21,6 +22,7 @@ function MainPage(props) {
                 <Route path="/questions/type" component={Type}></Route>
                 <Route path="/questions/view" component={View}></Route>
                 <Route path="/questions/dialog" component={Dialog}/>
+                <Route path="/questions/edit" component={Edit}/>
                 <Route path="/questions/add" component={Add}></Route>
             </Switch>
         </Content>

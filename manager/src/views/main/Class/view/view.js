@@ -2,8 +2,7 @@ import React ,{useState,useEffect} from "react";
 import { connect } from 'dva';
 import styles from './view.scss';
 import { Typography ,Button } from 'antd';
-import { Route, routerRedux, Link } from "dva/router";
-import Dialog from '../dialog/dialog'
+import { Link } from "dva/router";
 
 const { Title } = Typography;
 
@@ -78,18 +77,6 @@ function View(props) {
         }
     }
 
-    // let dialog = (ids) =>{
-        // console.log(routerRedux)
-        // routerRedux.push({
-        //     pathname: '/quactions/dialog',
-        //     query: {id: ids}
-        // })
-    //     let {push} = props.history;
-    //     push({
-    //         path:'/quactions/dialog'
-    //     })
-    // }
-
     return <div className={styles.wrapper}>
         <Title level={4}>查看试题</Title>
         <div className={styles.wrapTop}>
@@ -138,7 +125,7 @@ function View(props) {
                             </div>
                             <p>{item.user_name}发布</p>
                         </div>
-                        <p>编辑</p>
+                        <Link to={{pathname:`/questions/edit?id=${item.questions_id}`}}>编辑</Link>
                     </Link>
                 })
             }
