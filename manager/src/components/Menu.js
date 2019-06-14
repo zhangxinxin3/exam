@@ -8,10 +8,11 @@ function Menus(props) {
         mode="inline"
         defaultSelectedKeys={['1']}
         defaultOpenKeys={['questions']}
-        style={{ height: '100%', borderRight: 0 ,position:'fixed',left:0,width:"250px"}}
+        style={{ height: '100%', borderRight: 0 ,position:'fixed',left:0,width:"200px"}}
     >
         <SubMenu
             key="questions"
+            style={{width:"200px"}}
             title={
                 <span>
                     <Icon type="sliders" />

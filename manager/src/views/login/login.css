@@ -2,8 +2,6 @@
     width: 100%;
     height: 100%;
     background:blue;
-<<<<<<< HEAD
-=======
     position: relative;
 }
 .wrap{
@@ -75,5 +73,4 @@
     text-align: center;
     border: none;
     letter-spacing:5px;
->>>>>>> 53142d4a05fadc355d96f777516b5973cfcc2327
 }
