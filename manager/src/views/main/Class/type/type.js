@@ -4,9 +4,11 @@ import { Modal, Form, Input, Button, Table } from 'antd';
 import styles from './type.scss';
 
 function Type(props) {
-    let {getType,types}  = props;
-    let [showDialog,upDialog] = useState(false);
-    let [typeValue,uptypeValue] = useState('');
+    let { getType, types, addQuestionType }  = props;
+    let [ showDialog, upDialog ] = useState(false);
+    let [ typeValue, uptypeValue ] = useState('');
+    let [ id, upId ] = useState(props.questionArr.length);
+
 
     useEffect(()=>{
         getType()
@@ -44,21 +46,18 @@ function Type(props) {
             props.form.validateFields((err, values) => {
                 if (!err) {
                     uptypeValue(typeValue=values.value)
+                    upId(id=id+1)
                 }
             });
     };
 
     let handleOk = e =>{
         upDialog(!showDialog)
-        let flag = types.indexOf(val=>val.类型名称 === typeValue)
-        if(flag === -1){
-            types.push({
-                "key":typeValue,
-                "类型ID":typeValue,
-                "类型名称":typeValue,
-                "操作":""
-            })      
-        }
+        addQuestionType({
+            text:typeValue,
+            sort:id,
+        })
+        getType()
     }
 
     const { getFieldDecorator} = props.form;
@@ -100,6 +99,12 @@ const mapStateToProps = state=>{
         getType(){
             dispatch({
                 type:"view/questionType"
+            })
+        },
+        addQuestionType(payload){
+            dispatch({
+                type:"view/addQuestionType",
+                payload
             })
         }
     }

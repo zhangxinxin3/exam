@@ -21,6 +21,14 @@ export function questionType(){
     })
 }
 
+export function addQuestionType(params){
+    return request({
+        url: '/exam/insertQuestionsType?text='+params.text+'&sort='+params.sort,
+        method: 'GET' 
+    })
+}
+
+
 export function getAll(){
     return request({
         url: '/exam/questions/new',
@@ -79,9 +87,10 @@ export function condition(params){
     }
 }
 
-// export function questionType(){
-//     return request({
-//         url: '/exam/getQuestionsType',
-//         method: 'GET' 
-//     })
-// }
+export function questionUp(params){
+    return request({
+        url: '/exam/questions/update',
+        method: 'PUT' ,
+        data:params
+    })
+}

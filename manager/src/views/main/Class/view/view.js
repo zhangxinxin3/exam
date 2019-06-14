@@ -20,8 +20,6 @@ function View(props) {
     let [exam_id,upExam] = useState('')
     let [questions_type_id,upQuestions] = useState('')
 
-
-
     let changes =(e) =>{
         exam_id = e.target.value;
     }
@@ -32,6 +30,10 @@ function View(props) {
 
     let chooseLess = (id) =>{
         subject_id = id
+    }
+
+    let allData = e =>{
+        getAll()
     }
 
     let search = function(){
@@ -83,8 +85,9 @@ function View(props) {
             <div className={styles.topType}>
                 <p>课程类型:</p>
                 <div className={styles.typeAll}>
+                    <span  className={styles.nod} onClick={allData}>ALL</span>
                     {
-                        data.map((item,index)=>{
+                        data && data.map((item,index)=>{
                             return <span key={item.subject_id} onClick={()=>{
                                 chooseLess(item.subject_id)
                             }} className={styles.nod}>{item.subject_text}</span>
@@ -96,7 +99,7 @@ function View(props) {
                 考试类型：
                 <select onChange={changes}>
                     {
-                        examArr.map(item=>{
+                        examArr && examArr.map(item=>{
                             return <option key={item.exam_id} value={item.exam_id}>{item.exam_name}</option>
                         })
                     }
@@ -104,7 +107,7 @@ function View(props) {
                 试题类型：
                 <select onChange={changees}>
                     {
-                        questionArr.map(item=>{
+                        questionArr && questionArr.map(item=>{
                             return <option key={item.questions_type_id} value={item.questions_type_id}>{item.questions_type_text}</option>
                         })
                     }
@@ -114,19 +117,19 @@ function View(props) {
         </div>
         <div className={styles.wrap}>
             {
-                allArr.map((item,index)=>{
-                return <Link className={styles.wrap_item} key={index} to={{pathname:`/questions/dialog?id=${item.questions_id}`}}>
-                        <div className={styles.item_left}>
-                            <h4>{item.title}</h4>
-                            <div>
-                                <span>{item.questions_type_text}</span>
-                                <span>{item.subject_text}</span>
-                                <span>{item.exam_name}</span>
-                            </div>
-                            <p>{item.user_name}发布</p>
+                allArr && allArr.map((item,index)=>{
+                return <div className={styles.wrap_item} key={index}>
+                    <Link className={styles.item_left} to={{pathname:`/questions/dialog?id=${item.questions_id}`}}>
+                        <h4>{item.title}</h4>
+                        <div>
+                            <span>{item.questions_type_text}</span>
+                            <span>{item.subject_text}</span>
+                            <span>{item.exam_name}</span>
                         </div>
-                        <Link to={{pathname:`/questions/edit?id=${item.questions_id}`}}>编辑</Link>
+                        <p>{item.user_name}发布</p>
                     </Link>
+                    <Link to={{pathname:`/questions/edit?id=${item.questions_id}`}}>编辑</Link>
+                </div>
                 })
             }
         </div>
@@ -138,45 +141,39 @@ View.defaultProps = {
 
 const mapStateToProps = state=>{
     return {
-      ...state.view
+        ...state.view
     }
-  }
+}
   
-  const mapDisaptchToProps = dispatch=>{
+const mapDisaptchToProps = dispatch=>{
     return {
-      look(){
-        dispatch({
-          type: 'view/watch'
-        })
-      },
-      examType(){
-          dispatch({
-              type:'view/examType'
-          })
-      },
-      questionType(){
-          dispatch({
-              type:'view/questionType'
-          })
-      },
-      getAll(){
-          dispatch({
-              type:'view/getAll'
-          })
-      },
-      condition(params){
-          dispatch({
-              type:'view/condition',
-              payload:params
-          })
-      }
-    //   conditions(params){
-    //       dispatch({
-    //           type:'view/conditions',
-    //           payload:params
-    //       })
-    //   }
+        look(){
+            dispatch({
+            type: 'view/watch'
+            })
+        },
+        examType(){
+            dispatch({
+                type:'view/examType'
+            })
+        },
+        questionType(){
+            dispatch({
+                type:'view/questionType'
+            })
+        },
+        getAll(){
+            dispatch({
+                type:'view/getAll'
+            })
+        },
+        condition(params){
+            dispatch({
+                type:'view/condition',
+                payload:params
+            })
+        }
     }
-  }
+}
 
 export default connect(mapStateToProps, mapDisaptchToProps)(View);
