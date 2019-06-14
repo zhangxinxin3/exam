@@ -6,18 +6,28 @@ export function watch(){
     method: 'GET'
   })
 } 
+
 export function examType(){
     return request({
       url: '/exam/examType',
       method: 'GET'
     })
 } 
+
 export function questionType(){
     return request({
         url: '/exam/getQuestionsType',
         method: 'GET' 
     })
 }
+
+export function addQuestionType(params){
+    return request({
+        url: '/exam/insertQuestionsType?text='+params.text+'&sort='+params.sort,
+        method: 'GET' 
+    })
+}
+
 
 export function getAll(){
     return request({
@@ -69,4 +79,18 @@ export function condition(params){
             method:'GET'
         })
     }
+    if(params.questions_id){
+        return request({
+            url:'/exam/questions/condition?questions_id='+params.questions_id,
+            method:'GET'
+        })
+    }
+}
+
+export function questionUp(params){
+    return request({
+        url: '/exam/questions/update',
+        method: 'PUT' ,
+        data:params
+    })
 }

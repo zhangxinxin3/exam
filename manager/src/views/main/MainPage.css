@@ -80,9 +80,6 @@ body :global(.ant-menu-submenu-title:hover){
 body :global(.ant-menu-submenu-title){
     color:#ccc
 }
-body :global(.ant-layout-content){
-    height:100%;
-}
 .header_right{
     position: absolute;
     right: 200px;
