@@ -1,4 +1,4 @@
-import { watch,examType,questionType,getAll,condition } from '@/services'
+import { watch, examType, questionType, getAll, condition, questionUp ,addQuestionType } from '@/services'
 
 export default {
     // 命名空间
@@ -9,7 +9,8 @@ export default {
         data:[],
         examArr:[],
         questionArr:[],
-        allArr:[]
+        allArr:[],
+        types:[]
     },
 
     // 订阅路由跳转
@@ -37,13 +38,19 @@ export default {
         },
         *questionType({payload},{call,put}){
             let data = yield call(questionType);
+            console.log(data)
             yield put({
                 type:'getquestionType',
                 payload:data.data
             })
         },
+        *addQuestionType({payload},{call,put}){
+            let data = yield call(addQuestionType,payload);
+            console.log(data)
+        },
         *getAll({payload},{call,put}){
             let data = yield call(getAll);
+            console.log(data)
             yield put({
                 type:'getAlls',
                 payload:data.data
@@ -51,10 +58,15 @@ export default {
         },
         *condition({payload},{call,put}){
             let data = yield call(condition,payload)
+            console.log(data)
             yield put({
                 type:'getCondition',
                 payload:data.data
             })
+        },
+        *questionUp({payload},{call,put}){
+            let data = yield call(questionUp,payload)
+            console.log(data)
         }
     },
 
