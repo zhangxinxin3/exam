@@ -21,7 +21,7 @@ export default {
     effects: {
         *addtest({ payload }, { call, put }) {
             let test = yield call(Addtest, payload);
-            // console.log(test)
+            console.log(test)
         },
         // *testtype({payload},{call,put}){
         //     let type = yield call(testType);

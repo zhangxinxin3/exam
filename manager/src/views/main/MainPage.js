@@ -1,6 +1,6 @@
 import React from 'react';
 // import { connect } from 'dva';
-import styles from './MainPage.css';
+// import styles from './MainPage.css';
 import { Layout } from 'antd';
 import { Switch, Route, Redirect } from "dva/router";
 import Menus from "@/components/Menu";
