@@ -50,8 +50,8 @@ export default {
 
   // 同步操作
   reducers: {
-    updateLogin(state, { payload }) {
-      return { ...state, isLogin: payload }
+    updateLogin(state, {payload}){
+      return {...state, isLogin: payload}
     }
   }
 };
