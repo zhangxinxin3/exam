@@ -33,7 +33,7 @@ function MainPage(props) {
             <Switch>
                 <Redirect exact from="/" to="/questions/add"></Redirect>
                 <Route path="/questions/add" component={Add}></Route>
-                <Route path="/questions/type" component={null}></Route>
+                <Route path="/questions/type" component={Type}></Route>
                 <Route path="/questions/view" component={View}></Route>
             </Switch>
         </Content>

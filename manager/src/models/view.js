@@ -9,7 +9,8 @@ export default {
         data:[],
         examArr:[],
         questionArr:[],
-        allArr:[]
+        allArr:[],
+        types:[]
     },
 
     // 订阅路由跳转

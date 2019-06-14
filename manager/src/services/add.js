@@ -34,3 +34,13 @@ export function allType(params){
     method:"GET"
   })
 }
+
+
+
+//获取所有的试题
+export function getAllTest(){
+  return request({
+    url:"/exam/questions/new",
+    method:"GET"
+  })
+}

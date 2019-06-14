@@ -1,4 +1,4 @@
-import { Addtest, testType, allSubject, allType } from "@/services";
+import { Addtest, testType, allSubject, allType, getAllTest } from "@/services";
 
 export default {
     // 命名空间
@@ -8,7 +8,8 @@ export default {
     state: {
         dataArr: [],
         subArr: [],
-        typeArr: []
+        typeArr: [],
+        allTest: []
     },
 
     subscriptions: {
@@ -22,16 +23,8 @@ export default {
             let test = yield call(Addtest, payload);
             console.log(test)
         },
-        // *testtype({payload},{call,put}){
-        //     let type = yield call(testType);
-        //     yield put({
-        //         type:"dataArrs",
-        //         payload : type.data
-        //     })
-        // },
         *testtype({ payload }, { call, put }) {
             let type = yield call(testType);
-            console.log(type)
             yield put({
                 type: "dataArrs",
                 payload: type.data
@@ -39,7 +32,6 @@ export default {
         },
         *allsubject({ payload }, { call, put }) {
             let all = yield call(allSubject);
-            console.log(all)
             yield put({
                 type: "subArrs",
                 payload: all.data
@@ -47,10 +39,17 @@ export default {
         },
         *alltype({ payload }, { call, put }) {
             let alltypes = yield call(allType);
-            console.log(alltypes)
             yield put({
                 type: "typeArrs",
                 payload: alltypes.data
+            })
+        },
+        *getalltest({ payload }, { call, put }) {
+            let alltests = yield call(getAllTest);
+            console.log(alltests)
+            yield put({
+                type: "allTests",
+                payload: alltests.data
             })
         },
         *fetch({ payload }, { call, put }) {  // eslint-disable-line
@@ -74,6 +73,10 @@ export default {
         typeArrs(state, action) {
             console.log(action.payload)
             return { ...state, typeArr: action.payload }
+        },
+        allTests(state, action) {
+            console.log(action.payload)
+            return { ...state, allTest: action.payload }
         }
     },
 

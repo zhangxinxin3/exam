@@ -2,12 +2,13 @@ import React ,{useState,useEffect} from "react";
 import { connect } from 'dva';
 import styles from './view.scss';
 import { Typography ,Button } from 'antd';
+import { Route, routerRedux, Link } from "dva/router";
+// import Dialog from '../dialog/dialog'
 
 const { Title } = Typography;
 
 function View(props) {
     let {look,examType,questionType,getAll,condition,data,examArr,questionArr,allArr} = props;
-
 
     useEffect(()=>{
         look()
@@ -37,6 +38,7 @@ function View(props) {
     let search = function(){
         if(subject_id!==''){
             if(exam_id !== ''){
+                console.log(subject_id)
                 condition({
                     subject_id,
                     exam_id
