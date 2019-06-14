@@ -1,4 +1,5 @@
 import React from 'react';
+// import { connect } from 'dva';
 import { Layout } from 'antd';
 import { Switch, Route, Redirect } from "dva/router";
 import Menus from "@/components/Menu";
@@ -13,7 +14,7 @@ function MainPage() {
     <Layout style={{height:"100%"}}>
       <Header>头</Header>
       <Layout>
-        <Sider>
+        <Sider >
           <Menus />
         </Sider>
         <Content style={{height:"100%"}}>
