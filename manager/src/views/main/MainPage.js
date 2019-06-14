@@ -20,7 +20,7 @@ function MainPage(props) {
                 <Redirect exact from="/" to="/questions/add"></Redirect>
                 <Route path="/questions/type" component={Type}></Route>
                 <Route path="/questions/view" component={View}></Route>
-                <Route path="/questions/dialog?:id" component={Dialog}/>
+                <Route path="/questions/dialog" component={Dialog}/>
                 <Route path="/questions/add" component={Add}></Route>
             </Switch>
         </Content>

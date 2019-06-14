@@ -2,6 +2,8 @@ import React ,{useState,useEffect} from "react";
 import { connect } from 'dva';
 import styles from './view.scss';
 import { Typography ,Button } from 'antd';
+import { Route, routerRedux, Link } from "dva/router";
+import Dialog from '../dialog/dialog'
 
 const { Title } = Typography;
 
@@ -36,6 +38,7 @@ function View(props) {
     let search = function(){
         if(subject_id!==''){
             if(exam_id !== ''){
+                console.log(subject_id)
                 condition({
                     subject_id,
                     exam_id
@@ -75,20 +78,17 @@ function View(props) {
         }
     }
 
-    let dialog = (ids) =>{
-        // condition({
-        //     questions_id:ids
+    // let dialog = (ids) =>{
+        // console.log(routerRedux)
+        // routerRedux.push({
+        //     pathname: '/quactions/dialog',
+        //     query: {id: ids}
         // })
-
-        console.log(props)
-        let {push} = props.history;
-        push({
-            pathname:`/quactions/dialog?id=${ids}`
-            // query:{
-            //     id:ids
-            // }
-        })
-    }
+    //     let {push} = props.history;
+    //     push({
+    //         path:'/quactions/dialog'
+    //     })
+    // }
 
     return <div className={styles.wrapper}>
         <Title level={4}>查看试题</Title>
@@ -128,9 +128,7 @@ function View(props) {
         <div className={styles.wrap}>
             {
                 allArr.map((item,index)=>{
-                    return <div className={styles.wrap_item} key={index} onClick={()=>{
-                        dialog(item.questions_id)
-                    }}>
+                return <Link className={styles.wrap_item} key={index} to={{pathname:`/questions/dialog?id=${item.questions_id}`}}>
                         <div className={styles.item_left}>
                             <h4>{item.title}</h4>
                             <div>
@@ -141,7 +139,7 @@ function View(props) {
                             <p>{item.user_name}发布</p>
                         </div>
                         <p>编辑</p>
-                    </div>
+                    </Link>
                 })
             }
         </div>
