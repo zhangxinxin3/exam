@@ -40,10 +40,10 @@ function Menus(props) {
             }
         >
             <Menu.Item key="1">
-                <Link to="/questions/add">添加用戶</Link>
+                <Link to="/questions/addUser">添加用戶</Link>
             </Menu.Item>
             <Menu.Item key="2">
-                <Link to="/questions/type">用戶展示</Link>
+                <Link to="/questions/exhibition">用戶展示</Link>
             </Menu.Item>
         </SubMenu>
         <SubMenu

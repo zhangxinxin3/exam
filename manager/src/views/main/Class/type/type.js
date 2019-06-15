@@ -28,6 +28,18 @@ function Type(props) {
           dataIndex: '操作',
         },
     ];
+
+    props.questionArr.map((item,index)=>{
+        let flag = types.some(val=>val.类型ID === item.questions_type_id)
+        if(!flag){
+            types.push({
+                "key":item.questions_type_id,
+                "类型ID":item.questions_type_id,
+                "类型名称":item.questions_type_text,
+                "操作":""
+            })      
+        }
+    })
     
     let handleSubmit = e => {
             e.preventDefault();

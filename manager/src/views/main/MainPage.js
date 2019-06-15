@@ -8,6 +8,7 @@ import Type from "./Class/type/type";
 import View from "./Class/view/view";
 import Dialog from "./Class/dialog/dialog";
 import Edit from "./Class/edit/edit";
+import Adduser from './User/addUser/addUser';
 
 const { Header, Content, Sider } = Layout;
 
@@ -26,6 +27,7 @@ function MainPage(props) {
                         <Route path="/questions/view" component={View}></Route>
                         <Route path="/questions/dialog" component={Dialog}/>
                         <Route path="/questions/edit" component={Edit}/>
+                        <Route path="/questions/addUser" component={Adduser}></Route>
                         <Route path="/questions/add" component={Add}></Route>
                     </Switch>
                 </Content>
