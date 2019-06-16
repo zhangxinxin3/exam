@@ -39,11 +39,11 @@ function Menus(props) {
         </span>
             }
         >
-            <Menu.Item key="1">
-                <Link to="/questions/add">添加用戶</Link>
+            <Menu.Item key="4">
+                <Link to="/user/add">添加用戶</Link>
             </Menu.Item>
-            <Menu.Item key="2">
-                <Link to="/questions/type">用戶展示</Link>
+            <Menu.Item key="5">
+                <Link to="/user/show">用戶展示</Link>
             </Menu.Item>
         </SubMenu>
         <SubMenu
@@ -55,10 +55,10 @@ function Menus(props) {
         </span>
             }
         >
-            <Menu.Item key="1">
+            <Menu.Item key="6">
                 <Link to="/questions/add">添加考試</Link>
             </Menu.Item>
-            <Menu.Item key="2">
+            <Menu.Item key="7">
                 <Link to="/questions/type">試卷列表</Link>
             </Menu.Item>
         </SubMenu>
@@ -71,13 +71,13 @@ function Menus(props) {
         </span>
             }
         >
-            <Menu.Item key="1">
+            <Menu.Item key="8">
                 <Link to="/questions/add">班級管理</Link>
             </Menu.Item>
-            <Menu.Item key="2">
+            <Menu.Item key="9">
                 <Link to="/questions/type">教室管理</Link>
             </Menu.Item>
-            <Menu.Item key="3">
+            <Menu.Item key="10">
                 <Link to="/questions/view">學生管理</Link>
             </Menu.Item>
         </SubMenu>
@@ -90,7 +90,7 @@ function Menus(props) {
         </span>
             }
         >
-            <Menu.Item key="1">
+            <Menu.Item key="11">
                 <Link to="/questions/add">待批班級</Link>
             </Menu.Item>
         </SubMenu>

@@ -15,7 +15,7 @@ export default {
   subscriptions: {
     setup({ dispatch, history }) {  // eslint-disable-line
       return history.listen(({ pathname }) => {
-        console.log(pathname)
+        // console.log(pathname)
         if (pathname.indexOf('/login') === -1) {
           if (!getToken()) {
             dispatch(routerRedux.replace({

@@ -1,4 +1,4 @@
-import React ,{useState,useEffect} from "react";
+import React ,{ useState, useEffect } from "react";
 import { connect } from 'dva';
 import styles from './view.scss';
 import { Typography ,Button } from 'antd';
@@ -6,8 +6,8 @@ import { Link } from "dva/router";
 
 const { Title } = Typography;
 
-function View(props) {
-    let {look,examType,questionType,getAll,condition,data,examArr,questionArr,allArr} = props;
+function View( props ) {
+    let { look, examType, questionType, getAll, condition, data, examArr, questionArr, allArr } = props;
 
     useEffect(()=>{
         look()
@@ -16,9 +16,9 @@ function View(props) {
         getAll()
     },[])
 
-    let [subject_id,upSubject] = useState('')
-    let [exam_id,upExam] = useState('')
-    let [questions_type_id,upQuestions] = useState('')
+    let [ subject_id, upSubject ] = useState('')
+    let [ exam_id, upExam ] = useState('')
+    let [ questions_type_id, upQuestions ] = useState('')
 
     let changes =(e) =>{
         exam_id = e.target.value;

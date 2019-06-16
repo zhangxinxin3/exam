@@ -1,4 +1,4 @@
-import { Addtest, testType, allSubject, allType, getAllTest } from "@/services";
+import { Addtest, testType, allSubject, allType, getAllTest, getUser } from "@/services";
 
 export default {
     // 命名空间
@@ -9,7 +9,8 @@ export default {
         dataArr: [],
         subArr: [],
         typeArr: [],
-        allTest: []
+        allTest: [],
+        userData:{}
     },
 
     subscriptions: {
@@ -21,7 +22,6 @@ export default {
     effects: {
         *addtest({ payload }, { call, put }) {
             let test = yield call(Addtest, payload);
-            console.log(test)
         },
         *testtype({ payload }, { call, put }) {
             let type = yield call(testType);
@@ -46,10 +46,16 @@ export default {
         },
         *getalltest({ payload }, { call, put }) {
             let alltests = yield call(getAllTest);
-            console.log(alltests)
             yield put({
                 type: "allTests",
                 payload: alltests.data
+            })
+        },
+        *getUser({ payload }, { call, put }){
+            let data = yield call(getUser);
+            yield put({
+                type: "getUsers",
+                payload: data.data
             })
         },
         *fetch({ payload }, { call, put }) {  // eslint-disable-line
@@ -63,20 +69,20 @@ export default {
             return { ...state, ...action.payload };
         },
         dataArrs(state, action) {
-            console.log(action.payload)
             return { ...state, dataArr: action.payload }
         },
         subArrs(state, action) {
-            console.log(action.payload)
             return { ...state, subArr: action.payload }
         },
         typeArrs(state, action) {
-            console.log(action.payload)
             return { ...state, typeArr: action.payload }
         },
         allTests(state, action) {
-            console.log(action.payload)
             return { ...state, allTest: action.payload }
+        },
+        getUsers(state,action){
+            console.log(action.payload)
+            return {...state, userData:action.payload }
         }
     },
 
