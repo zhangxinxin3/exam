@@ -24,7 +24,12 @@
     padding:10px;
     box-sizing: border-box;
 }
-.wrap_item p{
+.tits{
+    height:35px;
+    margin:10px 0 15px 0;
+    display: flex;
+}
+.tits p{
     height: 35px;
     border:solid 1px #ccc;
     background:#fff;
@@ -32,8 +37,45 @@
     box-sizing: border-box; 
     line-height: 35px;
 }
-.tits{
-    height:35px;
-    margin:10px 0 15px 0;
+.tits p.active{
+    border:solid 1px blue;
+    color:blue;
+}
+.item_box{
+    width: 100%;
+    height: 100%;
     display: flex;
+    flex-direction: column;
+}
+.item_box input{
+    width: 100%;
+    height:35px;
+    border:solid 1px #ccc;
+    padding:0 8px;
+    box-sizing: border-box;
+    margin-top:15px;
+}
+.item_box .select{
+    width:150px;
+    height:35px;
+    margin-top:15px;
+}
+.btns{
+    width: 100%;
+    margin:15px 0;
+    display: flex;
+}
+.sure{
+    width: 110px;
+    height:32px;
+    margin-right: 10px;
+    background: blue;
+    color:#fff;
+    border:none;
+}
+.reset{
+    width: 80px;
+    height: 32px;
+    background: #fff;
+    border:solid 1px #ccc;
 }
