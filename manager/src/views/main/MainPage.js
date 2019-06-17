@@ -9,6 +9,7 @@ import View from "./Class/view/view";
 import Dialog from "./Class/dialog/dialog";
 import Edit from "./Class/edit/edit";
 import Adduser from './User/addUser/addUser';
+import ExamList from './Exam/examList/examList';
 
 const { Header, Content, Sider } = Layout;
 
@@ -28,6 +29,7 @@ function MainPage(props) {
                         <Route path="/questions/dialog" component={Dialog}/>
                         <Route path="/questions/edit" component={Edit}/>
                         <Route path="/questions/addUser" component={Adduser}></Route>
+                        <Route path="/questions/examList" component={ExamList}></Route>
                         <Route path="/questions/add" component={Add}></Route>
                     </Switch>
                 </Content>

@@ -59,7 +59,7 @@ function Menus(props) {
                 <Link to="/questions/add">添加考試</Link>
             </Menu.Item>
             <Menu.Item key="2">
-                <Link to="/questions/type">試卷列表</Link>
+                <Link to="/questions/examList">試卷列表</Link>
             </Menu.Item>
         </SubMenu>
         <SubMenu

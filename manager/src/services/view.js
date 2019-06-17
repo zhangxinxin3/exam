@@ -1,5 +1,6 @@
 import request from '../utils/request';
 
+//获取所有的课程
 export function watch(){
   return request({
     url: '/exam/subject',
@@ -14,6 +15,7 @@ export function examType(){
     })
 } 
 
+//获取所有的试题类型
 export function questionType(){
     return request({
         url: '/exam/getQuestionsType',
