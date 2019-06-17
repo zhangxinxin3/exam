@@ -1,12 +1,45 @@
 import React, { useState, useEffect } from "react";
 import { connect } from 'dva';
-import { Form, Select, Button } from 'antd';
+import { Form, Select, Button, Table } from 'antd';
 import styles from './examList.scss';
 
 const { Option } = Select;
+const columns = [
+    {
+        title: '试卷信息',
+        dataIndex: 'information',
+        key: 'information',
+    },
+    {
+        title: '班级',
+        dataIndex: 'class',
+        key: 'class',
+    },
+    {
+        title: '创建人',
+        dataIndex: 'founder',
+        key: 'founder',
+    },
+    {
+        title: '开始时间',
+        dataIndex: 'start',
+        key: 'start',
+    },
+    {
+        title: '结束时间',
+        dataIndex: 'end',
+        key: 'end',
+    },
+    {
+        title: '操作',
+        dataIndex: 'operation',
+        key: 'operation',
+    }
+]
 
 function ExamList(props) {
-    console.log(props)
+    let [ flag,upFlag ]=useState(0);
+    let [ datas,upDatas ]=useState([]);
 
     let { subject, examType, examList } = props;
     let { data, questionArr, examArr } = props;
@@ -17,6 +50,14 @@ function ExamList(props) {
         examList() 
     },[])
 
+    // upDatas(datas = {
+    //     information:"",
+    //     class:"",
+    //     founder:"",
+    //     start:"",
+    //     end:"",
+    //     operation:""
+    // })
 
     let { getFieldDecorator } = props.form;
     return <div className={styles.wrapper}>
@@ -54,6 +95,17 @@ function ExamList(props) {
                 <Button className={styles.btn}>查询</Button>
             </Form-Item>
         </Form>
+        <div className={styles.main}>
+            <div className={styles.main_top}>
+                <h4>试卷列表</h4>
+                <div className={styles.top_right}> 
+                    <p>全部</p>
+                    <p>进行中</p>
+                    <p>已结束</p>
+                </div>
+            </div>
+            <Table columns={columns} dataSource={data} />
+        </div>
     </div>
 }
 
