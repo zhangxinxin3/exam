@@ -9,6 +9,8 @@ import View from "./Class/view/view";
 import Dialog from "./Class/dialog/dialog";
 import Edit from "./Class/edit/edit";
 import Exhibition from "./User/exhibition/exhibition";
+import AddExam from "./Exam/addExam/addExam";
+import AddMark from "./Exam/addMark/addMark"
 const { Header, Content, Sider } = Layout;
 
 function MainPage(props) {
@@ -30,6 +32,8 @@ function MainPage(props) {
                         <Route path="/questions/edit" component={Edit}/>
                         <Route path="/questions/add" component={Add}></Route>
                         <Route path="/user/show" component={Exhibition}></Route>
+                        <Route path="/exam/addExam" component={AddExam}></Route>
+                        <Route path="/exam/addMark" component={AddMark}></Route>
                     </Switch>
                 </Content>
             </Layout>

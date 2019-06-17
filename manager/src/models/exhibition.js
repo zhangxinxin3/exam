@@ -1,5 +1,4 @@
 import { showUsers, showIdentity, showApiqx , showRelation , showView , showRelations } from "@/services";
-import { stat } from "fs";
 export default {
     // 命名空间
     namespace: 'showtest',

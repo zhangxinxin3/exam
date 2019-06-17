@@ -12,6 +12,8 @@ app.model(require('./models/user').default);
 app.model(require('./models/view').default);
 app.model(require('./models/add').default);
 app.model(require('./models/exhibition').default);
+app.model(require('./models/addExam').default);
+app.model(require('./models/addMark').default);
 
 // 4. Router
 app.router(require('./router').default);
