@@ -5,6 +5,8 @@ import { Input, InputNumber, DatePicker, Select, Button } from 'antd';
 
 const { Option } = Select;
 function AddMark(props) {
+    let address = props.location
+    console.log(address)
     return (
         <div className={styles.wrap}>
             
