@@ -1,9 +1,16 @@
 import request from '../utils/request';
 
 //获取试卷列表
-export function examList(){
-    return request({
-        url:"/exam/exam",
-        method:"GET"
-    })
+export function examList(parmas){
+    if(parmas){
+        return request({
+            url:"/exam/exam?subject_id="+parmas.subject_id,
+            method:"GET"
+        })    
+    }else{
+        return request({
+            url:"/exam/exam",
+            method:"GET"
+        })
+    }
 }

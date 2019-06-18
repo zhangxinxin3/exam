@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from 'dva';
-import { Form, Select, Button, Table } from 'antd';
+import { Form, Select, Button, Table, Icon } from 'antd';
 import styles from './examList.scss';
 
 const { Option } = Select;
@@ -8,56 +8,101 @@ const columns = [
     {
         title: '试卷信息',
         dataIndex: 'information',
-        key: 'information',
+        key: 'information'
     },
     {
         title: '班级',
         dataIndex: 'class',
         key: 'class',
+        render: room =>(
+            <>
+                <p>考试班级</p>
+                {
+                    room.map((item,index)=>{
+                        return <span key={index} style={{fontSize:"12px",marginRight:"8px"}}>{item}</span>
+                    })
+                }
+            </>
+        ),
     },
     {
         title: '创建人',
         dataIndex: 'founder',
-        key: 'founder',
+        key: 'founder'
     },
     {
         title: '开始时间',
         dataIndex: 'start',
         key: 'start',
+        render:start=>(
+            <>
+                <p>{new Date(parseInt(start)).toLocaleString().replace(/\//g, "-").replace(/上午/g, " ")}</p>
+            </>
+        ),
     },
     {
         title: '结束时间',
         dataIndex: 'end',
         key: 'end',
+        render:end=>(
+            <>
+                <p>{new Date(parseInt(end)).toLocaleString().replace(/\//g, "-").replace(/上午/g, " ")}</p>
+            </>
+        ),
     },
     {
         title: '操作',
         dataIndex: 'operation',
-        key: 'operation',
+        key: 'operation'
     }
 ]
 
 function ExamList(props) {
-    let [ flag,upFlag ]=useState(0);
-    let [ datas,upDatas ]=useState([]);
+    let [ datas ]=useState([]);
 
     let { subject, examType, examList } = props;
-    let { data, questionArr, examArr } = props;
+    let { examArr } = props.exam;
+    let { data, questionArr } = props.view;
 
     useEffect(()=>{
         subject(), 
         examType(),
         examList() 
     },[])
+    examArr && examArr.map(item=>{
+        let room = [];
+        item.grade_name.map(val=>{
+            room.push(val)
+        })
+        let flag = datas.some(val => val.information === item.title);
+        if(!flag){
+            datas.push({
+                key:item.exam_exam_id,
+                information:item.title,
+                class:room,
+                founder:item.user_name,
+                start:item.start_time,
+                end:item.end_time,
+                operation:"详情"
+            })    
+        }  
+    })
 
-    // upDatas(datas = {
-    //     information:"",
-    //     class:"",
-    //     founder:"",
-    //     start:"",
-    //     end:"",
-    //     operation:""
-    // })
+    let search = e =>{
+        props.form.validateFields((error,value)=>{
+            examList({
+                subject_id:value.subjectId
+            })
+        })
+    }
+
+    let tabs = e =>{
+        let arr = Array.from(e.target.parentNode.childNodes);
+        arr.map(item=>{
+            item.className = '';
+        })
+        e.target.className = styles.active;
+    }
 
     let { getFieldDecorator } = props.form;
     return <div className={styles.wrapper}>
@@ -65,46 +110,44 @@ function ExamList(props) {
         <Form className={styles.wrap}>
             <Form-Item class={styles.wrap_item}>
                 考试类型：{
-                    getFieldDecorator('identity', {
-                        rules: [{ required: true, message: '请选择身份id' }],
+                    getFieldDecorator('questionsTypeId', {
+                        rules: [{ required: true, message: '考试类型' }],
                     })(
-                    <Select className={styles.select} setfieldsvalue="请选择身份id">
-                        <Option key="111" value="111">111</Option>
-                        {/* {
-                            identArr && identArr.map(item=>{
-                                return <Option key={ item.identity_id } value={ item.identity_id }>{ item.identity_text }</Option>
+                    <Select className={styles.select} setfieldsvalue="考试类型">
+                        {
+                            questionArr && questionArr.map(item=>{
+                                return <Option key={ item.questions_type_id } value={ item.questions_type_id }>{ item.questions_type_text }</Option>
                             })
-                        } */}
+                        }
                     </Select>,
                     )
                 }
                 课程：{
-                    getFieldDecorator('identity', {
+                    getFieldDecorator('subjectId', {
                         rules: [{ required: true, message: '请选择身份id' }],
                     })(
                     <Select className={styles.select} setfieldsvalue="请选择身份id">
-                        <Option key="111" value="111">111</Option>
-                        {/* {
-                            identArr && identArr.map(item=>{
-                                return <Option key={ item.identity_id } value={ item.identity_id }>{ item.identity_text }</Option>
+                        {
+                            data && data.map(item=>{
+                                return <Option key={ item.subject_id } value={ item.subject_id }>{ item.subject_text }</Option>
                             })
-                        } */}
+                        }
                     </Select>,
                     )
                 }
-                <Button className={styles.btn}>查询</Button>
+                <Button className={styles.btn} onClick={search} icon="search">查询</Button>
             </Form-Item>
         </Form>
         <div className={styles.main}>
             <div className={styles.main_top}>
                 <h4>试卷列表</h4>
-                <div className={styles.top_right}> 
-                    <p>全部</p>
+                <div className={styles.top_right} onClick={tabs}> 
+                    <p className={styles.active}>全部</p>
                     <p>进行中</p>
                     <p>已结束</p>
                 </div>
             </div>
-            <Table columns={columns} dataSource={data} />
+            <Table columns={columns} dataSource={datas} />
         </div>
     </div>
 }
@@ -127,9 +170,10 @@ const mapDisaptchToProps = dispatch=>{
                 type:"view/questionType"
             })
         },
-        examList(){
+        examList(payload){
             dispatch({
-                type:"exam/examList"
+                type:"exam/examList",
+                payload
             })
         }
     }

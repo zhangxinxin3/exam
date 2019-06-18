@@ -21,18 +21,26 @@ function View( props ) {
     let [ questions_type_id, upQuestions ] = useState('')
 
     let changes =(e) =>{
-        exam_id = e.target.value;
+        upExam(exam_id = e.target.value);
     }
 
     let changees = (e) =>{
-        questions_type_id = e.target.value;
+        upQuestions(questions_type_id = e.target.value);
     }
 
     let chooseLess = (id) =>{
-        subject_id = id
+        upSubject(subject_id = id) 
     }
 
     let allData = e =>{
+        let arr = Array.from(e.target.parentNode.childNodes);
+        arr.map(item=>{
+            if(item.className){
+                item.className = '';
+            }else{
+                item.className = styles.check;
+            }
+        })
         getAll()
     }
 
@@ -79,18 +87,27 @@ function View( props ) {
         }
     }
 
+    let choose = e =>{
+        console.log(e.target)
+        if(e.target.className){
+            e.target.className = '';
+        }else{
+            e.target.className = styles.check;
+        }
+    }
+
     return <div className={styles.wrapper}>
         <Title level={4}>查看试题</Title>
         <div className={styles.wrapTop}>
             <div className={styles.topType}>
                 <p>课程类型:</p>
                 <div className={styles.typeAll}>
-                    <span  className={styles.nod} onClick={allData}>ALL</span>
+                    <span onClick={allData}>ALL</span>
                     {
                         data && data.map((item,index)=>{
                             return <span key={item.subject_id} onClick={()=>{
                                 chooseLess(item.subject_id)
-                            }} className={styles.nod}>{item.subject_text}</span>
+                            }} onClick={choose}>{item.subject_text}</span>
                         })
                     }
                 </div>

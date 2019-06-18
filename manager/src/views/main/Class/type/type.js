@@ -66,7 +66,7 @@ function Type(props) {
         <div className={styles.wrap}>
             <Button className={styles.btn} onClick={() => upDialog(!showDialog)}>+ 添加类型</Button>
             <Modal
-                title="Modal"
+                title="创建新类型"
                 visible={showDialog}
                 okText="确认"
                 cancelText="取消"
