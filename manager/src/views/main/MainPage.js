@@ -11,6 +11,9 @@ import Edit from "./Class/edit/edit";
 import Exhibition from "./User/exhibition/exhibition";
 import AddExam from "./Exam/addExam/addExam";
 import AddMark from "./Exam/addMark/addMark"
+import Adduser from './User/addUser/addUser';
+import ExamList from './Exam/examList/examList';
+
 const { Header, Content, Sider } = Layout;
 
 function MainPage(props) {
@@ -30,6 +33,8 @@ function MainPage(props) {
                         <Route path="/questions/view" component={View}></Route>
                         <Route path="/questions/dialog" component={Dialog}/>
                         <Route path="/questions/edit" component={Edit}/>
+                        <Route path="/questions/addUser" component={Adduser}></Route>
+                        <Route path="/questions/examList" component={ExamList}></Route>
                         <Route path="/questions/add" component={Add}></Route>
                         <Route path="/user/show" component={Exhibition}></Route>
                         <Route path="/exam/addExam" component={AddExam}></Route>
