@@ -30,7 +30,7 @@ function AddUser(props) {
     //添加用户
     let hankAddUser=()=>{
         props.form.validateFields((err,value)=>{
-            console.log(value)
+            // console.log(value)
             addUser({
                 user_name:value.username,
                 user_pwd:value.password,
@@ -42,7 +42,7 @@ function AddUser(props) {
     //更新用户
     let hankUpuser =()=>{
         props.form.validateFields((err,value)=>{
-            console.log(value)
+            // console.log(value)
             upIdent({
                 user_id:value.userId,
                 user_name:value.upUsername,
@@ -54,7 +54,7 @@ function AddUser(props) {
 
     let hankIdent = () =>{
         props.form.validateFields((err,value)=>{
-            console.log(value)
+            // console.log(value)
             addIdent({
                 identity_text:value.identName
             })
@@ -63,7 +63,7 @@ function AddUser(props) {
 
     let hankAddApi = () =>{
         props.form.validateFields((err,value)=>{
-            console.log(value)
+            // console.log(value)
             addAuthorityApi({
                 api_authority_text:value.apiText,
                 api_authority_url:value.apiUrl,
@@ -74,7 +74,7 @@ function AddUser(props) {
 
     let hankAddView = () =>{
         props.form.validateFields((err,value)=>{
-            viewArr && viewArr.map(item=>{
+           viewArr && viewArr.map(item=>{
                 if(item.view_id===value.viewAuthority){
                     upViewtext(viewtext = item.view_authority_text)
                 }
@@ -88,7 +88,7 @@ function AddUser(props) {
 
     let HankIdentityApi = () =>{
         props.form.validateFields((err,value)=>{
-            console.log(value)
+            // console.log(value)
             setIdentityApi({
                 identity_id:value.identity,
                 api_authority_id:value.apiId
@@ -98,7 +98,7 @@ function AddUser(props) {
 
     let HankIdentityView = () =>{
         props.form.validateFields((err,value)=>{
-            console.log(value)
+            // console.log(value)
             setIdentityView({
                 identity_id:value.identity,
                 view_authority_id:value.IdentityView
@@ -108,7 +108,7 @@ function AddUser(props) {
 
     let reset = () =>{
         props.form.setFieldsValue((err,value)=>{
-            console.log(value)
+            // console.log(value)
         })
     }
 

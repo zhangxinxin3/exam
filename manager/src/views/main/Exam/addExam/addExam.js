@@ -11,12 +11,17 @@ function AddExam(props) {
     let [getNum, setNum] = useState("");
     let [getStartTime, setStartTime] = useState("");
     let [getEndTime, setEndTime] = useState("");
+    let time1 = new Date(getStartTime);
+    let startTimes = time1.getTime();
+    let time2 = new Date(getEndTime);
+    let endTimes = time2.getTime();
+    // console.log(startTimes)
     useEffect(() => {
         props.getallclass(),
-            props.getalltype()
+        props.getalltype()
     }, [])
-    console.log(props)
-    console.log(getName, getSelVal1, getSelVal3, getNum, getStartTime, getEndTime)
+    // console.log(props)
+    console.log(getName, getSelVal1, getSelVal3, getNum, startTimes, endTimes)
     let iptName = e => {
         setName(getName = e.target.value)
     }
@@ -30,32 +35,22 @@ function AddExam(props) {
         setNum(getNum = e)
     }
     let startTime = (value, dataString) => {
-        console.log(value, dataString)
         setStartTime(getStartTime = dataString)
     }
     let endTime = (value, dataString) => {
         setEndTime(getEndTime = dataString)
     }
     let jumpView = () => {
-        // history.push("/")
-        console.log(props)
-        if (getName === "" && getSelVal1 === "" && getSelVal3 === "" & getNum === "" & getStartTime === "" && getEndTime === "") {
-            console.log("input框值为空，请补全后再来操作")
+        // console.log(props)
+        if (getName === ""|| getSelVal1 === ""|| getSelVal3 === "" || getNum === "" || getStartTime === ""|| getEndTime === "") {
+            // console.log("input框值为空，请补全后再来操作")
             confirm({
                 title: '提示',
                 content: 'input框值为空，请补全后再来操作',
             })
         } else {
-            let obj = {
-                subject_id: getSelVal3,
-                exam_id: getSelVal1,
-                tite: getName,
-                number: getNum,
-                start_time: getStartTime,
-                end_time: getEndTime,
-            }
-            let newObj = JSON.stringify(obj)
-            props.history.push("/exam/addMark?message="+newObj);
+            props.postcreatetest(getName, getSelVal1, getSelVal3, getNum, startTimes, endTimes)
+            props.history.push("/exam/addMark?title="+getName)
         }
     }
     return (
@@ -128,6 +123,19 @@ const mapDispatchToProps = dispatch => {
         getalltype() {
             dispatch({
                 type: "addExam/getalltype"
+            })
+        },
+        postcreatetest(getName, getSelVal1, getSelVal3, getNum, startTimes, endTimes){
+            dispatch({
+                type:"addExam/postcreatetest",
+                payload:{
+                    subject_id: getSelVal3,
+                    exam_id: getSelVal1,
+                    title: getName,
+                    number: getNum,
+                    start_time: startTimes,
+                    end_time: endTimes,
+                }
             })
         }
     }

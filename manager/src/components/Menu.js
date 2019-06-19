@@ -1,8 +1,10 @@
+import {injectIntl} from "react-intl";
 import React from "react";
 import { Menu, Icon } from "antd";
 import { Link } from "dva/router";
 const { SubMenu } = Menu;
 function Menus(props) {
+    // console.log(props.intl)
     return <Menu
         theme="dark"
         mode="inline"
@@ -16,18 +18,18 @@ function Menus(props) {
             title={
                 <span>
                     <Icon type="sliders" />
-                    試題管理
+                    {props.intl.formatMessage({id:"router.questions"})}
         </span>
             }
         >
             <Menu.Item key="1">
-                <Link to="/questions/add">添加試題</Link>
+                <Link to="/questions/add">{props.intl.formatMessage({id:"router.questions.add"})}</Link>
             </Menu.Item>
             <Menu.Item key="2">
-                <Link to="/questions/type">試題分類</Link>
+                <Link to="/questions/type">{props.intl.formatMessage({id:"router.questions.type"})}</Link>
             </Menu.Item>
             <Menu.Item key="3">
-                <Link to="/questions/view">查看試題</Link>
+                <Link to="/questions/view">{props.intl.formatMessage({id:"router.questions.view"})}</Link>
             </Menu.Item>
         </SubMenu>
         <SubMenu
@@ -96,4 +98,4 @@ function Menus(props) {
         </SubMenu>
     </Menu>
 }
-export default Menus;
+export default injectIntl(Menus);

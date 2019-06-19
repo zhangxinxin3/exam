@@ -13,3 +13,11 @@ export function getAllType(){
         method:"GET"
     })
 }
+//请求创建试卷
+export function postCreateTest(params){
+    return request({
+        url:"/exam/exam",
+        method:"POST",
+        data:params
+    })
+}

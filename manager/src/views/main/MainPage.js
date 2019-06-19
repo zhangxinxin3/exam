@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Layout } from 'antd';
+import { Layout, Select } from 'antd';
 import { Switch, Route, Redirect } from "dva/router";
 import Menus from "@/components/Menu";
-import Add from "./Class/add/add";
-import Type from "./Class/type/type";
-import View from "./Class/view/view";
+import Add from "@/views/main/Class/add/add";
+import Type from "@/views/main/Class/type/type";
+import View from "@/views/main/Class/view/view";
 import Dialog from "./Class/dialog/dialog";
 import Edit from "./Class/edit/edit";
 import Exhibition from "./User/exhibition/exhibition";
@@ -16,24 +16,32 @@ import ExamList from './Exam/examList/examList';
 import styles from './MainPage.scss';
 
 const { Header, Content, Sider } = Layout;
-
+const { Option } = Select;
 function MainPage(props) {
+    let change = e =>{
+        props.changeLocale({
+            e
+        })
+    }
     return (
-        <Layout style={{height:"100%"}}>
+        <Layout style={{ height: "100%" }}>
             <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
-                <div><img src="../../images/logo.png" alt=""/></div>
+                <Select onChange={change}>
+                    <Option value='zh'>中文</Option>
+                    <Option value='en'>英文</Option>
+                </Select>
             </Header>
             <Layout className={styles.ant_layout}>
                 <Sider >
-                <Menus />
+                    <Menus />
                 </Sider>
-                <Content className={styles.ant_layout_content} style={{height:"100%"}}>
+                <Content className={styles.ant_layout_content} style={{ height: "100%" }}>
                     <Switch>
                         <Redirect exact from="/" to="/questions/add"></Redirect>
                         <Route path="/questions/type" component={Type}></Route>
                         <Route path="/questions/view" component={View}></Route>
-                        <Route path="/questions/dialog" component={Dialog}/>
-                        <Route path="/questions/edit" component={Edit}/>
+                        <Route path="/questions/dialog" component={Dialog} />
+                        <Route path="/questions/edit" component={Edit} />
                         <Route path="/questions/addUser" component={Adduser}></Route>
                         <Route path="/questions/examList" component={ExamList}></Route>
                         <Route path="/questions/add" component={Add}></Route>
@@ -47,17 +55,24 @@ function MainPage(props) {
     );
 }
 
-const mapStateToProps = start =>{
+const mapStateToProps = state => {
+    // console.log('state..', state)
     return {
-        ...start
+        locale: state.global.locale
     }
 }
 
-const mapDispatchToProps = dispatch =>{
+const mapDispatchToProps = dispatch => {
     return {
-        getUser(){
+        getUser() {
             dispatch({
-                type:'add/getUser'
+                type: 'add/getUser'
+            })
+        },
+        changeLocale: payload => {
+            dispatch({
+                type: "global/changeLocale",
+                payload
             })
         }
     }

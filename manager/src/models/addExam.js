@@ -1,4 +1,4 @@
-import { getAllClass, getAllType } from "@/services"
+import { getAllClass, getAllType , postCreateTest } from "@/services"
 
 export default {
     // 命名空间
@@ -31,6 +31,10 @@ export default {
                 payload: test.data
             })
         },
+        *postcreatetest({payload},{call,put}){
+            let test = yield call(postCreateTest,payload);
+            console.log(test)
+        },
         *fetch({ payload }, { call, put }) {  // eslint-disable-line
             yield put({ type: 'save' });
         },
@@ -46,7 +50,7 @@ export default {
         },
         getAllTypeArr(state, action) {
             return { ...state, getAllTypeArr: action.payload }
-        }
+        },
     },
 
 };

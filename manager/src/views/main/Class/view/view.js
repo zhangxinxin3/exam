@@ -47,7 +47,7 @@ function View( props ) {
     let search = function(){
         if(subject_id!==''){
             if(exam_id !== ''){
-                console.log(subject_id)
+                // console.log(subject_id)
                 condition({
                     subject_id,
                     exam_id
@@ -88,7 +88,7 @@ function View( props ) {
     }
 
     let choose = e =>{
-        console.log(e.target)
+        // console.log(e.target)
         if(e.target.className){
             e.target.className = '';
         }else{
