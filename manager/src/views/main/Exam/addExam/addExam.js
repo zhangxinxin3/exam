@@ -36,9 +36,6 @@ function AddExam(props) {
     let endTime = (value,dataString) => {
         setEndTime(getEndTime = dataString)
     }
-    let jumpView = () =>{
-        history.push("/")
-    }
     return (
         <div className={styles.wrap}>
             <h1>添加考试</h1>
@@ -82,7 +79,7 @@ function AddExam(props) {
                     </div>
 
                     <div className={styles.item}>
-                        <Button type="primary" htmlType="submit" onClick={ jumpView }>创建试卷</Button>
+                        <Button type="primary" htmlType="submit" >创建试卷</Button>
                     </div>
                 </div>
             </div>
