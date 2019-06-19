@@ -17,10 +17,10 @@ export default {
 
     // 异步操作
     effects: {
-        // *createtest({payload},{call,put}){
-        //     let test = yield call(createTest,payload);
-        //     console.log(test)
-        // },
+        *createtest({payload},{call,put}){
+            let test = yield call(createTest,payload);
+            console.log(test)
+        },
         *gettest({payload},{call,put}){
             let test = yield call(getTest,payload);
             console.log(test)
