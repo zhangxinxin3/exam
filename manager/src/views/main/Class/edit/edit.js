@@ -26,7 +26,7 @@ function Edit(props) {
     },[])
 
     let handleChange = e =>{//题目
-        console.log(e)
+        // console.log(e)
         upStem(stem = e)
     }
 
@@ -35,7 +35,7 @@ function Edit(props) {
     }
 
     let changeTitle = e =>{
-        console.log(e.target.value);
+        // console.log(e.target.value);
         upTitle(title = e.target.value)
     }
 
@@ -150,7 +150,7 @@ const mapDisaptchToProps = dispatch=>{
             })
         },
         questionUp(payload){
-            console.log(payload)
+            // console.log(payload)
             dispatch({
                 type:'view/questionUp',
                 payload

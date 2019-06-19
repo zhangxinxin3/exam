@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'dva';
 import { Tabs, Table } from 'antd';
 const { TabPane } = Tabs;
@@ -87,7 +87,7 @@ function Exhibition(props) {
         props.showrelations(),
         props.showview()
     }, [])
-    console.log(props)
+    // console.log(props)
     return (
         <div className="container">
             <h1 style={{ color: "black", fontSize: "50px" }}>用户展示</h1>

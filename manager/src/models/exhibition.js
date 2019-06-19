@@ -24,7 +24,7 @@ export default {
                 type: "UserArr",
                 payload: test.data
             })
-            console.log(test)
+            // console.log(test)
         },
         *showidentity({ payload }, { call, put }) {
             var test = yield call(showIdentity);

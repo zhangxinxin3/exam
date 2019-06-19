@@ -68,14 +68,14 @@ class Login extends Component{
 }
 
 const mapStateToProps = state=>{
-    console.log('state...',state)
+    // console.log('state...',state)
     return {};
 }
 
 const mapDispatchToProps = dispatch=>{
     return {
         login(payload){
-            console.log(payload)
+            // console.log(payload)
             dispatch({
                 type:'user/login',
                 payload

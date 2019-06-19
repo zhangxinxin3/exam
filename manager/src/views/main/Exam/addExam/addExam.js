@@ -20,7 +20,7 @@ function AddExam(props) {
         props.getallclass(),
         props.getalltype()
     }, [])
-    console.log(props)
+    // console.log(props)
     console.log(getName, getSelVal1, getSelVal3, getNum, startTimes, endTimes)
     let iptName = e => {
         setName(getName = e.target.value)
@@ -41,7 +41,7 @@ function AddExam(props) {
         setEndTime(getEndTime = dataString)
     }
     let jumpView = () => {
-        console.log(props)
+        // console.log(props)
         if (getName === ""|| getSelVal1 === ""|| getSelVal3 === "" || getNum === "" || getStartTime === ""|| getEndTime === "") {
             // console.log("input框值为空，请补全后再来操作")
             confirm({
@@ -50,7 +50,7 @@ function AddExam(props) {
             })
         } else {
             props.postcreatetest(getName, getSelVal1, getSelVal3, getNum, startTimes, endTimes)
-            props.history.push("/exam/addMark")
+            props.history.push("/exam/addMark?title="+getName)
         }
     }
     return (
