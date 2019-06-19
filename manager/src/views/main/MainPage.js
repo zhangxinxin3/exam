@@ -11,25 +11,31 @@ import Edit from "./Class/edit/edit";
 import Exhibition from "./User/exhibition/exhibition";
 import AddExam from "./Exam/addExam/addExam";
 import AddMark from "./Exam/addMark/addMark"
+import Adduser from './User/addUser/addUser';
+import ExamList from './Exam/examList/examList';
+import styles from './MainPage.scss';
+
 const { Header, Content, Sider } = Layout;
 
 function MainPage(props) {
     return (
         <Layout style={{height:"100%"}}>
-            <Header>
+            <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
                 <div><img src="../../images/logo.png" alt=""/></div>
             </Header>
-            <Layout>
+            <Layout className={styles.ant_layout}>
                 <Sider >
                 <Menus />
                 </Sider>
-                <Content style={{height:"100%"}}>
+                <Content className={styles.ant_layout_content} style={{height:"100%"}}>
                     <Switch>
                         <Redirect exact from="/" to="/questions/add"></Redirect>
                         <Route path="/questions/type" component={Type}></Route>
                         <Route path="/questions/view" component={View}></Route>
                         <Route path="/questions/dialog" component={Dialog}/>
                         <Route path="/questions/edit" component={Edit}/>
+                        <Route path="/questions/addUser" component={Adduser}></Route>
+                        <Route path="/questions/examList" component={ExamList}></Route>
                         <Route path="/questions/add" component={Add}></Route>
                         <Route path="/user/show" component={Exhibition}></Route>
                         <Route path="/exam/addExam" component={AddExam}></Route>

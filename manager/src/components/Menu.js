@@ -40,7 +40,7 @@ function Menus(props) {
             }
         >
             <Menu.Item key="4">
-                <Link to="/user/add">添加用戶</Link>
+                <Link to="/questions/addUser">添加用戶</Link>
             </Menu.Item>
             <Menu.Item key="5">
                 <Link to="/user/show">用戶展示</Link>
@@ -59,7 +59,7 @@ function Menus(props) {
                 <Link to="/exam/addExam">添加考試</Link>
             </Menu.Item>
             <Menu.Item key="7">
-                <Link to="/exam/list">試卷列表</Link>
+                <Link to="/questions/examList">試卷列表</Link>
             </Menu.Item>
         </SubMenu>
         <SubMenu

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'dva';
 import styles from './addExam.scss';
-import { Input, InputNumber, DatePicker, Select, Button } from 'antd';
-
+import { Input, InputNumber, DatePicker, Select, Button, Modal } from 'antd';
+const confirm = Modal.confirm;
 const { Option } = Select;
 function AddExam(props) {
     let [getName, setName] = useState("");
@@ -29,12 +29,34 @@ function AddExam(props) {
     let iptNum = e => {
         setNum(getNum = e)
     }
-    let startTime = (value,dataString) => {
-        console.log(value,dataString)
+    let startTime = (value, dataString) => {
+        console.log(value, dataString)
         setStartTime(getStartTime = dataString)
     }
-    let endTime = (value,dataString) => {
+    let endTime = (value, dataString) => {
         setEndTime(getEndTime = dataString)
+    }
+    let jumpView = () => {
+        // history.push("/")
+        console.log(props)
+        if (getName === "" && getSelVal1 === "" && getSelVal3 === "" & getNum === "" & getStartTime === "" && getEndTime === "") {
+            console.log("input框值为空，请补全后再来操作")
+            confirm({
+                title: '提示',
+                content: 'input框值为空，请补全后再来操作',
+            })
+        } else {
+            let obj = {
+                subject_id: getSelVal3,
+                exam_id: getSelVal1,
+                tite: getName,
+                number: getNum,
+                start_time: getStartTime,
+                end_time: getEndTime,
+            }
+            let newObj = JSON.stringify(obj)
+            props.history.push("/exam/addMark?message="+newObj);
+        }
     }
     return (
         <div className={styles.wrap}>
@@ -71,7 +93,7 @@ function AddExam(props) {
                             format="YYYY-MM-DD HH:mm:ss"
                             placeholder="开始时间"
                             onChange={startTime}
-                             />
+                        />
                         <DatePicker showTime
                             format="YYYY-MM-DD HH:mm:ss"
                             placeholder="结束时间"
@@ -79,7 +101,7 @@ function AddExam(props) {
                     </div>
 
                     <div className={styles.item}>
-                        <Button type="primary" htmlType="submit" >创建试卷</Button>
+                        <Button type="primary" htmlType="submit" onClick={jumpView}>创建试卷</Button>
                     </div>
                 </div>
             </div>

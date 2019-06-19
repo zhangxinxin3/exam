@@ -1,6 +1,6 @@
 .wrapper{
     width:100%;
-    height:700px;
+    // height:700px;
     // background: #ccc;
     padding:20px;
     box-sizing: border-box;
@@ -39,12 +39,16 @@
     display: flex;
     flex-wrap: wrap;
 }
-.typeAll span.nod{
-    margin:0 10px;
+.typeAll span{
+    margin:5px 10px;
+    padding:0 3px;
+    box-sizing: border-box;
+    font-size: 12px;
 }
 .typeAll span.check{
     background:blue;
     color:#fff;
+    border-radius: 5px;
 }
 
 .topIn{
