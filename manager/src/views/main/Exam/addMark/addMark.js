@@ -1,24 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'dva';
 import styles from './addMark.scss';
-import { Select, Button, Drawer } from 'antd';
+import { Select, Button, Drawer, Table } from 'antd';
 
 const { Option } = Select;
+let newArr = [];
 function AddMark(props) {
     useEffect(() => {
-        props.gettest()
-    })
+        props.gettest(),
+        props.createtest()
+    }, [])
+    console.log(props)
     let visible = false;
     let title = props.location.search.split("=")[1];
-    let [getShow,setShow] = useState("");
-    let showDrawer = e =>{
+    let [getShow, setShow] = useState(false);
+    let showDrawer = e => {
         console.log(e)
         setShow(getShow = true)
     }
-    let onClose = e =>{
+    let onClose = e => {
         console.log(1)
-        setShow(getShow = false)
+        setShow(getShow = true)
     }
+    let addToContent = (index) => {
+        console.log(index)
+        // newArr.push(props.getArr[1]);
+    }
+    let jumpToExamlist = e =>{
+        props.history.push('/questions/examList')
+    }
+    console.log(newArr)
+    console.log(props.getArr)
     return (
         <div className={styles.wrap}>
             <h1>创建试卷</h1>
@@ -27,23 +39,46 @@ function AddMark(props) {
                     Open
                 </Button>
                 <Drawer
-                    title="Basic Drawer"
+                    title="添加试题"
+                    style={{ width: "500px" }}
                     placement="right"
-                    closable={false}
+                    closable={true}
                     onClick={onClose}
                     visible={getShow}
+                    onClose={() => {
+                        setShow(getShow = false)
+                    }}
                 >
-                    <p>Some contents...</p>
-                    <p>Some contents...</p>
-                    <p>Some contents...</p>
+                    {
+                        props.getArr && props.getArr.map((item, index) => {
+                            return <div className={styles.wrap_item} key={index}>
+                                <div className={styles.item_left}>
+                                    <h4>{item.title}</h4>
+                                    <div>
+                                        <span>{item.questions_type_text}</span>
+                                        <span>{item.subject_text}</span>
+                                        <span>{item.exam_name}</span>
+                                    </div>
+                                    <p>{item.user_name}发布</p><span className={styles.add} onClick={() => { newArr.push(props.getArr[index]); setShow(getShow = true); console.log(newArr) }}>添加</span>
+                                </div>
+                            </div>
+                        })
+                    }
                 </Drawer>
                 <div className={styles.message}>
                     <div className={styles.tit}>{title}</div>
                     <div>考试时间：1小时30分钟 监考人：刘于 开始考试时间：<span>2018.9.10 10：00</span> 阅卷人：刘于</div>
                 </div>
                 <div className={styles.container}>
-
-                    <Button>创建试卷</Button>
+                    {
+                        newArr.map((item, index) => {
+                            return <div className={styles.box} key={index}>
+                                <div className={styles.tit}>{item.title}</div><span className={styles.del} onClick={() => { newArr.splice(index, 1) }}>删除</span>
+                                <div>{item.questions_stem}</div>
+                            </div>
+                        })
+                    }
+                    <Button onClick={jumpToExamlist}>创建试卷</Button>
                 </div>
             </div>
         </div>
@@ -64,6 +99,11 @@ const mapDispatchToProps = dispatch => {
         gettest() {
             dispatch({
                 type: "addMark/gettest"
+            })
+        },
+        createtest(){
+            dispatch({
+                type:"/exam/exam"
             })
         }
     }

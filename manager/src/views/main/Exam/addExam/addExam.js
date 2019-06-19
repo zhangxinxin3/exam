@@ -18,7 +18,7 @@ function AddExam(props) {
     // console.log(startTimes)
     useEffect(() => {
         props.getallclass(),
-        props.getalltype()
+            props.getalltype()
     }, [])
     // console.log(props)
     console.log(getName, getSelVal1, getSelVal3, getNum, startTimes, endTimes)
@@ -42,7 +42,7 @@ function AddExam(props) {
     }
     let jumpView = () => {
         // console.log(props)
-        if (getName === ""|| getSelVal1 === ""|| getSelVal3 === "" || getNum === "" || getStartTime === ""|| getEndTime === "") {
+        if (getName === "" || getSelVal1 === "" || getSelVal3 === "" || getNum === "" || getStartTime === "" || getEndTime === "") {
             // console.log("input框值为空，请补全后再来操作")
             confirm({
                 title: '提示',
@@ -50,7 +50,8 @@ function AddExam(props) {
             })
         } else {
             props.postcreatetest(getName, getSelVal1, getSelVal3, getNum, startTimes, endTimes)
-            props.history.push("/exam/addMark?title="+getName)
+            // props.history.push("/exam/addMark?title="+getName)
+            props.history.push('/questions/examList')
         }
     }
     return (
@@ -125,10 +126,10 @@ const mapDispatchToProps = dispatch => {
                 type: "addExam/getalltype"
             })
         },
-        postcreatetest(getName, getSelVal1, getSelVal3, getNum, startTimes, endTimes){
+        postcreatetest(getName, getSelVal1, getSelVal3, getNum, startTimes, endTimes) {
             dispatch({
-                type:"addExam/postcreatetest",
-                payload:{
+                type: "addExam/postcreatetest",
+                payload: {
                     subject_id: getSelVal3,
                     exam_id: getSelVal1,
                     title: getName,

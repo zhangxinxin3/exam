@@ -6,10 +6,9 @@ export function createTest(params){
         data:params
     })
 }
-export function getTest(params){
+export function getTest(){
     return request({
-        url:"exam/exam",
-        method:"GET",
-        data:params
+        url:"/exam/questions/new",
+        method:"GET"
     })
 }
