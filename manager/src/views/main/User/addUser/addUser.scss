@@ -16,16 +16,27 @@ html,body,:global(#root){
         height:100%;
         display: flex;
         flex-wrap: wrap;
+        border:solid 1px #ccc;
     }
     .wrap_item{
         width:33%;
         flex:auto;
-        border:solid 1px #ccc;
         border-radius: 5px;
         display: flex;
         flex-direction: column;
         padding:10px;
         box-sizing: border-box;
+    }
+    .wrap_item:nth-child(1),
+    .wrap_item:nth-child(2),
+    .wrap_item:nth-child(4),
+    .wrap_item:nth-child(5){
+        border-right: solid 1px #ccc;
+    }
+    .wrap_item:nth-child(1),
+    .wrap_item:nth-child(2),
+    .wrap_item:nth-child(3){
+        border-bottom: solid 1px #ccc;
     }
     .tits{
         height:35px;

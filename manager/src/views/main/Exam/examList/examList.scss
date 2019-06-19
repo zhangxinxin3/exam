@@ -32,6 +32,38 @@
     color:#fff;
     margin-left:20px;
 }
+.main{
+    width: 100%;
+    background:#fff;
+    padding:20px;
+    box-sizing: border-box;
+    margin-top:20px;
+    border-radius: 10px;
+}
+.main_top{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.top_right{
+    display: flex;
+    border:solid 1px #ccc;
+    align-items: center;
+}
+.top_right p{
+    margin-bottom:0;
+    color:blue;
+    font-size: 14px;
+    padding:5px 10px;
+    box-sizing: border-box;
+}
+.top_right p:nth-child(1),.top_right p:nth-child(2){
+    border-right: solid 1px #ccc;
+}
+.top_right p.active{
+    border: solid 1px blue;
+}
 :global(.ant-select-selection--single){
     height:40px;
 }

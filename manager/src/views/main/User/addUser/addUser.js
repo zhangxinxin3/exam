@@ -10,11 +10,7 @@ function AddUser(props) {
     let { identArr, viewArr, apiArr, userArr } = props;
 
     let [ adup, upAdup ] = useState(true);
-    let [ user, upUser ] = useState('');
-    let [ pwd, upPwd ] = useState('');
-    let [ userId, upUserid ] = useState('');
     let [ viewtext, upViewtext ] = useState('');
-    // let [ viewText ]
 
     useEffect(()=>{
         ident(), 
@@ -110,6 +106,12 @@ function AddUser(props) {
         })
     }
 
+    let reset = () =>{
+        props.form.setFieldsValue((err,value)=>{
+            console.log(value)
+        })
+    }
+
     let { getFieldDecorator } = props.form;
     return <div className={styles.wrapper}>
         <p className={styles.title}>添加用户</p>
@@ -150,7 +152,7 @@ function AddUser(props) {
                         }
                         <div className={styles.btns}>
                             <Button className={styles.sure} onClick={hankAddUser}>确定</Button>
-                            <Button className={styles.reset}>重置</Button>
+                            <Button className={styles.reset} onClick={ reset }>重置</Button>
                         </div>
                     </div> : <div className={styles.item_box}>
                         {

@@ -13,20 +13,21 @@ import AddExam from "./Exam/addExam/addExam";
 import AddMark from "./Exam/addMark/addMark"
 import Adduser from './User/addUser/addUser';
 import ExamList from './Exam/examList/examList';
+import styles from './MainPage.scss';
 
 const { Header, Content, Sider } = Layout;
 
 function MainPage(props) {
     return (
         <Layout style={{height:"100%"}}>
-            <Header>
+            <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
                 <div><img src="../../images/logo.png" alt=""/></div>
             </Header>
-            <Layout>
+            <Layout className={styles.ant_layout}>
                 <Sider >
                 <Menus />
                 </Sider>
-                <Content style={{height:"100%"}}>
+                <Content className={styles.ant_layout_content} style={{height:"100%"}}>
                     <Switch>
                         <Redirect exact from="/" to="/questions/add"></Redirect>
                         <Route path="/questions/type" component={Type}></Route>
