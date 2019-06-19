@@ -58,10 +58,10 @@ const columns = [
 ]
 
 function ExamList(props) {
-    let [ datas ]=useState([]);
+    // let [ datas ]=useState([]);
 
     let { subject, examType, examList } = props;
-    let { examArr } = props.exam;
+    let { examArr, datas } = props.exam;
     let { data, questionArr } = props.view;
 
     useEffect(()=>{
