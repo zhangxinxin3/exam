@@ -25,7 +25,7 @@ export default {
         *watch({payload},{call, put}){
             // let login = getToken();
             let data = yield call(watch);
-            console.log('获取所有的课程',data)
+            // console.log('获取所有的课程',data)
             yield put({
                 type:'getLess',
                 payload:data.data
@@ -41,7 +41,7 @@ export default {
         //获取所有的试题类型
         *questionType({payload},{call,put}){
             let data = yield call(questionType);
-            console.log('获取所有的试题类型',data)
+            // console.log('获取所有的试题类型',data)
             yield put({
                 type:'getquestionType',
                 payload:data.data
@@ -49,11 +49,11 @@ export default {
         },
         *addQuestionType({payload},{call,put}){
             let data = yield call(addQuestionType,payload);
-            console.log(data)
+            // console.log(data)
         },
         *getAll({payload},{call,put}){
             let data = yield call(getAll);
-            console.log(data)
+            // console.log(data)
             yield put({
                 type:'getAlls',
                 payload:data.data
@@ -61,7 +61,7 @@ export default {
         },
         *condition({payload},{call,put}){
             let data = yield call(condition,payload)
-            console.log(data)
+            // console.log(data)
             yield put({
                 type:'getCondition',
                 payload:data.data
@@ -69,7 +69,7 @@ export default {
         },
         *questionUp({payload},{call,put}){
             let data = yield call(questionUp,payload)
-            console.log(data)
+            // console.log(data)
         }
     },
 

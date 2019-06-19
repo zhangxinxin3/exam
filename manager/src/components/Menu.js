@@ -1,3 +1,4 @@
+import {injectIntl} from "react-intl";
 import React from "react";
 import { Menu, Icon } from "antd";
 import { Link } from "dva/router";
@@ -5,6 +6,7 @@ import { injectIntl } from 'react-intl';
 
 const { SubMenu } = Menu;
 function Menus(props) {
+    // console.log(props.intl)
     return <Menu
         theme="dark"
         mode="inline"
@@ -18,7 +20,7 @@ function Menus(props) {
             title={
                 <span>
                     <Icon type="sliders" />
-                    {props.intl.formatMessage({id:'router.questions'})}
+                    {props.intl.formatMessage({id:"router.questions"})}
         </span>
             }
         >

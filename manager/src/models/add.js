@@ -21,7 +21,7 @@ export default {
     // 异步操作
     effects: {
         *addtest({ payload }, { call, put }) {
-            let test = yield call(Addtest, payload);
+            // let test = yield call(Addtest, payload);
         },
         *testtype({ payload }, { call, put }) {
             let type = yield call(testType);
@@ -81,7 +81,7 @@ export default {
             return { ...state, allTest: action.payload }
         },
         getUsers(state,action){
-            console.log(action.payload)
+            // console.log(action.payload)
             return {...state, userData:action.payload }
         }
     },

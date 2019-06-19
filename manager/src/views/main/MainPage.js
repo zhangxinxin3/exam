@@ -19,7 +19,6 @@ import styles from './MainPage.scss';
 
 const { Header, Content, Sider } = Layout;
 const { Option } = Select;
-
 function MainPage(props) {
     let change = e =>{
         props.changeLocale({
@@ -37,9 +36,9 @@ function MainPage(props) {
             </Header>
             <Layout className={styles.ant_layout}>
                 <Sider >
-                <Menus />
+                    <Menus />
                 </Sider>
-                <Content className={styles.ant_layout_content} style={{height:"100%"}}>
+                <Content className={styles.ant_layout_content} style={{ height: "100%" }}>
                     <Switch>
                         <Redirect exact from="/" to="/questions/add"></Redirect>
                         <Route path="/questions/type" component={Type}></Route>
@@ -67,11 +66,17 @@ const mapStateToProps = state =>{
     }
 }
 
-const mapDispatchToProps = dispatch =>{
+const mapDispatchToProps = dispatch => {
     return {
-        getUser(){
+        getUser() {
             dispatch({
-                type:'add/getUser'
+                type: 'add/getUser'
+            })
+        },
+        changeLocale: payload => {
+            dispatch({
+                type: "global/changeLocale",
+                payload
             })
         },
         changeLocale:payload=>{

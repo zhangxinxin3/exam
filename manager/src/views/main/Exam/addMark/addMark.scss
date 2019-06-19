@@ -1,0 +1,106 @@
+.wrap{
+    width: 100%;
+    height: 100%;
+    background:#eee;
+    padding: 30px;
+    overflow-y:scroll;
+    h1{
+        height: 80px;
+        line-height: 80px;
+        font-size:30px;
+    }
+    .message{
+        width: 100%;
+        height: 100px;
+        font-size:25px;
+        text-align: center;
+        color:black;
+        .tit{
+            font-weight: 600;
+            font-size:30px;
+        }
+    }
+    .container{
+        margin-top: 30px;
+        height: 100%;
+        overflow-y:scroll;
+    }
+}
+body :global(.ant-drawer-content-wrapper){
+    width: 600px !important;
+}
+
+.wrap{
+    width: 100%;
+    background:#fff;
+    padding:15px;
+    box-sizing: border-box;
+}
+
+.wrap_item{
+    width: 100%;
+    border-bottom: solid 1px #ccc;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:10px 0; 
+    box-sizing: border-box;
+    position: relative
+}
+
+.wrap_item>p{
+    color:blue;
+}
+
+.item_left{
+    height: 100%;
+    flex:1;
+    display: flex;
+    flex-direction: column;
+}
+
+.item_left>p{
+    color:blue;
+}
+
+.item_left div{
+    margin:10px 0;
+}
+
+.item_left div span{
+    border:solid 1px #ccc;
+    margin:0 10px;
+    padding:3px 5px;
+    box-sizing: border-box;
+    font-size: 12px;
+}
+.add{
+    position: absolute;
+    right: 30px;
+    top: 40%;
+}
+.box{
+    border:1px solid #000;
+    height: 100%;
+    width: 80%;
+    margin-left: 10%;
+    position: relative;
+    margin-top: 20px;
+    .tit{
+        font-size:20px;
+        color:black;
+    }
+    p{
+        height: 40px;
+        line-height: 40px;
+        padding-left: 20px;
+        &:nth-child(1){
+            color:black;
+        }
+    }
+    span{
+        position: absolute;
+        right: 20px;
+        top: 10px;
+    }
+}
