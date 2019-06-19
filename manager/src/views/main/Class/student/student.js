@@ -51,6 +51,15 @@ const data =[
 
 function Student(props){
 
+    let { grade, roomAll, getStudent } = props;
+    let { gradeArr, rooms, students } = props;
+
+    useEffect(()=>{
+        // grade(), 
+        // roomAll(), 
+        // getStudent()
+    },[])
+
     function onShowSizeChange(current, pageSize) {
         console.log(current, pageSize);
     }
@@ -71,7 +80,7 @@ function Student(props){
                     getFieldDecorator('questionsTypeId', {
                         rules: [{ required: true, message: '请选择教室号' }],
                     })(
-                    <Select className={styles.select} setfieldsvalue="请选择教室号">
+                    <Select className={styles.select} placeholder="请选择教室号">
                         <Option key="111">111</Option>
                         {/* {
                             questionArr && questionArr.map(item=>{
@@ -85,7 +94,7 @@ function Student(props){
                     getFieldDecorator('questionsTypeId', {
                         rules: [{ required: true, message: '班级号' }],
                     })(
-                    <Select className={styles.select} setfieldsvalue="班级号">
+                    <Select className={styles.select} placeholder="班级号">
                         <Option key="222">222</Option>
                         {/* {
                             questionArr && questionArr.map(item=>{
@@ -99,33 +108,34 @@ function Student(props){
                 <Button className={styles.ant_btn}>重置</Button>
             </Form-Item>
         </Form>
-        <Table columns={columns} dataSource={data} pagination={true} >
-        </Table>  
-            <Pagination
-                showSizeChanger
-                onShowSizeChange={onShowSizeChange}
-                defaultCurrent={3}
-                total={500}
-            />
-        {/* <div>
-            <Pagination
-            showSizeChanger
-            onShowSizeChange={onShowSizeChange}
-            defaultCurrent={3}
-            total={500}
-            />
-        </div>      */}
+        <Table columns={columns} dataSource={data} pagination={true} />
     </div>
 }
 
 
 const mapStateToProps = state=>{
-  return {
-  }
+    return {
+        ...state.class
+    }
 }
 
 const mapDisaptchToProps = dispatch=>{
-  return {
+    return {
+        grade(){
+            dispatch({
+                type:"class/grade"
+            })
+        },
+        roomAll(){
+            dispatch({
+                type:"class/roomAll"
+            })
+        },
+        getStudent(){
+            dispatch({
+                type:"class/getStudent"
+            })
+        }
     }
 }
 

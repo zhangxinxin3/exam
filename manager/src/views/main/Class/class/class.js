@@ -12,6 +12,8 @@ function Class(props){
     let { data } = props.view;
     let [ showDialog, upShowDialog ] = useState(false);
     let [ showData, upShowData ] = useState(false);
+    let [ getGrade, upGetGrade ] = useState({});
+    let [classId,upClassId] = useState('')
 
     useEffect(()=>{
         grade(),
@@ -47,7 +49,7 @@ function Class(props){
                         visible={showData}
                         cancelText="取消"
                         okText="提交"
-                        onOk={handleOk}
+                        onOk={handleRight}
                         onCancel={()=>{
                             upShowData(showData = false)
                         }}>
@@ -58,7 +60,7 @@ function Class(props){
                                         getFieldDecorator('class', {
                                             rules: [{ required: true, message: '班级名' }],
                                         })(
-                                            <Input type="text" placeholder="班级名" />,
+                                            <Input type="text" placeholder={getGrade.grade_name} disabled={true} />,
                                         )
                                     }
                                     <p className={styles.tip}>*教室号</p>
@@ -66,7 +68,7 @@ function Class(props){
                                         getFieldDecorator('classroom', {
                                             rules: [{ required: true, message: '教室号' }],
                                         })(
-                                            <Select className={styles.select} style={{width:"100%"}}>
+                                            <Select className={styles.select} style={{width:"100%"}} placeholder={getGrade.room_text}>
                                                 {
                                                     rooms && rooms.map(item=>{
                                                         return <Option key={item.room_id} value={item.room_id}>{item.room_text}</Option>
@@ -80,7 +82,7 @@ function Class(props){
                                         getFieldDecorator('subject', {
                                             rules: [{ required: true, message: '课程名' }],
                                         })(
-                                            <Select className={styles.select}>
+                                            <Select className={styles.select} placeholder={getGrade.subject_text}>
                                                 {
                                                     data && data.map(item=>{
                                                         return <Option key={item.subject_id} value={item.subject_id}>{item.subject_text}</Option>
@@ -99,6 +101,19 @@ function Class(props){
         }
     ]
 
+    let handleRight = e =>{
+        upShowData(showData = false)
+        props.form.validateFields((err,value)=>{
+            console.log(value)
+            console.log(classId)
+            gradeUpdata({
+                grade_id:classId,
+                subject_id:value.subject,
+                room_id:value.classroom
+            })    
+        })
+    }
+
     let change = e =>{
         if(e.target.innerHTML==='删除'){
             gradeDelete({
@@ -106,11 +121,14 @@ function Class(props){
             })    
         }else if(e.target.innerHTML==='修改'){
             upShowData(showData = true)
-            // gradeUpdata({
-            //     grade_id:e.target.getAttribute('value')
-            // })    
+            grade()
+            gradeArr && gradeArr.map(item=>{
+                if(item.grade_id === e.target.getAttribute('value')){
+                    upGetGrade(getGrade = item)
+                }
+            })
+            upClassId(classId = getGrade.grade_id)
         }
-        
         grade()
     }
 
@@ -129,13 +147,13 @@ function Class(props){
 
     let handleOk = e =>{
         props.form.validateFields((err,value)=>{
-            // console.log(value)
             addGrade({
                 grade_name:value.class,
                 room_id:value.classroom,
                 subject_id:value.subject
             })
         })
+        upShowDialog(showDialog = false)
     }
 
     let { getFieldDecorator } = props.form;
@@ -235,9 +253,10 @@ const mapDisaptchToProps = dispatch=>{
                 type:"class/roomAll"
             })
         },
-        addGrade(){
+        addGrade(payload){
             dispatch({
-                type:"class/addGrade"
+                type:"class/addGrade",
+                payload
             })
         }
     }

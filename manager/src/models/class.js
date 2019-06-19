@@ -1,4 +1,4 @@
-import { grade, gradeDelete, gradeUpdata, roomAll, addGrade } from '@/services'
+import { grade, gradeDelete, gradeUpdata, roomAll, addGrade, getStudent } from '@/services'
 export default {
     // 命名空间
     namespace: 'class',
@@ -7,7 +7,8 @@ export default {
     state: {
         gradeArr:[],
         datas:[],
-        rooms:[]
+        rooms:[],
+        students:[]
     },
 
     subscriptions: {
@@ -44,6 +45,10 @@ export default {
         *addGrade({ payload },{ call, put }){
             let data = yield call(addGrade,payload);
             console.log("添加班级",data)
+        },
+        *getStudent({ payload },{ call, put }){
+            let data = yield call(getStudent);
+            console.log("获取学生",data)
         }
     },
 

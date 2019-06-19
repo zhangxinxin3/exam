@@ -42,3 +42,11 @@ export function roomAll(){
         method:"GET"
     })
 }
+
+//获取所有已经分班的学生的接口
+export function getStudent(){
+    return request({
+        url:'/manger/student',
+        method:"GET"
+    })
+}
