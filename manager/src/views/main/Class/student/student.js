@@ -1,6 +1,6 @@
 import React,{useEffect} from 'react';
 import { connect  } from 'dva';
-import { Form, Button, Select, Input, Table } from 'antd'
+import { Form, Button, Select, Input, Table, Pagination  } from 'antd'
 import styles from './student.scss';
 
 const { Option } = Select;
@@ -50,6 +50,10 @@ const data =[
 ]
 
 function Student(props){
+
+    function onShowSizeChange(current, pageSize) {
+        console.log(current, pageSize);
+    }
     
     let { getFieldDecorator } = props.form;
     return <div className={styles.wrapper}>
@@ -95,7 +99,22 @@ function Student(props){
                 <Button className={styles.ant_btn}>重置</Button>
             </Form-Item>
         </Form>
-        <Table columns={columns} dataSource={data} />       
+        <Table columns={columns} dataSource={data} pagination={true} >
+        </Table>  
+            <Pagination
+                showSizeChanger
+                onShowSizeChange={onShowSizeChange}
+                defaultCurrent={3}
+                total={500}
+            />
+        {/* <div>
+            <Pagination
+            showSizeChanger
+            onShowSizeChange={onShowSizeChange}
+            defaultCurrent={3}
+            total={500}
+            />
+        </div>      */}
     </div>
 }
 

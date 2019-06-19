@@ -39,7 +39,9 @@
     height:32px;
     width: 180px;
 }
-// :global(.ant-btn){
-//     width: 150px;
-//     height:32px;
-// }
+:global(.ant-table-thead){
+    background:gray;
+}
+:global(.ant-table-tbody){
+    background:#fff;
+}
