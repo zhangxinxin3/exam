@@ -15,6 +15,8 @@ import Adduser from './User/addUser/addUser';
 import ExamList from './Exam/examList/examList';
 import Class from './Class/class/class';
 import Student from './Class/student/student';
+import Mark from './Mark/approved/approved';
+import MarkList from './Mark/markList/markList';
 import styles from './MainPage.scss';
 
 const { Header, Content, Sider } = Layout;
@@ -30,7 +32,7 @@ function MainPage(props) {
         <Layout style={{height:"100%"}}>
             <Header className={styles.header} style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
                 <div><img src="../../images/logo.png" alt=""/></div>
-                <Select onChange={change}>
+                <Select onChange={change} placeholder="中文">
                     <Option key="zh">中文</Option>
                     <Option key="en">英文</Option>
                 </Select>
@@ -53,6 +55,8 @@ function MainPage(props) {
                         <Route path="/exam/addMark" component={AddMark}></Route>
                         <Route path="/class/class" component={Class}></Route>
                         <Route path="/class/student" component={Student}></Route>
+                        <Route path="/marking/approved" component={Mark}></Route>
+                        <Route path="/marking/classmate" component={MarkList}></Route>
                         <Route path="/questions/add" component={Add}></Route>
                     </Switch>
                 </Content>

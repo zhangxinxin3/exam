@@ -4,44 +4,49 @@ import { Form, Button, Select, Input, Table  } from 'antd'
 import styles from './student.scss';
 
 const { Option } = Select;
-const columns = [
-    {
-        title: '姓名',
-        dataIndex: 'name',
-        key: 'name'
-    },
-    {
-        title: '学号',
-        dataIndex: 'studentID',
-        key: 'studentID',
-    },
-    {
-        title: '班级',
-        dataIndex: 'class',
-        key: 'class',
-    },
-    {
-        title: '教室',
-        dataIndex: 'classroom',
-        key: 'classroom',
-    },
-    {
-        title: '密码',
-        dataIndex: 'password',
-        key: 'password',
-    },
-    {
-        title: '操作',
-        dataIndex: 'operation',
-        key: 'operation',
-    }
-]
-
 function Student(props){
+    
+    const columns = [
+        {
+            title: '姓名',
+            dataIndex: 'name',
+            key: 'name'
+        },
+        {
+            title: '学号',
+            dataIndex: 'studentID',
+            key: 'studentID',
+        },
+        {
+            title: '班级',
+            dataIndex: 'class',
+            key: 'class',
+        },
+        {
+            title: '教室',
+            dataIndex: 'classroom',
+            key: 'classroom',
+        },
+        {
+            title: '密码',
+            dataIndex: 'password',
+            key: 'password',
+        },
+        {
+            title: '操作',
+            dataIndex: 'operation',
+            key: 'operation',
+            render:operation=>(
+                <>
+                    <span value={operation} onClick={remove}>删除</span>
+                </>
+            ),
+        }
+    ]
 
-    let { grade, roomAll, getStudent } = props;
-    let { gradeArr, rooms, students } = props;
-    let { types, upTypes } = useState([]);
+
+    let { grade, roomAll, getStudent, changeTypes, deleteStudent } = props;
+    let { gradeArr, rooms, students, types } = props;
 
     useEffect(()=>{
         grade(), 
@@ -49,31 +54,42 @@ function Student(props){
         getStudent()
     },[])
 
-    students && students.map(item=>{
-        // upTypes(types = []);
-        types.push({
-            key:item.student_id,
-            name:item.student_name,
-            studentID:item.student_id,
-            class:item.grade_name,
-            classroom:item.room_text,
-            password:item.student_pwd,
-            operation:item.student_id
+    let remove = e =>{
+        deleteStudent({
+            id:e.target.getAttribute('value')
         })
-    })
+    }
+
+    if(!types.length){
+        students && students.map(item=>{
+            let flag = types.some(val => val.key === item.student_id);
+            if(!flag){
+                types.push({
+                    key:item.student_id,
+                    name:item.student_name,
+                    studentID:item.student_id,
+                    class:item.grade_name,
+                    classroom:item.room_text,
+                    password:item.student_pwd,
+                    operation:item.student_id
+                })    
+            }
+            
+        })    
+    }
+    
 
     let searches = e =>{
         props.form.validateFields((err,value)=>{
-            console.log(value)
             students && students.map(item=>{
                 if(item.student_name === value.studentName && 
-                    item.grade_name === value.classNum && 
-                    item.room_text === value.classroom){
-                        upTypes(types = []);
-                        console.log(item)
+                item.grade_id === value.classNum && 
+                item.room_id === value.classroom){
+                    changeTypes({
+                        item
+                    })
                 }
             })
-            console.log(types)
         })
     }
     
@@ -116,7 +132,9 @@ function Student(props){
                     )
                 }
                 <Button className={styles.ant_btn} onClick={searches}>搜索</Button>
-                <Button className={styles.ant_btn}>重置</Button>
+                <Button className={styles.ant_btn} onClick={()=>{
+                    getStudent()
+                }}>重置</Button>
             </Form-Item>
         </Form>
         <Table columns={columns} dataSource={types} pagination={true} />
@@ -144,6 +162,18 @@ const mapDisaptchToProps = dispatch=>{
         getStudent(){
             dispatch({
                 type:"class/getStudent"
+            })
+        },
+        changeTypes(payload){
+            dispatch({
+                type:'class/changeTypes',
+                payload
+            })
+        },
+        deleteStudent(payload){
+            dispatch({
+                type:'class/deleteStudent',
+                payload
             })
         }
     }

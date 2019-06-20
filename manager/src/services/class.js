@@ -50,3 +50,28 @@ export function getStudent(){
         method:"GET"
     })
 }
+
+//获取学生试卷列表
+export function getList(params){
+    return request({
+        url:'/exam/student',
+        method:"GET"
+    })
+}
+
+//获取学生试卷详情
+export function getDetail(params){
+    return request({
+        url:'/exam/student/t27znv-gu7azm-qpq9ai-laaf9m',
+        method:"GET"
+    })
+}
+
+//删除学生
+export function deleteStudent(params){
+    console.log(params)
+    return request({
+        url:'/manger/student/'+params.student_id,
+        method:"DELETE"
+    })
+}
