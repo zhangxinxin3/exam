@@ -44,56 +44,7 @@ function Class(props){
             render:operation=>(
                 <>
                     <span value={operation} onClick={change}>修改</span>
-                    <Modal 
-                        title="添加班级" 
-                        visible={showData}
-                        cancelText="取消"
-                        okText="提交"
-                        onOk={handleRight}
-                        onCancel={()=>{
-                            upShowData(showData = false)
-                        }}>
-                            <Form>
-                                <Form-Item>
-                                    <p className={styles.tip}>*班级名</p>
-                                    {
-                                        getFieldDecorator('class', {
-                                            rules: [{ required: true, message: '班级名' }],
-                                        })(
-                                            <Input type="text" placeholder={getGrade.grade_name} disabled={true} />,
-                                        )
-                                    }
-                                    <p className={styles.tip}>*教室号</p>
-                                    {
-                                        getFieldDecorator('classroom', {
-                                            rules: [{ required: true, message: '教室号' }],
-                                        })(
-                                            <Select className={styles.select} style={{width:"100%"}} placeholder={getGrade.room_text}>
-                                                {
-                                                    rooms && rooms.map(item=>{
-                                                        return <Option key={item.room_id} value={item.room_id}>{item.room_text}</Option>
-                                                    })
-                                                }
-                                            </Select>,
-                                        )
-                                    }
-                                    <p className={styles.tip}>*课程名</p>
-                                    {
-                                        getFieldDecorator('subject', {
-                                            rules: [{ required: true, message: '课程名' }],
-                                        })(
-                                            <Select className={styles.select} placeholder={getGrade.subject_text}>
-                                                {
-                                                    data && data.map(item=>{
-                                                        return <Option key={item.subject_id} value={item.subject_id}>{item.subject_text}</Option>
-                                                    })
-                                                }
-                                            </Select>,
-                                        )
-                                    }
-                                </Form-Item>
-                            </Form>
-                        </Modal>
+                    
                     <Divider type="vertical" />
                     <span value={operation} onClick={change}>删除</span>
                 </>
@@ -215,6 +166,56 @@ function Class(props){
                 </Form>
             </Modal>
             <Table columns={columns} dataSource={datas} pagination={true} />
+            <Modal 
+            title="添加班级" 
+            visible={showData}
+            cancelText="取消"
+            okText="提交"
+            onOk={handleRight}
+            onCancel={()=>{
+                upShowData(showData = false)
+            }}>
+                <Form>
+                    <Form-Item>
+                        <p className={styles.tip}>*班级名</p>
+                        {
+                            getFieldDecorator('class', {
+                                rules: [{ required: true, message: '班级名' }],
+                            })(
+                                <Input type="text" placeholder={getGrade.grade_name} disabled={true} />,
+                            )
+                        }
+                        <p className={styles.tip}>*教室号</p>
+                        {
+                            getFieldDecorator('classroom', {
+                                rules: [{ required: true, message: '教室号' }],
+                            })(
+                                <Select className={styles.select} style={{width:"100%"}} placeholder={getGrade.room_text}>
+                                    {
+                                        rooms && rooms.map(item=>{
+                                            return <Option key={item.room_id} value={item.room_id}>{item.room_text}</Option>
+                                        })
+                                    }
+                                </Select>,
+                            )
+                        }
+                        <p className={styles.tip}>*课程名</p>
+                        {
+                            getFieldDecorator('subject', {
+                                rules: [{ required: true, message: '课程名' }],
+                            })(
+                                <Select className={styles.select} placeholder={getGrade.subject_text}>
+                                    {
+                                        data && data.map(item=>{
+                                            return <Option key={item.subject_id} value={item.subject_id}>{item.subject_text}</Option>
+                                        })
+                                    }
+                                </Select>,
+                            )
+                        }
+                    </Form-Item>
+                </Form>
+            </Modal>
         </div>
     </div>
 }

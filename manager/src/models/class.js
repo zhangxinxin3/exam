@@ -8,7 +8,8 @@ export default {
         gradeArr:[],
         datas:[],
         rooms:[],
-        students:[]
+        students:[],
+        types:[]
     },
 
     subscriptions: {
@@ -49,6 +50,10 @@ export default {
         *getStudent({ payload },{ call, put }){
             let data = yield call(getStudent);
             console.log("获取学生",data)
+            yield put({
+                type:"getStudents",
+                payload:data.data
+            })
         }
     },
 
@@ -59,6 +64,9 @@ export default {
         },
         roomAlls(state,{payload}){
             return {...state,rooms:payload}
+        },
+        getStudents(state,{payload}){
+            return {...state,students:payload,types:[]}
         }
     },
 
