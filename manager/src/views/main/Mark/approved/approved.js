@@ -53,7 +53,7 @@ function Approved(props){
     },[])
 
     gradeArr && gradeArr.map((item,index)=>{
-        let flag = data.some(val => val.operation === item.grade_id);
+        let flag = data.some(val => val.classNum === item.grade_name);
         if(!flag){
             data.push({
                 key:index + item.grade_name ,

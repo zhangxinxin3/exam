@@ -70,7 +70,7 @@ function MarkList(props){
                 key:item.student_id,
                 class:name,
                 name:item.student_name,
-                scoringStatus:"未阅",
+                scoringStatus:item.status===0?"未阅":"已阅",
                 startTime:new Date(parseInt(item.start_time)).toLocaleString().replace(/\//g, "-").replace(/上午/g, " "),
                 endTime:new Date(parseInt(item.end_time)).toLocaleString().replace(/\//g, "-").replace(/上午/g, " "),
                 yields:'-',

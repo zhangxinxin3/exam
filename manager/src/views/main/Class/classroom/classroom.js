@@ -3,6 +3,8 @@ import { connect } from 'dva';
 import { Modal, Form, Input, Button, Table } from 'antd';
 import styles from './classroom.scss';
 
+const confirm = Modal.confirm;
+
 function ClassRoom(props) {
     let { roomAll ,deleteClassroom ,addClassroom } = props;
     let { rooms,room } = props;
@@ -24,18 +26,32 @@ function ClassRoom(props) {
             dataIndex: 'operation',
             render:operation=>(
                 <>
-                    <p value={operation} onClick={remove}>删除</p>
+                    <p value={operation} onClick={()=>{
+                        remove(operation)
+                    }}>删除</p>
                 </>
             )
         },
     ];
 
-    let remove = e =>{
-        console.log(e.target.getAttribute('value'))
-        deleteClassroom({
-            room_id:e.target.getAttribute('value')
-        })
+    function remove(operation) {
+        confirm({
+            title: '确定要删除此教室吗？',
+            cancelText:"取消",
+            okText:"确定",
+            onOk() {
+                console.log(operation)
+                deleteClassroom({
+                    room_id:operation
+                })
+                return new Promise((resolve, reject) => {
+                setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
+                }).catch(() => console.log('Oops errors!'));
+            },
+            onCancel() {},
+        });
     }
+
 
     rooms && rooms.map(item=>{
         let flag = room.some(val => val.classroom === item.room_text);
