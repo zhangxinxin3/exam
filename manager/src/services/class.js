@@ -43,10 +43,53 @@ export function roomAll(){
     })
 }
 
+//添加教室
+export function addClassroom(params){
+    return request({
+        url:'/manger/room',
+        method:"POST",
+        data:params
+    })
+}
+
+//删除教室
+export function deleteClassroom(params){
+    return request({
+        url:'/manger/room/delete',
+        method:"DELETE",
+        data:params
+    })
+}
+
 //获取所有已经分班的学生的接口
 export function getStudent(){
     return request({
         url:'/manger/student',
         method:"GET"
+    })
+}
+
+//获取学生试卷列表
+export function getList(params){
+    return request({
+        url:'/exam/student?grade_id='+params.grade_id,
+        method:"GET"
+    })
+}
+
+//获取学生试卷详情
+export function getDetail(params){
+    return request({
+        url:'/exam/student/'+params.id,
+        method:"GET"
+    })
+}
+
+//删除学生
+export function deleteStudent(params){
+    console.log(params)
+    return request({
+        url:'/manger/student/'+params.student_id,
+        method:"DELETE"
     })
 }

@@ -1,4 +1,4 @@
-import { grade, gradeDelete, gradeUpdata, roomAll, addGrade, getStudent } from '@/services'
+import { grade, gradeDelete, gradeUpdata, roomAll, addGrade, getStudent, deleteStudent, getList, getDetail, addClassroom, deleteClassroom } from '@/services'
 export default {
     // 命名空间
     namespace: 'class',
@@ -8,7 +8,12 @@ export default {
         gradeArr:[],
         datas:[],
         rooms:[],
-        students:[]
+        students:[],
+        types:[],
+        data:[],
+        children:[],
+        child:[],
+        room:[]
     },
 
     subscriptions: {
@@ -49,6 +54,38 @@ export default {
         *getStudent({ payload },{ call, put }){
             let data = yield call(getStudent);
             console.log("获取学生",data)
+            yield put({
+                type:"getStudents",
+                payload:data.data
+            })
+        },
+        *deleteStudent({ payload },{ call, put }){
+            let data = yield call(deleteStudent,payload);
+            console.log("删除学生",data)
+        },
+        *getList({ payload },{ call, put }){
+            let data = yield call(getList,payload);
+            console.log("获取试卷学生列表",data)
+            yield put({
+                type:"geLists",
+                payload:data.exam
+            })
+        },
+        *getDetail({ payload },{ call, put }){
+            let data = yield call(getDetail,payload);
+            console.log("获取试卷学生详情",data)
+            // yield put({
+            //     type:"getStudents",
+            //     payload:data.data
+            // })
+        },
+        *addClassroom({ payload },{ call, put }){
+            let data = yield call(addClassroom,payload);
+            console.log("添加教室",data)
+        },
+        *deleteClassroom({ payload },{ call, put }){
+            let data = yield call(deleteClassroom,payload);
+            console.log("删除学生",data)
         }
     },
 
@@ -59,6 +96,25 @@ export default {
         },
         roomAlls(state,{payload}){
             return {...state,rooms:payload}
+        },
+        getStudents(state,{payload}){
+            return {...state,students:payload,types:[],data:[]}
+        },
+        changeTypes(state,{payload}){
+            state.types = [];
+            state.types.push({
+                key:payload.item.student_id,
+                name:payload.item.student_name,
+                studentID:payload.item.student_id,
+                class:payload.item.grade_name,
+                classroom:payload.item.room_text,
+                password:payload.item.student_pwd,
+                operation:payload.item.student_id
+            })    
+            return {...state}
+        },
+        geLists(state,{payload}){
+            return {...state,children:payload,child:[]}
         }
     },
 

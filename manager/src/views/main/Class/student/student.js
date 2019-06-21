@@ -1,67 +1,96 @@
-import React,{useEffect} from 'react';
+import React,{ useState, useEffect } from 'react';
 import { connect  } from 'dva';
-import { Form, Button, Select, Input, Table, Pagination  } from 'antd'
+import { Form, Button, Select, Input, Table  } from 'antd'
 import styles from './student.scss';
 
 const { Option } = Select;
-const columns = [
-    {
-        title: '姓名',
-        dataIndex: 'name',
-        key: 'name'
-    },
-    {
-        title: '学号',
-        dataIndex: 'studentID',
-        key: 'studentID',
-    },
-    {
-        title: '班级',
-        dataIndex: 'class',
-        key: 'class',
-    },
-    {
-        title: '教室',
-        dataIndex: 'classroom',
-        key: 'classroom',
-    },
-    {
-        title: '密码',
-        dataIndex: 'password',
-        key: 'password',
-    },
-    {
-        title: '操作',
-        dataIndex: 'operation',
-        key: 'operation',
-    }
-]
-
-const data =[
-    {
-        key: '1',
-        name: 'John Brown',
-        studentID:'162231000822',
-        class:'1610A',
-        classroom:'34313',
-        password:'132',
-        operation:"删除"
-      }
-]
-
 function Student(props){
+    
+    const columns = [
+        {
+            title: '姓名',
+            dataIndex: 'name',
+            key: 'name'
+        },
+        {
+            title: '学号',
+            dataIndex: 'studentID',
+            key: 'studentID',
+        },
+        {
+            title: '班级',
+            dataIndex: 'class',
+            key: 'class',
+        },
+        {
+            title: '教室',
+            dataIndex: 'classroom',
+            key: 'classroom',
+        },
+        {
+            title: '密码',
+            dataIndex: 'password',
+            key: 'password',
+        },
+        {
+            title: '操作',
+            dataIndex: 'operation',
+            key: 'operation',
+            render:operation=>(
+                <>
+                    <span value={operation} onClick={remove}>删除</span>
+                </>
+            ),
+        }
+    ]
 
-    let { grade, roomAll, getStudent } = props;
-    let { gradeArr, rooms, students } = props;
+
+    let { grade, roomAll, getStudent, changeTypes, deleteStudent } = props;
+    let { gradeArr, rooms, students, types } = props;
 
     useEffect(()=>{
-        // grade(), 
-        // roomAll(), 
-        // getStudent()
+        grade(), 
+        roomAll(), 
+        getStudent()
     },[])
 
-    function onShowSizeChange(current, pageSize) {
-        console.log(current, pageSize);
+    let remove = e =>{
+        deleteStudent({
+            id:e.target.getAttribute('value')
+        })
+    }
+
+    if(!types.length){
+        students && students.map(item=>{
+            let flag = types.some(val => val.key === item.student_id);
+            if(!flag){
+                types.push({
+                    key:item.student_id,
+                    name:item.student_name,
+                    studentID:item.student_id,
+                    class:item.grade_name,
+                    classroom:item.room_text,
+                    password:item.student_pwd,
+                    operation:item.student_id
+                })    
+            }
+            
+        })    
+    }
+    
+
+    let searches = e =>{
+        props.form.validateFields((err,value)=>{
+            students && students.map(item=>{
+                if(item.student_name === value.studentName && 
+                item.grade_id === value.classNum && 
+                item.room_id === value.classroom){
+                    changeTypes({
+                        item
+                    })
+                }
+            })
+        })
     }
     
     let { getFieldDecorator } = props.form;
@@ -70,48 +99,47 @@ function Student(props){
         <Form className={styles.wrap}>
             <Form-Item class={styles.wrap_item}>
                 {
-                    getFieldDecorator('questionsTypeId', {
-                        rules: [{ required: true, message: '请选择教室号' }],
+                    getFieldDecorator('studentName', {
+                        rules: [{ required: true, message: '输入学生姓名' }],
                     })(
                         <Input className={styles.inp} placeholder="输入学生姓名"></Input>,
                     )
                 }
                 {
-                    getFieldDecorator('questionsTypeId', {
+                    getFieldDecorator('classroom', {
                         rules: [{ required: true, message: '请选择教室号' }],
                     })(
                     <Select className={styles.select} placeholder="请选择教室号">
-                        <Option key="111">111</Option>
-                        {/* {
-                            questionArr && questionArr.map(item=>{
-                                return <Option key={ item.questions_type_id } value={ item.questions_type_id }>{ item.questions_type_text }</Option>
+                        {
+                            rooms && rooms.map(item=>{
+                                return <Option key={ item.room_id } value={ item.room_id }>{ item.room_text }</Option>
                             })
-                        } */}
+                        }
                     </Select>,
                     )
                 }
                 {
-                    getFieldDecorator('questionsTypeId', {
+                    getFieldDecorator('classNum', {
                         rules: [{ required: true, message: '班级号' }],
                     })(
                     <Select className={styles.select} placeholder="班级号">
-                        <Option key="222">222</Option>
-                        {/* {
-                            questionArr && questionArr.map(item=>{
-                                return <Option key={ item.questions_type_id } value={ item.questions_type_id }>{ item.questions_type_text }</Option>
+                        {
+                            gradeArr && gradeArr.map(item=>{
+                                return <Option key={ item.grade_id } value={ item.grade_id }>{ item.grade_name }</Option>
                             })
-                        } */}
+                        }
                     </Select>,
                     )
                 }
-                <Button className={styles.ant_btn}>搜索</Button>
-                <Button className={styles.ant_btn}>重置</Button>
+                <Button className={styles.ant_btn} onClick={searches}>搜索</Button>
+                <Button className={styles.ant_btn} onClick={()=>{
+                    getStudent()
+                }}>重置</Button>
             </Form-Item>
         </Form>
-        <Table columns={columns} dataSource={data} pagination={true} />
+        <Table columns={columns} dataSource={types} pagination={true} />
     </div>
 }
-
 
 const mapStateToProps = state=>{
     return {
@@ -134,6 +162,18 @@ const mapDisaptchToProps = dispatch=>{
         getStudent(){
             dispatch({
                 type:"class/getStudent"
+            })
+        },
+        changeTypes(payload){
+            dispatch({
+                type:'class/changeTypes',
+                payload
+            })
+        },
+        deleteStudent(payload){
+            dispatch({
+                type:'class/deleteStudent',
+                payload
             })
         }
     }

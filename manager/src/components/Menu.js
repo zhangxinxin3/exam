@@ -1,4 +1,3 @@
-import {injectIntl} from "react-intl";
 import React from "react";
 import { Menu, Icon } from "antd";
 import { Link } from "dva/router";
@@ -15,15 +14,14 @@ function Menus(props) {
         style={{ height: '100%', borderRight: 0 ,position:'fixed',left:0,width:"200px"}}
     >
         <SubMenu
-            key="questions"
-            style={{width:"200px"}}
-            title={
-                <span>
-                    <Icon type="sliders" />
-                    {props.intl.formatMessage({id:"router.questions"})}
-        </span>
-            }
-        >
+        key="questions"
+        style={{width:"200px"}}
+        title={
+            <span>
+                <Icon type="sliders" />
+                {props.intl.formatMessage({id:'router.questions'})}
+            </span>
+        }>
             <Menu.Item key="1">
                 <Link to="/questions/add">{props.intl.formatMessage({id:'questions.add'})}</Link>
             </Menu.Item>
@@ -35,14 +33,13 @@ function Menus(props) {
             </Menu.Item>
         </SubMenu>
         <SubMenu
-            key="person"
-            title={
-                <span>
-                    <Icon type="sliders" />
-                    {props.intl.formatMessage({id:'router.user'})}
-        </span>
-            }
-        >
+        key="person"
+        title={
+            <span>
+                <Icon type="sliders" />
+                {props.intl.formatMessage({id:'router.user'})}
+            </span>
+        }>
             <Menu.Item key="4">
                 <Link to="/user/addUser">{props.intl.formatMessage({id:'user.addUser'})}</Link>
             </Menu.Item>
@@ -51,14 +48,13 @@ function Menus(props) {
             </Menu.Item>
         </SubMenu>
         <SubMenu
-            key="exam"
-            title={
-                <span>
-                    <Icon type="sliders" />
-                    {props.intl.formatMessage({id:'router.exam'})}
-        </span>
-            }
-        >
+        key="exam"
+        title={
+            <span>
+                <Icon type="sliders" />
+                {props.intl.formatMessage({id:'router.exam'})}
+            </span>
+        }>
             <Menu.Item key="6">
                 <Link to="/exam/addExam">{props.intl.formatMessage({id:'exam.addExam'})}</Link>
             </Menu.Item>
@@ -67,14 +63,13 @@ function Menus(props) {
             </Menu.Item>
         </SubMenu>
         <SubMenu
-            key="class"
-            title={
-                <span>
-                    <Icon type="sliders" />
-                    {props.intl.formatMessage({id:'router.class'})}
-        </span>
-            }
-        >
+        key="class"
+        title={
+            <span>
+                <Icon type="sliders" />
+                {props.intl.formatMessage({id:'router.class'})}
+            </span>
+        }>
             <Menu.Item key="8">
                 <Link to="/class/class">{props.intl.formatMessage({id:'class.class'})}</Link>
             </Menu.Item>
@@ -86,14 +81,13 @@ function Menus(props) {
             </Menu.Item>
         </SubMenu>
         <SubMenu
-            key="juan"
-            title={
-                <span>
-                    <Icon type="sliders" />
-                    {props.intl.formatMessage({id:'router.marking'})}
-        </span>
-            }
-        >
+        key="juan"
+        title={
+            <span>
+                <Icon type="sliders" />
+                {props.intl.formatMessage({id:'router.marking'})}
+            </span>
+        }>
             <Menu.Item key="11">
                 <Link to="/marking/approved">{props.intl.formatMessage({id:'marking.approved'})}</Link>
             </Menu.Item>
