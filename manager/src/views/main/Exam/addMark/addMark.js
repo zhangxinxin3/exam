@@ -27,7 +27,8 @@ function AddMark(props) {
         // newArr.push(props.getArr[1]);
     }
     let jumpToExamlist = e =>{
-        props.history.push('/questions/examList')
+        let val = localStorage.getItem('obj');
+        props.history.push('/questions/examList?val='+val);
     }
     console.log(newArr)
     console.log(props.getArr)
@@ -66,7 +67,7 @@ function AddMark(props) {
                     }
                 </Drawer>
                 <div className={styles.message}>
-                    <div className={styles.tit}>{title}</div>
+                    <div className={styles.tit}>{decodeURI(title)}</div>
                     <div>考试时间：1小时30分钟 监考人：刘于 开始考试时间：<span>2018.9.10 10：00</span> 阅卷人：刘于</div>
                 </div>
                 <div className={styles.container}>

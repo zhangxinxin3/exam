@@ -69,14 +69,15 @@ function ExamList(props) {
         examType(),
         examList() 
     },[])
+    console.log(props)
     examArr && examArr.map(item=>{
         let room = [];
         item.grade_name.map(val=>{
-            room.push(val)
+          room.push(val)
         })
         let flag = datas.some(val => val.information === item.title);
         if(!flag){
-            datas.push({
+           return datas.push({
                 key:item.exam_exam_id,
                 information:item.title,
                 class:room,

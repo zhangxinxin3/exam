@@ -14,10 +14,9 @@ export function getAllType(){
     })
 }
 //请求创建试卷
-export function postCreateTest(params){
+export function getCreateTest(){
     return request({
         url:"/exam/exam",
-        method:"POST",
-        data:params
+        method:"GET"
     })
 }

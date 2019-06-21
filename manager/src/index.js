@@ -1,11 +1,21 @@
 import dva from 'dva';
+//引入全局样式
 import './index.css';
+//引入antd样式
 import "antd/dist/antd.css";
+//引入全局loading
+import createLoading from "dva-loading";
+import { createLogger } from "redux-logger";
+import { message } from "antd";
 // 1. Initialize
 const app = dva();
 
 // 2. Plugins
-// app.use({});
+app.use({
+    onError:(e)=>{
+        message.error(e.message,/*duration */3)
+    }
+});
 
 // 3. Model
 app.model(require('./models/user').default);//用户登录
