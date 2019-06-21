@@ -10,7 +10,9 @@ export default {
         rooms:[],
         students:[],
         types:[],
-        data:[]
+        data:[],
+        children:[],
+        child:[]
     },
 
     subscriptions: {
@@ -63,10 +65,10 @@ export default {
         *getList({ payload },{ call, put }){
             let data = yield call(getList,payload);
             console.log("获取试卷学生列表",data)
-            // yield put({
-            //     type:"getStudents",
-            //     payload:data.data
-            // })
+            yield put({
+                type:"geLists",
+                payload:data.exam
+            })
         },
         *getDetail({ payload },{ call, put }){
             let data = yield call(getDetail,payload);
@@ -101,6 +103,9 @@ export default {
                 operation:payload.item.student_id
             })    
             return {...state}
+        },
+        geLists(state,{payload}){
+            return {...state,children:payload,child:[]}
         }
     },
 
