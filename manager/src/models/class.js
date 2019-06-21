@@ -1,4 +1,4 @@
-import { grade, gradeDelete, gradeUpdata, roomAll, addGrade, getStudent, deleteStudent, getList, getDetail } from '@/services'
+import { grade, gradeDelete, gradeUpdata, roomAll, addGrade, getStudent, deleteStudent, getList, getDetail, addClassroom, deleteClassroom } from '@/services'
 export default {
     // 命名空间
     namespace: 'class',
@@ -12,7 +12,8 @@ export default {
         types:[],
         data:[],
         children:[],
-        child:[]
+        child:[],
+        room:[]
     },
 
     subscriptions: {
@@ -77,6 +78,14 @@ export default {
             //     type:"getStudents",
             //     payload:data.data
             // })
+        },
+        *addClassroom({ payload },{ call, put }){
+            let data = yield call(addClassroom,payload);
+            console.log("添加教室",data)
+        },
+        *deleteClassroom({ payload },{ call, put }){
+            let data = yield call(deleteClassroom,payload);
+            console.log("删除学生",data)
         }
     },
 

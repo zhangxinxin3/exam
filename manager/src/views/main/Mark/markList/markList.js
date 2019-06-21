@@ -1,6 +1,7 @@
 import React,{ useState, useEffect } from 'react';
 import { connect  } from 'dva';
 import { Table, Form, Input, Select, Button } from 'antd';
+import { Link } from 'dva/router'
 import styles from './markList.scss';
 
 const { Option } = Select;
@@ -43,19 +44,17 @@ function MarkList(props){
             key: 'operation',
             render:operation=>(
                 <>
-                    <span value={operation}>批卷</span>
+                    <Link  to={{pathname:`/marking/detail?id=${operation}`}}>批卷</Link>
                 </>
             ),
         }
     ]
 
-
-    let id = props.location.search.split('=')[1];
+    let id = props.location.search.split('&')[0].split('=')[1];
+    let name = props.location.search.split('&')[1].split('=')[1];
 
     let { grade, getList } = props;
     let { gradeArr, children, child } = props;
-
-    let [ gradeName, upGradeName ] = useState('');
     
     useEffect(()=>{
         grade(),
@@ -66,17 +65,16 @@ function MarkList(props){
 
     children && children.map(item=>{
         let flag = child.some(val => val.name === item.student_name);
-        console.log(flag)
         if(!flag){
             child.push({
                 key:item.student_id,
-                class:gradeName,
+                class:name,
                 name:item.student_name,
                 scoringStatus:"未阅",
                 startTime:new Date(parseInt(item.start_time)).toLocaleString().replace(/\//g, "-").replace(/上午/g, " "),
                 endTime:new Date(parseInt(item.end_time)).toLocaleString().replace(/\//g, "-").replace(/上午/g, " "),
                 yields:'-',
-                operation:item.student_id
+                operation:item.exam_student_id
             })
         }
     })
@@ -88,9 +86,9 @@ function MarkList(props){
             <Form-Item class={styles.wrap_item}>
                 状态：{
                     getFieldDecorator('classroom', {
-                        rules: [{ required: true, message: '请选择教室号' }],
+                        rules: [{ required: true }],
                     })(
-                    <Select className={styles.select} placeholder="请选择教室号">
+                    <Select className={styles.select}>
                         <Option key="111">111</Option>
                         {/* {
                             rooms && rooms.map(item=>{

@@ -1,7 +1,7 @@
 import React,{ useState, useEffect } from 'react';
 import { connect  } from 'dva';
 import { Table } from 'antd';
-import { Link } from 'dva/router'
+import { Link, routerRedux } from 'dva/router'
 import styles from './approved.scss';
 
 
@@ -39,7 +39,7 @@ function Approved(props){
             key: 'operation',
             render:operation=>(
                 <>
-                    <Link to={{pathname:`/marking/classmate?id=${operation}`}}>批卷</Link>
+                    <Link to={{pathname:`/marking/classmate?id=${operation[0]}&name=${operation[1]}`}}>批卷</Link>
                 </>
             )
         }
@@ -62,7 +62,7 @@ function Approved(props){
                 marking:'',
                 subject:item.subject_text,
                 yields:item.room_text,
-                operation:item.grade_id
+                operation:[item.grade_id,item.grade_name]
             })    
         }
         
