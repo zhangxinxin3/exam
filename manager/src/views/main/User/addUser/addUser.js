@@ -25,6 +25,7 @@ function AddUser(props) {
         }else{
             upAdup( adup = true )
         }
+        console.log(e)
     }
 
     //添加用户
@@ -118,8 +119,8 @@ function AddUser(props) {
         <Form className={styles.wrap}>
             <Form-Item class={styles.wrap_item}>
                 <div className={styles.tits} onClick={changeAdup}>
-                    <p className={styles.active}>添加用户</p>
-                    <p>更新用户</p>
+                    <p className={adup ? styles.active : null}>添加用户</p>
+                    <p className={adup ? null: styles.active}>更新用户</p>
                 </div>
                     {
                         adup ? <div className={ styles.item_box }>

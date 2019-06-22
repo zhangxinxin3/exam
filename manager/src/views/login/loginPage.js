@@ -13,6 +13,7 @@ function LoginPage(props){
         }else if(props.isLogin === -1){
             message.error('登陆失败')
         }
+        props.getuserinfo()
     },[props.isLogin])
 
     let handleSubmit = e => {
@@ -90,6 +91,9 @@ const mapDisaptchToProps = dispatch=>{
         type: 'user/login',
         payload
       })
+    },
+    getuserinfo(){
+        type:'user/getuserinfo'
     }
   }
 }

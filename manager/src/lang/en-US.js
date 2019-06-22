@@ -2,5 +2,17 @@ export default{
     "router.questions":"QusetionManage",
     "router.questions.add":"AddQuestions",
     "router.questions.type":"QuestionsTypes",
-    "router.questions.view":"ViewQuestions"
+    "router.questions.view":"ViewQuestions",
+    "router.user":"UserMaNagement",
+    "router.user.add":"AddTest",
+    "router.user.view":"ViewTest",
+    "router.Test":"TestMaNagement",
+    "router.Test.add":"AddTests",
+    "router.Test.list":"ViewList",
+    "router.Class":"ClassMaNagement",
+    "router.Class.manager":"ClassManeger",
+    "router.Class.room":"ClassRoom",
+    "router.Class.student":"ClassStudent",
+    "router.Marking":"MarkingManagement",
+    "router.Marking.class":"MarkingClass",
 }

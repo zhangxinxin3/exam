@@ -1,8 +1,10 @@
 import React from 'react';
 import { Router, Route, Switch } from 'dva/router';
 import LoginPage from '@/views/login/loginPage';
-// import Login from '@/views/login/login';
 import MainPage from '@/views/main/MainPage';
+//引入报错页面
+import AccessForbiddenPage from "@/views/Other/403";
+import NotFoundPage from "@/views/Other/404";
 import { connect } from "dva";
 //引入国际化
 import { IntlProvider, addLocaleData } from "react-intl";
@@ -26,6 +28,8 @@ const RouterView = connect(mapStateToProps)(({locale, history}) => {
     <Router history={history}>
       <Switch>
         <Route path="/login" component={LoginPage} />
+        <Route path="/403" component={AccessForbiddenPage} />
+        <Route path="/404" component={NotFoundPage} />
         <Route path="/" component={MainPage} />
       </Switch>
     </Router>
@@ -33,7 +37,7 @@ const RouterView = connect(mapStateToProps)(({locale, history}) => {
 })
 function RouterConfig({ history }) {
   return (
-    <RouterView history={history}></RouterView>
+    <RouterView history={history} />
   );
 }
 

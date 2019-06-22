@@ -1,13 +1,13 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import { connect } from 'dva';
 import { Layout, Select } from 'antd';
 import { Switch, Route, Redirect } from "dva/router";
 import Menus from "@/components/Menu";
-import Add from "@/views/main/Class/add/add";
-import Type from "@/views/main/Class/type/type";
-import View from "@/views/main/Class/view/view";
-import Dialog from "./Class/dialog/dialog";
-import Edit from "./Class/edit/edit";
+import Add from "@/views/main/Questions/add/add";
+import Type from "@/views/main/Questions/type/type";
+import View from "@/views/main/Questions/view/view";
+import Dialog from "./Questions/dialog/dialog";
+import Edit from "./Questions/edit/edit";
 import Exhibition from "./User/exhibition/exhibition";
 import AddExam from "./Exam/addExam/addExam";
 import AddMark from "./Exam/addMark/addMark"
@@ -18,6 +18,12 @@ import styles from './MainPage.scss';
 const { Header, Content, Sider } = Layout;
 const { Option } = Select;
 function MainPage(props) {
+    // useEffect(()=>{
+    //     props.getUser(),
+    //     props.changeLocale(),
+    //     props.getuserinfo()
+    // },[])
+    console.log(props)
     let change = e =>{
         props.changeLocale({
             e
