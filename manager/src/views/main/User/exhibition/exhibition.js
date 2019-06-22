@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'dva';
 import { Tabs, Table } from 'antd';
+import styles from './exhibition.scss';
 const { TabPane } = Tabs;
 const userColumns = [
     {
@@ -89,8 +90,8 @@ function Exhibition(props) {
     }, [])
     // console.log(props)
     return (
-        <div className="container">
-            <h1 style={{ color: "black", fontSize: "50px" }}>用户展示</h1>
+        <div className={styles.container}>
+            <p style={{ color: "black", fontSize: "30px" }}>用户展示</p>
             <div className="card-container">
                 <Tabs type="card">
                     <TabPane tab="用户数据" key="1">

@@ -22,8 +22,12 @@ function AddUser(props) {
     let changeAdup = e =>{
         if( e.target.innerHTML === '更新用户' ){
             upAdup( adup = false )
+            e.target.className = styles.active;
+            e.target.previousSibling.className = ''; 
         }else{
             upAdup( adup = true )
+            e.target.className = styles.active;
+            e.target.nextSibling.className = ''; 
         }
     }
 

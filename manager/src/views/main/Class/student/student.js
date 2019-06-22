@@ -1,9 +1,10 @@
 import React,{ useState, useEffect } from 'react';
 import { connect  } from 'dva';
-import { Form, Button, Select, Input, Table  } from 'antd'
+import { Form, Button, Select, Input, Table, Modal  } from 'antd'
 import styles from './student.scss';
 
 const { Option } = Select;
+const confirm = Modal.confirm;
 function Student(props){
     
     const columns = [

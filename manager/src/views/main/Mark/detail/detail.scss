@@ -1,0 +1,34 @@
+.wrapper{
+    width: 100%;
+    height: 100%;
+    padding:25px;
+    box-sizing: border-box;
+}
+.title{
+    line-height: 40px;
+    font-size:20px;
+}
+.wrap{
+    display: flex;
+}
+.wrapLeft{
+    flex:auto;
+    height: 100%;
+    padding:15px;
+    box-sizing: border-box;
+    background: #fff;
+    border-radius: 10px;
+    margin-right: 20px;
+}
+.wrapRight{
+    width: 300px; 
+    flex-shrink: 0; 
+    margin-left: 20px;
+}
+.wrapFiexd{
+    width: 300px; 
+    position: fixed; 
+    top: 155px;
+    background:#fff;
+    padding:20px;
+}
