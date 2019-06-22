@@ -142,7 +142,7 @@ function AddUser(props) {
                             getFieldDecorator('identity', {
                                 rules: [{ required: true, message: '请选择身份id' }],
                             })(
-                            <Select className={styles.select} setfieldsvalue="请选择身份id">
+                            <Select className={styles.select} placeholder="请选择身份id">
                                 {
                                     identArr && identArr.map(item=>{
                                         return <Option key={ item.identity_id } value={ item.identity_id }>{ item.identity_text }</Option>
@@ -160,7 +160,7 @@ function AddUser(props) {
                             getFieldDecorator('userId', {
                                 rules: [{ required: true, message: '请选择用户id' }],
                             })(
-                                <Select className={styles.select} setfieldsvalue="请选择用户id">
+                                <Select className={styles.select} placeholder="请选择用户id">
                                 {
                                     userArr && userArr.map(item=>{
                                         return <Option key={ item.user_id } value={ item.user_id }>{ item.user_name }</Option>
@@ -187,7 +187,7 @@ function AddUser(props) {
                             getFieldDecorator('upIdentity', {
                                 rules: [{ required: true, message: '请选择身份id' }],
                             })(
-                            <Select className={styles.select} setfieldsvalue="请选择身份id">
+                            <Select className={styles.select} placeholder="请选择身份id">
                                 {
                                     identArr && identArr.map(item=>{
                                         return <Option key={ item.identity_id } value={ item.identity_id }>{ item.identity_text }</Option>
@@ -262,7 +262,7 @@ function AddUser(props) {
                         getFieldDecorator('viewAuthority', {
                             rules: [{  required: true, message: '请输入身份名称' }],
                         })(
-                        <Select className={styles.select} setfieldsvalue="请选择已有视图">
+                        <Select className={styles.select} placeholder="请选择已有视图">
                             {
                                 viewArr && viewArr.map(item=>{
                                     return <Option key={ item.view_authority_id } value={ item.view_id }>{ item.view_authority_text }</Option>
@@ -286,7 +286,7 @@ function AddUser(props) {
                         getFieldDecorator('identity', {
                             rules: [{  required: true, message: '请选择身份id' }],
                         })(
-                        <Select className={styles.select} setfieldsvalue="请选择身份id">
+                        <Select className={styles.select} placeholder="请选择身份id">
                             {
                                 identArr && identArr.map(item=>{
                                     return <Option key={ item.identity_id } value={ item.identity_id }>{ item.identity_text }</Option>
@@ -299,7 +299,7 @@ function AddUser(props) {
                         getFieldDecorator('apiId', {
                             rules: [{  required: true, message: '请选择api接口权限数据' }],
                         })(
-                            <Select className={styles.select} setfieldsvalue="请选择api接口权限数据">
+                            <Select className={styles.select} placeholder="请选择api接口权限数据">
                             {
                                 apiArr && apiArr.map(item=>{
                                     return <Option key={ item.api_authority_id } value={ item.api_authority_id }>{ item.api_authority_text }</Option>
@@ -323,7 +323,7 @@ function AddUser(props) {
                         getFieldDecorator('identity', {
                             rules: [{  required: true, message: '请选择身份id' }],
                         })(
-                        <Select className={styles.select} setfieldsvalue="请选择身份id">
+                        <Select className={styles.select} placeholder="请选择身份id">
                             {
                                 identArr && identArr.map(item=>{
                                     return <Option key={ item.identity_id } value={ item.identity_id }>{ item.identity_text }</Option>
@@ -336,7 +336,7 @@ function AddUser(props) {
                         getFieldDecorator('IdentityView', {
                             rules: [{  required: true, message: '请选择视图id' }],
                         })(
-                        <Select className={styles.select} setfieldsvalue="请选择视图id">
+                        <Select className={styles.select} placeholder="请选择视图id">
                             {
                                 viewArr && viewArr.map(item=>{
                                     return <Option key={ item.view_authority_id } value={ item.view_authority_id }>{ item.view_authority_text }</Option>

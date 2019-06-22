@@ -30,8 +30,8 @@ export default {
     // 同步操作
     reducers: {
         getexamList(state,{ payload }){
-            // console.log(payload)
-            return { ...state, examArr:payload }
+            // state.datas = 
+            return { ...state, examArr:payload,datas:[] }
         }
     },
 

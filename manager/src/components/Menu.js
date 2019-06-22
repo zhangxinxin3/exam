@@ -1,8 +1,9 @@
 import { connect } from "dva";
-import { injectIntl } from "react-intl";
 import React from "react";
 import { Menu, Icon } from "antd";
 import { Link } from "dva/router";
+import { injectIntl } from 'react-intl';
+
 const { SubMenu } = Menu;
 function Menus(props) {
     console.log(props)

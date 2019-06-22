@@ -1,18 +1,13 @@
-
 export default {
-    // 命名空间
-    namespace: 'global',
+    namespace:"global",
 
-    // 模块内部的状态
-    state: {
+    state:{
         locale:'zh'
     },
 
-    // 同步操作
-    reducers: {
+    reducers:{
         changeLocale(state,{payload}){
-            // console.log(payload)
-            return {...state,locale:payload.e}
+            return { ...state, locale:payload.e }
         }
-    },
-};
+    }
+}
