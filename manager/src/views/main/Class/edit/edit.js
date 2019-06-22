@@ -16,8 +16,6 @@ function Edit(props) {
     let [stem,upStem] = useState(allArr[0] && allArr[0].questions_stem)
     let [answer,upAnswer] = useState(allArr[0] && allArr[0].questions_answer)
 
-    console.log(allArr)
-
     useEffect(()=>{
         condition({
             questions_id:id

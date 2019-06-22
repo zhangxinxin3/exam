@@ -10,6 +10,14 @@
     display: flex;
     color:#fff;
 }
+.header{
+    width: 100%;
+    // height: ;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .ant_layout{
     margin-top:64px;
 }

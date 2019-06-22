@@ -58,10 +58,10 @@ const columns = [
 ]
 
 function ExamList(props) {
-    let [ datas ]=useState([]);
+    // let [ datas ]=useState([]);
 
     let { subject, examType, examList } = props;
-    let { examArr } = props.exam;
+    let { examArr, datas } = props.exam;
     let { data, questionArr } = props.view;
 
     useEffect(()=>{
@@ -114,7 +114,7 @@ function ExamList(props) {
                     getFieldDecorator('questionsTypeId', {
                         rules: [{ required: true, message: '考试类型' }],
                     })(
-                    <Select className={styles.select} setfieldsvalue="考试类型">
+                    <Select className={styles.select} placeholder="考试类型">
                         {
                             questionArr && questionArr.map(item=>{
                                 return <Option key={ item.questions_type_id } value={ item.questions_type_id }>{ item.questions_type_text }</Option>
@@ -127,7 +127,7 @@ function ExamList(props) {
                     getFieldDecorator('subjectId', {
                         rules: [{ required: true, message: '请选择身份id' }],
                     })(
-                    <Select className={styles.select} setfieldsvalue="请选择身份id">
+                    <Select className={styles.select} placeholder="请选择身份id">
                         {
                             data && data.map(item=>{
                                 return <Option key={ item.subject_id } value={ item.subject_id }>{ item.subject_text }</Option>

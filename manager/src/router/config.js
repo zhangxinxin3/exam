@@ -21,10 +21,22 @@ const addExam = dynamic({
 const examList = dynamic({
     component: () => import('@/views/main/Exam/examList/examList')
 })
+const classManager = dynamic({
+    component: () => import('@/views/main/Class/class/class')
+})
+const classroom = dynamic({
+    component: () => import('@/views/main/Class/classroom/classroom')
+})
+const student = dynamic({
+    component: () => import('@/views/main/Class/student/student')
+})
+const approved = dynamic({
+    component: () => import('@/views/main/Mark/approved/approved')
+})
 export default {
     routes: [{
         name: 'router.questions',
-        icon:'sliders',
+        icon: 'sliders',
         children: [{
             name: 'router.questions.add',
             id: 'main-addQuestions',
@@ -43,40 +55,59 @@ export default {
         }]
     }, {
         name: 'router.user',
-        icon:'user',
+        icon: 'user',
         children: [{
             name: 'router.user.add',
             id: 'main-addUser',
-            path: '/questions/addUser',
+            path: '/user/addUser',
             component: addUser
         }, {
             name: 'router.user.view',
             id: 'main-showUser',
             path: '/user/show',
             component: exhibiTion
-        }],
-    },{
-        name:'router.Test',
-        icon:'schedule',
-        children:[{
-            name:'router.Test.add',
-            id:'main-addExam',
-            path:'/exam/addExam',
-            component:addExam
-        },{
-            name:'router.Test.list',
-            id:'main-examList',
-            path:'/questions/examList',
-            component:examList
         }]
-    },{
-        name:'router.Class',
-        icon:'project',
-        children:[{
-            name:'router.Class.manager',
-            id:'main-ClassManeger',
-            path:"/class/manager",
-            component:null
+    }, {
+        name: 'router.Test',
+        icon: 'schedule',
+        children: [{
+            name: 'router.Test.add',
+            id: 'main-addExam',
+            path: '/exam/addExam',
+            component: addExam
+        }, {
+            name: 'router.Test.list',
+            id: 'main-examList',
+            path: '/exam/examList',
+            component: examList
+        }]
+    }, {
+        name: 'router.Class',
+        icon: 'project',
+        children: [{
+            name: 'router.Class.manager',
+            id: 'main-addExam',
+            path: '/class/class',
+            component: classManager
+        }, {
+            name: 'router.Class.room',
+            id: 'main-examList',
+            path: '/class/classroom',
+            component: classroom
+        }, {
+            name: 'router.Class.student',
+            id: 'main-examList',
+            path: '/class/student',
+            component: student
+        },]
+    }, {
+        name: 'router.Marking',
+        icon: 'project',
+        children: [{
+            name: 'router.Marking.class',
+            id: 'main-examList',
+            path: '/marking/approved',
+            component: approved
         }]
     }]
 }

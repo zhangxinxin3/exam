@@ -28,14 +28,8 @@ function View( props ) {
         upQuestions(questions_type_id = e.target.value);
     }
 
-    let chooseLess = (e) =>{
-        upSubject(subject_id = e.target.getAttribute('value')) 
-        // console.log(e.target.getAttribute('value'))
-        let arr = Array.from(e.target.parentNode.childNodes);
-        arr.map(item=>{
-            item.className = '';
-        })
-        e.target.className = styles.check;
+    let chooseLess = (id) =>{
+        upSubject(subject_id = id) 
     }
 
     let allData = e =>{
@@ -52,8 +46,8 @@ function View( props ) {
 
     let search = function(){
         if(subject_id!==''){
-            console.log(subject_id)
             if(exam_id !== ''){
+                // console.log(subject_id)
                 condition({
                     subject_id,
                     exam_id
@@ -93,6 +87,14 @@ function View( props ) {
         }
     }
 
+    let choose = e =>{
+        // console.log(e.target)
+        if(e.target.className){
+            e.target.className = '';
+        }else{
+            e.target.className = styles.check;
+        }
+    }
 
     return <div className={styles.wrapper}>
         <Title level={4}>查看试题</Title>
@@ -103,9 +105,9 @@ function View( props ) {
                     <span onClick={allData}>ALL</span>
                     {
                         data && data.map((item,index)=>{
-                            return <span key={item.subject_id} value={item.subject_id} onClick={
-                                chooseLess
-                            }>{item.subject_text}</span>
+                            return <span key={item.subject_id} onClick={()=>{
+                                chooseLess(item.subject_id)
+                            }} onClick={choose}>{item.subject_text}</span>
                         })
                     }
                 </div>
