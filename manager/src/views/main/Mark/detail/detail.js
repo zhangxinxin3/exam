@@ -1,10 +1,10 @@
 import React,{ useState, useEffect } from 'react';
 import { connect  } from 'dva';
-import { Button, Slider } from 'antd';
+import { Button, Slider, Modal } from 'antd';
 import ReactMarkdown from 'react-markdown';
 import styles from './detail.scss';
 
-// const { Option } = Select;
+const confirm = Modal.confirm;
 
 function Detail(props){
 
@@ -20,16 +20,36 @@ function Detail(props){
 
 
     let onChange = e =>{
-        // detail.score = e;
         changeScore({
             e
         })
-        // getDetail({
-        //     id
-        // })
-        console.log(detail)
     }
-    console.log(detail)
+
+    let sure = e =>{
+        confirm({
+            title: '确定提交阅卷结果',
+            content:"分数值是"+detail.score,
+            cancelText:"取消",
+            okText:"确定",
+            onOk() {
+                confirm({
+                    title: '批卷结果',
+                    content:"批改试卷成功 "+detail.student_name+"得分"+detail.score,
+                    okText:"知道了",
+                    onOk() {
+                        
+                        return new Promise((resolve, reject) => {
+                        setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
+                        }).catch(() => console.log('Oops errors!'));
+                    }
+                });
+                return new Promise((resolve, reject) => {
+                setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
+                }).catch(() => console.log('Oops errors!'));
+            },
+            onCancel() {},
+        });
+    }   
 
 
     return <div className={styles.wrapper}>
@@ -68,7 +88,8 @@ function Detail(props){
                         onChange={onChange}
                         value={detail.score}
                     />
-                    <Button>确定</Button>
+                    <Button className={styles.btns} onClick={sure}>确定</Button>
+
                 </div>   
             </div>
             
