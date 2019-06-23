@@ -121,6 +121,9 @@ export default {
         },
         getDetails(state,{payload}){
             return {...state,detail:payload}
+        },
+        changeScore(state,{payload}){
+            return {...state,detail:{...state.detail,score:payload.e}}
         }
     },
 
