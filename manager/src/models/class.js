@@ -14,7 +14,8 @@ export default {
         children:[],
         child:[],
         room:[],
-        detail:{}
+        detail:{},
+        remove:0
     },
 
     subscriptions: {
@@ -87,6 +88,10 @@ export default {
         *deleteClassroom({ payload },{ call, put }){
             let data = yield call(deleteClassroom,payload);
             console.log("删除学生",data)
+            yield put({
+                type: 'removesucc',
+                payload: data.code === 1 ? 1 : -1
+            })
         }
     },
 
@@ -102,19 +107,12 @@ export default {
             return {...state,students:payload,types:[],data:[]}
         },
         changeTypes(state,{payload}){
-            state.types = [];
-            if(payload){
-                state.types.push({
-                    key:payload.item.student_id,
-                    name:payload.item.student_name,
-                    studentID:payload.item.student_id,
-                    class:payload.item.grade_name,
-                    classroom:payload.item.room_text,
-                    password:payload.item.student_pwd,
-                    operation:payload.item.student_id
-                })    
-            }
-            return {...state}
+            let arr = state.students.filter(item=>item.student_name === payload.student_name && 
+                item.grade_id === payload.grade_id && 
+                item.room_id === payload.room_id);
+            arr[0].key=arr[0].student_id;
+            console.log(arr)
+            return {...state,types:arr}
         },
         geLists(state,{payload}){
             return {...state,children:payload,child:[]}
@@ -124,6 +122,9 @@ export default {
         },
         changeScore(state,{payload}){
             return {...state,detail:{...state.detail,score:payload.e}}
+        },
+        removesucc(state,{payload}){
+            return {...state,remove:payload}
         }
     },
 

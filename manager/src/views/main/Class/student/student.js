@@ -82,16 +82,13 @@ function Student(props){
 
     let searches = e =>{
         props.form.validateFields((err,value)=>{
-            students && students.map(item=>{
-                if(item.student_name === value.studentName && 
-                item.grade_id === value.classNum && 
-                item.room_id === value.classroom){
-                    changeTypes({
-                        item
-                    })
-                }
+            changeTypes({
+                student_name:value.studentName,
+                grade_id:value.classNum,
+                room_id:value.classroom
             })
         })
+        console.log(types)
     }
     
     let { getFieldDecorator } = props.form;
@@ -138,7 +135,10 @@ function Student(props){
                 }}>重置</Button>
             </Form-Item>
         </Form>
-        <Table columns={columns} dataSource={types} pagination={true} />
+        {
+            types.length ? <Table columns={columns} dataSource={types} pagination={true} /> : <div>没有数据</div>
+        }
+        
     </div>
 }
 

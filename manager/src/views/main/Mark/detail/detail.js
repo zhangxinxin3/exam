@@ -37,7 +37,7 @@ function Detail(props){
                     content:"批改试卷成功 "+detail.student_name+"得分"+detail.score,
                     okText:"知道了",
                     onOk() {
-                        
+
                         return new Promise((resolve, reject) => {
                         setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
                         }).catch(() => console.log('Oops errors!'));
