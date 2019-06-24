@@ -60,7 +60,7 @@ function Student(props){
             id:e.target.getAttribute('value')
         })
     }
-
+    
     if(!types.length){
         students && students.map(item=>{
             let flag = types.some(val => val.key === item.student_id);
@@ -82,13 +82,16 @@ function Student(props){
 
     let searches = e =>{
         props.form.validateFields((err,value)=>{
-            changeTypes({
-                student_name:value.studentName,
-                grade_id:value.classNum,
-                room_id:value.classroom
+            students && students.map(item=>{
+                if(item.student_name === value.studentName && 
+                item.grade_id === value.classNum && 
+                item.room_id === value.classroom){
+                    changeTypes({
+                        item
+                    })
+                }
             })
         })
-        console.log(types)
     }
     
     let { getFieldDecorator } = props.form;
@@ -135,10 +138,7 @@ function Student(props){
                 }}>重置</Button>
             </Form-Item>
         </Form>
-        {
-            types.length ? <Table columns={columns} dataSource={types} pagination={true} /> : <div>没有数据</div>
-        }
-        
+        <Table columns={columns} dataSource={types} pagination={true} />
     </div>
 }
 

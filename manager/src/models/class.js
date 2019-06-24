@@ -107,12 +107,26 @@ export default {
             return {...state,students:payload,types:[],data:[]}
         },
         changeTypes(state,{payload}){
-            let arr = state.students.filter(item=>item.student_name === payload.student_name && 
-                item.grade_id === payload.grade_id && 
-                item.room_id === payload.room_id);
-            arr[0].key=arr[0].student_id;
-            console.log(arr)
-            return {...state,types:arr}
+            state.types = [];
+            if(payload){
+                state.types.push({
+                    key:payload.item.student_id,
+                    name:payload.item.student_name,
+                    studentID:payload.item.student_id,
+                    class:payload.item.grade_name,
+                    classroom:payload.item.room_text,
+                    password:payload.item.student_pwd,
+                    operation:payload.item.student_id
+                })    
+            }
+            // let arr = state.students.filter(item=>item.student_name === payload.student_name && 
+            //     item.grade_id === payload.grade_id && 
+            //     item.room_id === payload.room_id);
+            // if(arr.length){
+            //     arr[0].key=arr[0].student_id;
+            // }
+            // console.log(arr)
+            return {...state}
         },
         geLists(state,{payload}){
             return {...state,children:payload,child:[]}

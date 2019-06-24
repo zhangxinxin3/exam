@@ -39,7 +39,7 @@ function MainPage(props) {
                 </Select>
             </Header>
             <Layout className={styles.ant_layout}>
-                <Sider >
+                <Sider style={{overflowX:""}}>
                     <Menus />
                 </Sider>
                 <Content className={styles.ant_layout_content} style={{ height: "100%" }}>

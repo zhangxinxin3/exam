@@ -53,5 +53,7 @@ export default {
     updateLogin(state, { payload }) {
       return { ...state, isLogin: payload }
     }
+    //退出登录
+
   }
 };
