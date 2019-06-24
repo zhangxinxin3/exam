@@ -26,7 +26,7 @@ function Menus(props) {
                 }>
                     {
                         item.children.map((value, key) => {
-                            return <Menu.Item key={key}>
+                            return <Menu.Item key={value.path}>
                                 <Link to={value.path}>{
                                     props.intl.formatMessage({ id: value.name })
                                 }</Link>
