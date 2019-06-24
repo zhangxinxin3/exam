@@ -1,45 +1,44 @@
 import React,{ useState, useEffect } from 'react';
 import { connect  } from 'dva';
-import { Form, Button, Select, Input, Table, Modal  } from 'antd'
+import { Form, Button, Select, Input, Table, Modal, message  } from 'antd'
 import styles from './student.scss';
 
 const { Option } = Select;
-const confirm = Modal.confirm;
+// const confirm = Modal.confirm;
 function Student(props){
     
     const columns = [
         {
             title: '姓名',
-            dataIndex: 'name',
-            key: 'name'
+            dataIndex: 'student_name',
+            key: 'student_name'
         },
         {
             title: '学号',
-            dataIndex: 'studentID',
-            key: 'studentID',
+            dataIndex: 'student_id',
+            key: 'student_id',
         },
         {
             title: '班级',
-            dataIndex: 'class',
-            key: 'class',
+            dataIndex: 'grade_name',
+            key: 'grade_name',
         },
         {
             title: '教室',
-            dataIndex: 'classroom',
-            key: 'classroom',
+            dataIndex: 'room_text',
+            key: 'room_text',
         },
         {
             title: '密码',
-            dataIndex: 'password',
-            key: 'password',
+            dataIndex: 'student_pwd',
+            key: 'student_pwd',
         },
         {
             title: '操作',
-            dataIndex: 'operation',
-            key: 'operation',
-            render:operation=>(
+            dataIndex: '',
+            render:val=>(
                 <>
-                    <span value={operation} onClick={remove}>删除</span>
+                    <span value={val.student_id} onClick={remove}>删除</span>
                 </>
             ),
         }
@@ -47,7 +46,8 @@ function Student(props){
 
 
     let { grade, roomAll, getStudent, changeTypes, deleteStudent } = props;
-    let { gradeArr, rooms, students, types } = props;
+    let { gradeArr, rooms, students, types, studentGood } = props;
+    let { arr,upArr } = useState([]);
 
     useEffect(()=>{
         grade(), 
@@ -55,41 +55,31 @@ function Student(props){
         getStudent()
     },[])
 
+    useEffect(()=>{
+        if(studentGood === 1){
+            message.success('删除成功')
+            getStudent();
+        }else if(studentGood === -1){
+            message.error('删除失败')
+        }
+    },[studentGood])
+
     let remove = e =>{
         deleteStudent({
             id:e.target.getAttribute('value')
         })
     }
-    
-    if(!types.length){
-        students && students.map(item=>{
-            let flag = types.some(val => val.key === item.student_id);
-            if(!flag){
-                types.push({
-                    key:item.student_id,
-                    name:item.student_name,
-                    studentID:item.student_id,
-                    class:item.grade_name,
-                    classroom:item.room_text,
-                    password:item.student_pwd,
-                    operation:item.student_id
-                })    
-            }
-            
-        })    
-    }
-    
 
     let searches = e =>{
         props.form.validateFields((err,value)=>{
-            students && students.map(item=>{
-                if(item.student_name === value.studentName && 
-                item.grade_id === value.classNum && 
-                item.room_id === value.classroom){
-                    changeTypes({
-                        item
-                    })
-                }
+            arr=students.filter(item=>item.student_name === value.studentName && 
+            item.grade_id === value.classNum && 
+            item.room_id === value.classroom)
+            if(arr.length){
+                arr.map(item=>item.key=item.student_id)
+            }
+            changeTypes({
+                arr
             })
         })
     }
@@ -138,7 +128,7 @@ function Student(props){
                 }}>重置</Button>
             </Form-Item>
         </Form>
-        <Table columns={columns} dataSource={types} pagination={true} />
+        <Table columns={columns} dataSource={students} rowKey={"student_pwd"} pagination={true} />
     </div>
 }
 

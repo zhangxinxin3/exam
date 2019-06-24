@@ -8,7 +8,7 @@ const { Option } = Select;
 function Class(props){
 
     let { grade, gradeDelete, gradeUpdata, watch, roomAll, addGrade } = props;
-    let { gradeArr, datas, rooms, remove } = props.class;
+    let { gradeArr, datas, rooms, gradeGood, remove, changeGood } = props.class;
     let { data } = props.view;
     let [ showDialog, upShowDialog ] = useState(false);
     let [ showData, upShowData ] = useState(false);
@@ -24,29 +24,28 @@ function Class(props){
     const columns = [
         {
             title: '班级名',
-            dataIndex: 'class',
-            key: 'class',
+            dataIndex: 'grade_name',
+            key: 'grade_name',
         },
         {
             title: '课程名',
-            dataIndex: 'subject',
-            key: 'subject',
+            dataIndex: 'subject_text',
+            key: 'subject_text',
         },
         {
             title: '教室号',
-            dataIndex: 'classroom',
-            key: 'classroom',
+            dataIndex: 'room_text',
+            key: 'room_text',
         },
         {
             title: '操作',
-            dataIndex: 'operation',
-            key: 'operation',
-            render:operation=>(
+            dataIndex: 'grade_id',
+            key: 'grade_id',
+            render:grade_id=>(
                 <>
-                    <span value={operation} onClick={change}>修改</span>
-                    
+                    <span value={grade_id} onClick={change}>修改</span>
                     <Divider type="vertical" />
-                    <span value={operation} onClick={change}>删除</span>
+                    <span value={grade_id} onClick={change}>删除</span>
                 </>
             ),
         }
@@ -59,18 +58,42 @@ function Class(props){
                 grade_id:classId,
                 subject_id:value.subject,
                 room_id:value.classroom
-            })    
-        })
+            })  
+        }); 
     }
+
+    useEffect(()=>{
+        if(gradeGood === 1){
+            message.success('添加成功')
+            grade();
+        }else if(changeGood === -1){
+            message.error('添加失败')
+        }
+    },[gradeGood])
+    
+    useEffect(()=>{
+        if(remove === 1){
+            message.success('删除成功')
+            grade();
+        }else if(changeGood === -1){
+            message.error('删除失败')
+        }
+    },[remove])
+    
+    useEffect(()=>{
+        if(changeGood === 1){
+            message.success('修改成功')
+            grade();
+        }else if(changeGood === -1){
+            message.success('修改失败')
+        }
+    },[changeGood])
 
     let change = e =>{
         if(e.target.innerHTML==='删除'){
             gradeDelete({
                 grade_id:e.target.getAttribute('value')
             })    
-            // if(remove){
-            //     message.success('删除成功')
-            // }
         }else if(e.target.innerHTML==='修改'){
             upShowData(showData = true)
             grade()
@@ -81,21 +104,7 @@ function Class(props){
             })
             upClassId(classId = getGrade.grade_id)
         }
-        grade()
     }
-
-    gradeArr && gradeArr.map(item=>{
-        let flag = datas.some(val => val.class === item.grade_name);
-        if(!flag){
-            datas.push({
-                key:item.grade_id,
-                class:item.grade_name,
-                subject:item.subject_text,
-                classroom:item.room_text,
-                operation:item.grade_id
-            })
-        }
-    })
 
     let handleOk = e =>{
         props.form.validateFields((err,value)=>{
@@ -166,7 +175,7 @@ function Class(props){
                     </Form-Item>
                 </Form>
             </Modal>
-            <Table columns={columns} dataSource={datas} pagination={true} />
+            <Table columns={columns} dataSource={gradeArr} rowKey={"grade_name"} pagination={true} />
             <Modal 
             title="添加班级" 
             visible={showData}

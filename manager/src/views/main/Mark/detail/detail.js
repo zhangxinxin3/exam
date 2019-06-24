@@ -1,4 +1,4 @@
-import React,{ useState, useEffect } from 'react';
+import React,{ useEffect } from 'react';
 import { connect  } from 'dva';
 import { Button, Slider, Modal } from 'antd';
 import ReactMarkdown from 'react-markdown';
@@ -7,8 +7,9 @@ import styles from './detail.scss';
 const confirm = Modal.confirm;
 
 function Detail(props){
-
-    let id = props.location.search.split('=')[1];
+    console.log(props.location)
+    let id = props.location.state.id;
+    let name = props.location.state.id;
 
     let { getDetail, detail, changeScore } = props;
 
@@ -37,7 +38,13 @@ function Detail(props){
                     content:"批改试卷成功 "+detail.student_name+"得分"+detail.score,
                     okText:"知道了",
                     onOk() {
-
+                        props.history.push({
+                            pathname:'/marking/classmate',
+                            state:{
+                                id:detail.grade_id,
+                                name:name
+                            }
+                        })
                         return new Promise((resolve, reject) => {
                         setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
                         }).catch(() => console.log('Oops errors!'));
@@ -76,7 +83,6 @@ function Detail(props){
                         </div>
                     })
                 }
-                
             </div>
             <div className={styles.wrapRight}>
                 <div className={styles.wrapFiexd}>
@@ -116,6 +122,11 @@ const mapDisaptchToProps = dispatch=>{
             dispatch({
                 type:"class/changeScore",
                 payload
+            })
+        },
+        backTo(){
+            dispatch({
+                // routerRedux.push
             })
         }
     }

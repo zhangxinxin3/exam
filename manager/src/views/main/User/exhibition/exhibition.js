@@ -88,7 +88,6 @@ function Exhibition(props) {
         props.showrelations(),
         props.showview()
     }, [])
-    // console.log(props)
     return (
         <div className={styles.container}>
             <p style={{ color: "black", fontSize: "30px" }}>用户展示</p>

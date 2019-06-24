@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { connect } from 'dva';
-import { Modal, Form, Input, Button, Table } from 'antd';
+import { Modal, Form, Input, Button, Table, message } from 'antd';
 import styles from './classroom.scss';
 
 const confirm = Modal.confirm;
 
 function ClassRoom(props) {
     let { roomAll ,deleteClassroom ,addClassroom } = props;
-    let { rooms,room } = props;
+    let { rooms, room, removeClassroom, classroomGood } = props;
     let [showDialog, upDialog] = useState(false);
     let [typeValue, uptypeValue] = useState('');
 
@@ -19,15 +19,15 @@ function ClassRoom(props) {
     const columns = [
         {
             title: '教室号',
-            dataIndex: 'classroom'
+            dataIndex: 'room_text'
         },
         {
             title: '操作',
-            dataIndex: 'operation',
-            render:operation=>(
+            dataIndex: 'room_id',
+            render:room_id=>(
                 <>
-                    <p value={operation} onClick={()=>{
-                        remove(operation)
+                    <p value={room_id} onClick={()=>{
+                        remove(room_id)
                     }}>删除</p>
                 </>
             )
@@ -40,29 +40,31 @@ function ClassRoom(props) {
             cancelText:"取消",
             okText:"确定",
             onOk() {
-                console.log(operation)
                 deleteClassroom({
                     room_id:operation
                 })
-                return new Promise((resolve, reject) => {
-                setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
-                }).catch(() => console.log('Oops errors!'));
             },
             onCancel() {},
         });
     }
-
-
-    rooms && rooms.map(item=>{
-        let flag = room.some(val => val.classroom === item.room_text);
-        if(!flag){
-            room.push({
-                key:item.room_id,
-                classroom:item.room_text,
-                operation:item.room_id
-            })
+    
+    useEffect(()=>{
+        if(removeClassroom === 1){
+            message.success('删除成功')
+            roomAll();
+        }else if(removeClassroom === -1){
+            message.error('删除失败')
         }
-    })
+    },[removeClassroom])
+    
+    useEffect(()=>{
+        if(classroomGood === 1){
+            message.success('添加成功')
+            roomAll();
+        }else if(classroomGood === -1){
+            message.error('添加失败')
+        }
+    },[classroomGood])
 
     let handleSubmit = e => {
         e.preventDefault();
@@ -78,12 +80,11 @@ function ClassRoom(props) {
         addClassroom({
             room_text: typeValue
         })
-        roomAll()
     }
 
     const { getFieldDecorator } = props.form;
     return <div className={styles.wrapper}>
-        <h3 level={3} className={styles.tit}>教室管理</h3>
+        <h3 className={styles.title}>教室管理</h3>
         <div className={styles.wrap}>
             <Button className={styles.btn} onClick={() => upDialog(!showDialog)}>+ 添加教室</Button>
             <Modal
@@ -107,7 +108,7 @@ function ClassRoom(props) {
                     </Form.Item>
                 </Form>
             </Modal>
-            <Table columns={columns} dataSource={room}/>
+            <Table columns={columns} dataSource={rooms} rowKey={"room_id"}/>
         </div>
     </div>
 }
