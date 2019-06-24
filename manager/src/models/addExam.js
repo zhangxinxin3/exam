@@ -1,4 +1,4 @@
-import { getAllClass, getAllType , postCreateTest } from "@/services"
+import { getAllClass, getAllType, getCreateTest } from "@/services"
 
 export default {
     // 命名空间
@@ -7,7 +7,8 @@ export default {
     // 模块内部的状态
     state: {
         getAllClassArr: [],
-        getAllTypeArr: []
+        getAllTypeArr: [],
+        getCreateTestArr: []
     },
 
     subscriptions: {
@@ -31,9 +32,13 @@ export default {
                 payload: test.data
             })
         },
-        *postcreatetest({payload},{call,put}){
-            let test = yield call(postCreateTest,payload);
+        *getcreatetest({payload},{call,put}){
+            let test = yield call(getCreateTest);
             console.log(test)
+            yield put({
+                type:'getCreateTestArr',
+                payload:test.exam
+            })
         },
         *fetch({ payload }, { call, put }) {  // eslint-disable-line
             yield put({ type: 'save' });
@@ -51,6 +56,10 @@ export default {
         getAllTypeArr(state, action) {
             return { ...state, getAllTypeArr: action.payload }
         },
+        getCreateTestArr(state, action) {
+            console.log(action)
+            return { ...state, getCreateTestArr: action.payload }
+        }
     },
 
 };

@@ -15,13 +15,14 @@ function AddExam(props) {
     let startTimes = time1.getTime();
     let time2 = new Date(getEndTime);
     let endTimes = time2.getTime();
+    console.log(props)
     // console.log(startTimes)
     useEffect(() => {
-        props.getallclass(),
-        props.getalltype()
+            props.getallclass(),
+            props.getalltype(),
+            props.getcreatetest()
     }, [])
-    // console.log(props)
-    console.log(getName, getSelVal1, getSelVal3, getNum, startTimes, endTimes)
+    // console.log(getName, getSelVal1, getSelVal3, getNum, startTimes, endTimes)
     let iptName = e => {
         setName(getName = e.target.value)
     }
@@ -49,9 +50,21 @@ function AddExam(props) {
                 content: 'input框值为空，请补全后再来操作',
             })
         } else {
-            props.postcreatetest(getName, getSelVal1, getSelVal3, getNum, startTimes, endTimes)
-            // props.history.push("/exam/addMark?title="+getName)
-            props.history.push('/questions/examList')
+            // props.getcreatetest(getName, getSelVal1, getSelVal3, getNum, startTimes, endTimes)
+            props.history.push("/exam/addMark?title="+getName)
+            let obj = {
+                subject_id: getSelVal3,
+                exam_id: getSelVal1,
+                title: getName,
+                number: getNum,
+                start_time: startTimes,
+                end_time: endTimes,
+            }
+            props.getCreateTestArr.push(obj);
+            let newObj = JSON.stringify(obj);
+            localStorage.setItem("obj",newObj);
+            console.log(props)
+            // props.history.push('/questions/examList')
         }
     }
     return (
@@ -65,17 +78,17 @@ function AddExam(props) {
                     </div>
                     <h2>*选择考试类型</h2>
                     <div className={styles.item}>
-                        <Select defaultValue="周考1" style={{ width: 150 }} onChange={selVal1}>
+                        <Select defaultValue="周考1" style={{ width: 200, fontSize:"18px" }} onChange={selVal1}>
                             {props.getAllTypeArr.map((item, index) => {
-                                return <Option key={index} value={item.exam_id}>{item.exam_name}</Option>
+                                return <Option key={index} value={item.exam_id} style={{ fontSize:"18px" }}>{item.exam_name}</Option>
                             })}
                         </Select>
                     </div>
                     <h2>*选择课程</h2>
                     <div className={styles.item}>
-                        <Select defaultValue="JavaScript上" style={{ width: 150 }} onChange={selVal2}>
+                        <Select defaultValue="JavaScript上" style={{ width: 200, fontSize:"18px"}} onChange={selVal2}>
                             {props.getAllClassArr.map((item, index) => {
-                                return <Option key={index} value={item.subject_id}>{item.subject_text}</Option>
+                                return <Option key={index} value={item.subject_id} style={{ fontSize:"18px" }}>{item.subject_text}</Option>
                             })}
                         </Select>
                     </div>
@@ -126,17 +139,9 @@ const mapDispatchToProps = dispatch => {
                 type: "addExam/getalltype"
             })
         },
-        postcreatetest(getName, getSelVal1, getSelVal3, getNum, startTimes, endTimes) {
+        getcreatetest() {
             dispatch({
-                type: "addExam/postcreatetest",
-                payload: {
-                    subject_id: getSelVal3,
-                    exam_id: getSelVal1,
-                    title: getName,
-                    number: getNum,
-                    start_time: startTimes,
-                    end_time: endTimes,
-                }
+                type: "addExam/getcreatetest"
             })
         }
     }

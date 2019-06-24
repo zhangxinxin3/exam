@@ -86,9 +86,11 @@ body :global(.ant-drawer-content-wrapper){
     margin-left: 10%;
     position: relative;
     margin-top: 20px;
+    padding: 20px;
     .tit{
         font-size:20px;
         color:black;
+        padding-bottom: 10px;
     }
     p{
         height: 40px;
@@ -102,5 +104,6 @@ body :global(.ant-drawer-content-wrapper){
         position: absolute;
         right: 20px;
         top: 10px;
+        color:blue;
     }
 }
