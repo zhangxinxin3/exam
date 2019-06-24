@@ -28,7 +28,7 @@ function AddMark(props) {
     }
     let jumpToExamlist = e =>{
         let val = localStorage.getItem('obj');
-        props.history.push('/questions/examList?val='+val);
+        props.history.push('/exam/examList?val='+val);
     }
     console.log(newArr)
     console.log(props.getArr)
