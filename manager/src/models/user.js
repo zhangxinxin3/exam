@@ -1,5 +1,5 @@
 import { login, getUserInfo, getViewAuthority } from '@/services'
-import { setToken, getToken } from '@/utils/user'
+import { setToken, getToken, removeToken } from '@/utils/user'
 import { routerRedux } from 'dva/router';
 
 //引入路由表
@@ -114,6 +114,14 @@ export default {
       })
       console.log('myview...', myView);
       return { ...state, viewAuthority: payload, myView, forbiddenView }
-    }
+    },
+    logout(state) {
+      //1.清楚登录态
+      removeToken('');
+      //2.清楚权限
+      return {
+        ...state, userInfo: {}, myView: [], forbiddenView: [], viewAuthority: []
+      }
+    },
   }
 };
