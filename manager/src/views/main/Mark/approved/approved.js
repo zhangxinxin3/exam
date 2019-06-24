@@ -39,7 +39,13 @@ function Approved(props){
             key: 'operation',
             render:operation=>(
                 <>
-                    <Link to={{pathname:`/marking/classmate?id=${operation[0]}&name=${operation[1]}`}}>批卷</Link>
+                    <Link to={{
+                        pathname:'/marking/classmate',
+                        state:{
+                            id:operation[0],
+                            name:operation[1]
+                        }
+                    }}>批卷</Link>
                 </>
             )
         }

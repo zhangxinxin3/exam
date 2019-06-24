@@ -22,7 +22,7 @@ export default {
         //获取身份id
         *ident({ payload }, { call, put }){
             let data = yield call(ident);
-            // console.log("获取身份id",data)
+            console.log("获取身份id",data)
             yield put({
                 type:"idents",
                 payload:data.data
@@ -31,7 +31,7 @@ export default {
         //获取已有视图
         *viewAuthority({ payload }, { call, put }){
             let data = yield call(viewAuthority);
-            // console.log("获取已有视图",data);
+            console.log("获取已有视图",data);
             yield put({
                 type:"viewAuthoritys",
                 payload:data.data
@@ -40,7 +40,7 @@ export default {
         //获取api接口权限数据
         *apiAuthority({ payload }, { call, put }){
             let data = yield call(apiAuthority);
-            // console.log("获取api接口权限数据",data);
+            console.log("获取api接口权限数据",data);
             yield put({
                 type:"apiAuthoritys",
                 payload:data.data
@@ -49,7 +49,7 @@ export default {
         //获取用户id
         *getUser({ payload }, { call, put }){
             let data = yield call(userId);
-            // console.log("获取用户id",data);
+            console.log("获取用户id",data);
             yield put({
                 type:"getUsers",
                 payload:data.data
@@ -58,36 +58,36 @@ export default {
         //添加用户
         *addUser({ payload }, { call, put }){
             let data = yield call(addUser, payload);
-            // console.log("添加用户",data);
+            console.log("添加用户",data);
         },
         *upIdent({ payload }, { call, put }){
             let data = yield call(upIdent, payload);
-            // console.log("更新用户",data);
+            console.log("更新用户",data);
         },
         //添加身份
         *addIdent({ payload }, { call, put }){
             let data = yield call(addIdent, payload);
-            // console.log("添加身份",data);
+            console.log("添加身份",data);
         },
         //添加api接口权限
         *addAuthorityApi({ payload }, { call, put }){
             let data = yield call(addAuthorityApi, payload);
-            // console.log("添加api接口权限",data);
+            console.log("添加api接口权限",data);
         },
         //添加视图权限
         *addAuthorityView({ payload }, { call, put }){
             let data = yield call(addAuthorityView, payload);
-            // console.log("添加视图权限",data);
+            console.log("添加视图权限",data);
         },
         //给身份设置api接口权限
         *setIdentityApi({ payload }, { call, put }){
             let data = yield call(setIdentityApi, payload);
-            // console.log("给身份设置api接口权限",data);
+            console.log("给身份设置api接口权限",data);
         },
         //给身份设置视图权限
         *setIdentityView({ payload }, { call, put }){
             let data = yield call(setIdentityView, payload);
-            // console.log("给身份设置视图权限",data);
+            console.log("给身份设置视图权限",data);
         }
     },
 

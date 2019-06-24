@@ -4,8 +4,8 @@ import './index.css';
 //引入antd样式
 import "antd/dist/antd.css";
 //引入全局loading
-import createLoading from "dva-loading";
-import { createLogger } from "redux-logger";
+// import createLoading from "dva-loading";
+// import { createLogger } from "redux-logger";
 import { message } from "antd";
 // 1. Initialize
 const app = dva();

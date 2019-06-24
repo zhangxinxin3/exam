@@ -13,7 +13,9 @@ export default {
         data:[],
         children:[],
         child:[],
-        room:[]
+        room:[],
+        detail:{},
+        remove:0
     },
 
     subscriptions: {
@@ -74,10 +76,10 @@ export default {
         *getDetail({ payload },{ call, put }){
             let data = yield call(getDetail,payload);
             console.log("获取试卷学生详情",data)
-            // yield put({
-            //     type:"getStudents",
-            //     payload:data.data
-            // })
+            yield put({
+                type:"getDetails",
+                payload:data.data
+            })
         },
         *addClassroom({ payload },{ call, put }){
             let data = yield call(addClassroom,payload);
@@ -86,6 +88,10 @@ export default {
         *deleteClassroom({ payload },{ call, put }){
             let data = yield call(deleteClassroom,payload);
             console.log("删除学生",data)
+            yield put({
+                type: 'removesucc',
+                payload: data.code === 1 ? 1 : -1
+            })
         }
     },
 
@@ -102,19 +108,37 @@ export default {
         },
         changeTypes(state,{payload}){
             state.types = [];
-            state.types.push({
-                key:payload.item.student_id,
-                name:payload.item.student_name,
-                studentID:payload.item.student_id,
-                class:payload.item.grade_name,
-                classroom:payload.item.room_text,
-                password:payload.item.student_pwd,
-                operation:payload.item.student_id
-            })    
+            if(payload){
+                state.types.push({
+                    key:payload.item.student_id,
+                    name:payload.item.student_name,
+                    studentID:payload.item.student_id,
+                    class:payload.item.grade_name,
+                    classroom:payload.item.room_text,
+                    password:payload.item.student_pwd,
+                    operation:payload.item.student_id
+                })    
+            }
+            // let arr = state.students.filter(item=>item.student_name === payload.student_name && 
+            //     item.grade_id === payload.grade_id && 
+            //     item.room_id === payload.room_id);
+            // if(arr.length){
+            //     arr[0].key=arr[0].student_id;
+            // }
+            // console.log(arr)
             return {...state}
         },
         geLists(state,{payload}){
             return {...state,children:payload,child:[]}
+        },
+        getDetails(state,{payload}){
+            return {...state,detail:payload}
+        },
+        changeScore(state,{payload}){
+            return {...state,detail:{...state.detail,score:payload.e}}
+        },
+        removesucc(state,{payload}){
+            return {...state,remove:payload}
         }
     },
 

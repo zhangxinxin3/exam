@@ -1,6 +1,6 @@
 import React,{ useState, useEffect } from 'react';
 import { connect  } from 'dva';
-import { Button, Table, Divider, Modal, Form, Select, Input } from 'antd';
+import { Button, Table, Divider, Modal, Form, Select, Input, message } from 'antd';
 import styles from './class.scss';
 
 const { Option } = Select;
@@ -8,7 +8,7 @@ const { Option } = Select;
 function Class(props){
 
     let { grade, gradeDelete, gradeUpdata, watch, roomAll, addGrade } = props;
-    let { gradeArr, datas, rooms } = props.class;
+    let { gradeArr, datas, rooms, remove } = props.class;
     let { data } = props.view;
     let [ showDialog, upShowDialog ] = useState(false);
     let [ showData, upShowData ] = useState(false);
@@ -55,8 +55,6 @@ function Class(props){
     let handleRight = e =>{
         upShowData(showData = false)
         props.form.validateFields((err,value)=>{
-            console.log(value)
-            console.log(classId)
             gradeUpdata({
                 grade_id:classId,
                 subject_id:value.subject,
@@ -70,6 +68,9 @@ function Class(props){
             gradeDelete({
                 grade_id:e.target.getAttribute('value')
             })    
+            // if(remove){
+            //     message.success('删除成功')
+            // }
         }else if(e.target.innerHTML==='修改'){
             upShowData(showData = true)
             grade()
