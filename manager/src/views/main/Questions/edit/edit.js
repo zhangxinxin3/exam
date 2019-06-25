@@ -7,21 +7,17 @@ import { Select, Button, Modal } from 'antd';
 const { Option } = Select;
 const confirm = Modal.confirm;
 function Edit(props) {
-    let { condition, allArr,look, examType, questionType, questionUp, data, examArr, questionArr } = props;
-    let id = props.location.search.split('=')[1];
-    let [title,upTitle] = useState(allArr[0] && allArr[0].title)
-    let [exam,upExam] = useState(allArr[0] && allArr[0].exam_id);
-    let [subject,upSubject] = useState(allArr[0] && allArr[0].subject_id);
-    let [questions,upQuestions] = useState(allArr[0] && allArr[0].questions_type_id);
-    let [stem,upStem] = useState(allArr[0] && allArr[0].questions_stem)
-    let [answer,upAnswer] = useState(allArr[0] && allArr[0].questions_answer)
+    let { getItem, allArr, id, look, examType, questionType, questionUp, data, examArr, questionArr } = props;
 
-    console.log(allArr)
+    let [title,upTitle] = useState('')
+    let [exam,upExam] = useState('');
+    let [subject,upSubject] = useState('');
+    let [questions,upQuestions] = useState('');
+    let [stem,upStem] = useState('')
+    let [answer,upAnswer] = useState('')
 
     useEffect(()=>{
-        condition({
-            questions_id:id
-        })
+        getItem()
     },[])
 
     useEffect(()=>{
@@ -45,7 +41,7 @@ function Edit(props) {
     }
 
     let changeTitle = e =>{
-        // console.log(e.target.value);
+        console.log(e.target.value);
         upTitle(title = e.target.value)
     }
 
@@ -78,9 +74,9 @@ function Edit(props) {
                     questions_type_id:questions,
                     exam_id:exam
                 })
-                return new Promise((resolve, reject) => {
-                    setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
-                }).catch(() => console.log('Oops errors!'));
+                props.history.push({
+                    pathname:"/questions/view"
+                })
             },
             onCancel() {},
           });
@@ -93,9 +89,9 @@ function Edit(props) {
                 return <div key={index} className={styles.wrap}>
                     <h3>题目信息</h3>
                     <h4>题干</h4>
-                    <input className={styles.tip} type="text" value={item.title} onChange={changeTitle}/>
+                    <input className={styles.tip} type="text" value={title} placeholder={item.title} onChange={changeTitle}/>
                     <h3>题目主题</h3>
-                    <Editor className="for-editor-content" height="auto" value={item.questions_stem} onChange={handleChange}/>
+                    <Editor className="for-editor-content" height="auto" value={stem} placeholder={item.questions_stem} onChange={handleChange}/>
                     <p>请选择考试类型：</p>
                     <Select defaultValue={item.exam_name} onChange={changeExam}>
                         {
@@ -105,7 +101,7 @@ function Edit(props) {
                         }
                     </Select>
                     <p>请选择课程类型：</p>
-                    <Select defaultValue={item.exam_name} onChange={changeSubject}>
+                    <Select defaultValue={item.subject_text} onChange={changeSubject}>
                         {
                             data && data.map(item=>{
                                 return <Option key={item.subject_id} value={item.subject_id}>{item.subject_text}</Option>
@@ -121,7 +117,7 @@ function Edit(props) {
                         }
                     </Select>
                     <h3>答案信息</h3>
-                    <Editor height="auto" value={item.questions_answer} onChange={handleChanges}/>
+                    <Editor height="auto" value={answer} placeholder={item.questions_answer} onChange={handleChanges}/>
                     <Button className={styles.btn} onClick={showConfirm}>提交</Button>
                 </div>
             })
@@ -164,6 +160,11 @@ const mapDisaptchToProps = dispatch=>{
             dispatch({
                 type:'view/questionUp',
                 payload
+            })
+        },
+        getItem(){
+            dispatch({
+                type:"view/getItem"
             })
         }
     }

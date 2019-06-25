@@ -54,7 +54,7 @@ function Detail(props){
             <div className={styles.wrapLeft}>
                 {
                     detail.questions && detail.questions.map((item,index)=>{
-                        return <div key={item.student_id}>
+                        return <div key={index}>
                             <p>{index+1}.{item.title}<span className={styles.icon}>{item.questions_type_text}</span></p>
                             <ReactMarkdown
                                 className={styles.markdown}

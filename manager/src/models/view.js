@@ -1,4 +1,6 @@
 import { watch, examType, questionType, getAll, condition, questionUp ,addQuestionType } from '@/services'
+import { setSave, getSave } from '../utils/save'
+
 
 export default {
     // 命名空间
@@ -11,7 +13,8 @@ export default {
         questionArr:[],
         allArr:[],
         types:[],
-        typeGood:0
+        typeGood:0,
+        detail:{}
     },
 
     // 订阅路由跳转
@@ -66,7 +69,6 @@ export default {
         },
         *condition({payload},{call,put}){
             let data = yield call(condition,payload)
-            // console.log(data)
             yield put({
                 type:'getCondition',
                 payload:data.data
@@ -75,6 +77,24 @@ export default {
         *questionUp({payload},{call,put}){
             let data = yield call(questionUp,payload)
             // console.log(data)
+        },
+        *saveItems({payload},{call,put}){
+            setSave('itemId',JSON.stringify(payload))
+        },
+        *getItem({payload},{call,put}){
+            let datas = getSave('itemId')
+            let id = JSON.parse(datas).id;
+            let data = yield call(condition,{
+                questions_id:id
+            })
+            console.log('获取编辑页数据',data)
+            yield put({
+                type:'getConditions',
+                payload:{
+                    data:data.data,
+                    id:id
+                }
+            })
         }
     },
 
@@ -94,6 +114,9 @@ export default {
         },
         getCondition(state,{payload}){
             return {...state,allArr:payload}
+        },
+        getConditions(state,{payload}){
+            return {...state,allArr:payload.data,id:payload.id}
         },
         addQuestionTypes(state,{payload}){
             return {...state,typeGood:payload}

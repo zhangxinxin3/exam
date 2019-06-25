@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from 'dva';
-import { Form, Select, Button, Table, Icon } from 'antd';
+import { Form, Select, Button, Table } from 'antd';
 import styles from './examList.scss';
 
 const { Option } = Select;

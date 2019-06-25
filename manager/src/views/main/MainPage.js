@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'dva';
-import { Layout, Select, Menu, Dropdown, message } from 'antd';
+import { Layout, Select, Menu, Dropdown, Input } from 'antd';
 import { Switch, Route, Redirect } from "dva/router";
 import styles from "./MainPage.scss";
 import Menus from "../../components/Menus"
+import Dialog from "./Questions/dialog/dialog";
+import Edit from "./Questions/edit/edit";
+import MarkList from './Mark/markList/markList';
+import Detail from './Mark/detail/detail';
+
 const { Header, Content, Sider } = Layout;
+
 const { Option } = Select;
 
 function MainPage(props) {
@@ -25,11 +31,15 @@ function MainPage(props) {
             <Switch>
                 <Redirect to="/login" />
             </Switch>
+        }else if(key === '1'){
+            console.log('上传头像')
         }
     }
     const menu = (
         <Menu onClick={logOut}>
-            <Menu.Item key="1">个人中心</Menu.Item>
+            <Menu.Item key="1">
+                 上传头像
+            </Menu.Item>
             <Menu.Item key="2">我的班级</Menu.Item>
             <Menu.Item key="3">设置</Menu.Item>
             <Menu.Item key="4">退出登录</Menu.Item>
@@ -59,12 +69,16 @@ function MainPage(props) {
                 </Dropdown>
             </Header>
             <Layout className={styles.ant_layout}>
-                <Sider style={{overflowX:"",overflowY:'auto'}}>
-                    <Menus theme="dark" mode="inline" />
+                <Sider style={{overflowX:""}}>
+                    <Menus theme="dark" mode="inline"/>
                 </Sider>
                 <Content className={styles.ant_layout_content} style={{ height: "100%" }}>
                     <Switch>
                         <Redirect exact from="/" to="/questions/add"></Redirect>
+                        <Route path="/questions/dialog" component={Dialog}/>
+                        <Route path="/questions/edit" component={Edit}/>
+                        <Route path="/marking/classmate" component={MarkList}></Route>
+                        <Route path="/marking/detail" component={Detail}></Route>
                         {
                             props.myView.map(item=>{
                                 if(item.children){

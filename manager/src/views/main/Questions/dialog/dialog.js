@@ -1,40 +1,42 @@
 import React ,{useEffect} from "react";
 import { connect } from 'dva';
+import ReactMarkdown from 'react-markdown';
+import { Layout } from 'antd';
 import styles from './dialog.scss';
 
+const { Content } = Layout;
+
 function Dialog(props) {
-    let { condition ,allArr } = props;
-    let id = props.location.search.split('=')[1];
+    let { getItem ,allArr } = props;
     useEffect(()=>{
-        condition({
-            questions_id:id
-        });
+        getItem(getItem)
     },[])
-
-    return <div className={styles.wrapper}>
-        <h3 className={styles.title}>试题详情</h3>
-        {
-            allArr && allArr.map((item,index)=>{
-                return <div className={styles.wrap} key={index}>
-                    <div className={styles.wrapLeft}>
-                        <p>出题人:{item.user_name}</p>
-                        <h5>题目信息</h5>
-                        <div className={styles.infor}>
-                            <span>{item.questions_type_text}</span>
-                            <span>{item.subject_text}</span>
-                            <span>{item.exam_name}</span>
-                        </div>
-                        <h5>{item.title}</h5>
-
-                        <p>{item.questions_stem}</p> 
-                    </div>
-                    <div className={styles.wrapRight}>
-                        <p>{item.questions_answer}</p> 
-                    </div>
+    console.log()
+    return <Layout className={styles.wrapper}>
+        <p className={styles.title}>试题详情</p>
+        <Content className={styles.wMain}>
+            <Content className={styles.wrapLeft}>
+                <span>出题人:{allArr[0] && allArr[0].user_name}</span>
+                <h3>题目信息</h3>
+                <div className={styles.infor}>
+                    <span>{allArr[0] && allArr[0].questions_type_text}</span>
+                    <span>{allArr[0] && allArr[0].subject_text}</span>
+                    <span>{allArr[0] && allArr[0].exam_name}</span>
                 </div>
-            })
-        }
-    </div>
+                <h4>{allArr[0] && allArr[0].title}</h4>
+                <ReactMarkdown
+                    className={styles.markdown}
+                    source={allArr[0] && allArr[0].questions_stem}
+                />
+            </Content>
+            <Content className={styles.wrapRight}>
+                <ReactMarkdown
+                    className={styles.markdown}
+                    source={allArr[0] && allArr[0].questions_answer}
+                />
+            </Content>
+        </Content>
+    </Layout>  
 }
 
 const mapStateToProps = state=>{
@@ -45,10 +47,9 @@ const mapStateToProps = state=>{
   
   const mapDisaptchToProps = dispatch=>{
     return {
-      condition(params){
+        getItem(){
           dispatch({
-              type:'view/condition',
-              payload:params
+              type:'view/getItem'
           })
       }
     }

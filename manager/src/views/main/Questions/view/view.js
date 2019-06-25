@@ -2,12 +2,13 @@ import React ,{ useState, useEffect } from "react";
 import { connect } from 'dva';
 import styles from './view.scss';
 import { Typography ,Button } from 'antd';
-import { Link } from "dva/router";
 
 const { Title } = Typography;
 
 function View( props ) {
     let { look, examType, questionType, getAll, condition, data, examArr, questionArr, allArr } = props;
+
+    let { saveItems } = props;
 
     useEffect(()=>{
         look()
@@ -101,6 +102,23 @@ function View( props ) {
         }
     }
 
+    let saveItem = (id) =>{
+        saveItems({
+            id
+        })
+        props.history.push({
+            pathname:"/questions/edit"
+        })
+    }
+
+    let saveDia = (id) =>{
+        saveItems({
+            id
+        })
+        props.history.push({
+            pathname:"/questions/dialog"
+        })
+    }
 
     return <div className={styles.wrapper}>
         <Title level={4}>查看试题</Title>
@@ -142,7 +160,9 @@ function View( props ) {
             {
                 allArr && allArr.map((item,index)=>{
                 return <div className={styles.wrap_item} key={index}>
-                    <Link className={styles.item_left} to={{pathname:`/questions/dialog?id=${item.questions_id}`}}>
+                    <div className={styles.item_left} onClick={()=>{
+                        saveDia(item.questions_id)
+                    }}>
                         <h4>{item.title}</h4>
                         <div>
                             <span>{item.questions_type_text}</span>
@@ -150,8 +170,10 @@ function View( props ) {
                             <span>{item.exam_name}</span>
                         </div>
                         <p>{item.user_name}发布</p>
-                    </Link>
-                    <Link to={{pathname:`/questions/edit?id=${item.questions_id}`}}>编辑</Link>
+                    </div>
+                    <p onClick={()=>{
+                        saveItem(item.questions_id)
+                    }}>编辑</p>
                 </div>
                 })
             }
@@ -191,6 +213,12 @@ const mapDisaptchToProps = dispatch=>{
             dispatch({
                 type:'view/condition',
                 payload:params
+            })
+        },
+        saveItems(payload){
+            dispatch({
+                type:'view/saveItems',
+                payload
             })
         }
     }

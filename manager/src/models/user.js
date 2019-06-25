@@ -100,6 +100,7 @@ reducers: {
     },
     updateViewAuthority(state, { payload }) {
       //筛选出我所有的前端路由权限
+      console.log(allViews)
         let myView = allViews.routes,
         forbiddenView = [];
         myView.forEach(item => {
@@ -112,6 +113,7 @@ reducers: {
                 }
             })
         })
+        console.log('forbiddenView',forbiddenView)
         return { ...state, viewAuthority: payload, myView, forbiddenView }
     },
     logout(state) {

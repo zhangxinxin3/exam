@@ -50,7 +50,7 @@ export default {
             component: addQuestions
         }, {
             name: 'router.questions.type',
-            id: 'main-QuestionsType',
+            id: 'main-questionsType',
             path: '/questions/type',
             component: typeQuestions
         }, {
