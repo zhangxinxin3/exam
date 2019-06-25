@@ -71,6 +71,7 @@ export function getStudent(){
 
 //获取学生试卷列表
 export function getList(params){
+    console.log(params)
     return request({
         url:'/exam/student?grade_id='+params.grade_id,
         method:"GET"
@@ -89,7 +90,7 @@ export function getDetail(params){
 export function deleteStudent(params){
     console.log(params)
     return request({
-        url:'/manger/student/'+params.student_id,
+        url:'/manger/student/'+params.id,
         method:"DELETE"
     })
 }

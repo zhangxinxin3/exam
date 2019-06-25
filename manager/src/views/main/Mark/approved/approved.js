@@ -24,12 +24,12 @@ function Approved(props){
             key: 'marking',
         },
         {
-            title: '课程名称',
+            title: '学号',
             dataIndex: 'subject',
             key: 'subject',
         },
         {
-            title: '成材率',
+            title: '教室名',
             dataIndex: 'yields',
             key: 'yields',
         },
@@ -39,24 +39,30 @@ function Approved(props){
             key: 'operation',
             render:operation=>(
                 <>
-                    <Link to={{
-                        pathname:'/marking/classmate',
-                        state:{
-                            id:operation[0],
-                            name:operation[1]
-                        }
-                    }}>批卷</Link>
+                    <p onClick={()=>{
+                        batch(operation)
+                    }}>批卷</p>
                 </>
             )
         }
     ]
 
-    let { grade, getList, getDetail } = props;
+    let { grade, save } = props;
     let { gradeArr, data } = props;
 
     useEffect(()=>{
         grade()
     },[])
+
+    let batch = e => {
+        save({
+            id:e[0],
+            name:e[1]
+        });
+        props.history.push({
+            pathname:'/marking/classmate'
+        })
+    }
 
     gradeArr && gradeArr.map((item,index)=>{
         let flag = data.some(val => val.classNum === item.grade_name);
@@ -66,15 +72,13 @@ function Approved(props){
                 classNum:item.grade_name,
                 subjectName:item.subject_text,
                 marking:'',
-                subject:item.subject_text,
+                subject:item.subject_id,
                 yields:item.room_text,
                 operation:[item.grade_id,item.grade_name]
             })    
         }
         
     }) 
-
-
 
     return <div className={styles.wrapper}>
         <p className={styles.title}>待批班级</p>
@@ -107,6 +111,12 @@ const mapDisaptchToProps = dispatch=>{
         getDetail(payload){
             dispatch({
                 type:"class/getDetail",
+                payload
+            })
+        },
+        save(payload){
+            dispatch({
+                type:"class/save",
                 payload
             })
         }

@@ -7,18 +7,24 @@ const { Option } = Select;
 const columns = [
     {
         title: '试卷信息',
-        dataIndex: 'information',
-        key: 'information'
+        dataIndex: 'title',
+        key: 'title',
+        render:title=>(
+            <>
+                <p>{title}</p>
+                {/* <p>考试时间{new Date(parseInt(item.end_time-item.start_time)).toLocaleString()}{item.number}道题 作弊0分</p> */}
+            </>
+        )
     },
     {
         title: '班级',
-        dataIndex: 'class',
-        key: 'class',
-        render: room => (
+        dataIndex: 'grade_name',
+        key: 'grade_name',
+        render: grade_name => (
             <>
                 <p>考试班级</p>
                 {
-                    room.map((item, index) => {
+                    grade_name.map((item, index) => {
                         return <span key={index} style={{ fontSize: "12px", marginRight: "8px" }}>{item}</span>
                     })
                 }
@@ -27,47 +33,51 @@ const columns = [
     },
     {
         title: '创建人',
-        dataIndex: 'founder',
-        key: 'founder'
+        dataIndex: 'user_name',
+        key: 'user_name'
     },
     {
         title: '开始时间',
-        dataIndex: 'start',
-        key: 'start',
-        render: start => (
+        dataIndex: 'start_time',
+        key: 'start_time',
+        render: start_time => (
             <>
-                <p>{new Date(parseInt(start)).toLocaleString().replace(/\//g, "-").replace(/上午/g, " ")}</p>
+                <p>{new Date(parseInt(start_time)).toLocaleString().replace(/\//g, "-").replace(/上午/g, " ")}</p>
             </>
         ),
     },
     {
         title: '结束时间',
-        dataIndex: 'end',
-        key: 'end',
-        render: end => (
+        dataIndex: 'end_time',
+        key: 'end_time',
+        render: end_time => (
             <>
-                <p>{new Date(parseInt(end)).toLocaleString().replace(/\//g, "-").replace(/上午/g, " ")}</p>
+                <p>{new Date(parseInt(end_time)).toLocaleString().replace(/\//g, "-").replace(/上午/g, " ")}</p>
             </>
         ),
     },
     {
         title: '操作',
         dataIndex: 'operation',
-        key: 'operation'
+        key: 'operation',
+        render: val => (
+            <>
+                <p>详情</p>
+            </>
+        ),
     }
 ]
 
 function ExamList(props) {
-    // let [ datas ]=useState([]);
 
-    let { subject, examType, examList } = props;
+    let { subject, examType, examList,changes } = props;
     let { examArr, datas } = props.exam;
     let { data, questionArr } = props.view;
 
+    let [ arr,upArr ] = useState([]);
+
     useEffect(() => {
-        subject(),
-            examType(),
-            examList()
+        subject()
     }, [])
     console.log(props)
     // let newMessage = JSON.parse(decodeURI(props.history.location.search.slice(5)));
@@ -110,7 +120,15 @@ function ExamList(props) {
         }
     })
 
-    let search = e => {
+    useEffect(() => {
+        examType()
+    }, [])
+
+    useEffect(() => {
+        examList()
+    }, [])
+
+    let search = () => {
         props.form.validateFields((error, value) => {
             examList({
                 subject_id: value.subjectId
@@ -124,6 +142,31 @@ function ExamList(props) {
             item.className = '';
         })
         e.target.className = styles.active;
+    }
+
+
+
+    let check = e =>{
+        let orrs = Array.from(e.target.parentNode.childNodes);
+        orrs.map(item=>{
+            item.className = '';
+        })
+        if(e.target.innerHTML === "未开始"){
+            upArr(arr = datas.filter(item=>parseInt(item.start_time) > new Date().getTime())); 
+            e.target.className = styles.active;
+        }else if(e.target.innerHTML === "已结束"){
+            upArr(arr = datas.filter(item=>parseInt(item.end_time) < new Date().getTime())) 
+            e.target.className = styles.active;
+        }else if(e.target.innerHTML === "进行中"){
+            upArr(arr = datas.filter(item=>parseInt(item.end_time) >= new Date().getTime() && parseInt(item.start_time) <= new Date().getTime())) 
+            e.target.className = styles.active;
+        }else if(e.target.innerHTML === "全部"){
+            upArr(arr = datas) 
+            e.target.className = styles.active;
+        }
+        changes({
+            arr
+        })
     }
 
     let { getFieldDecorator } = props.form;
@@ -163,13 +206,14 @@ function ExamList(props) {
         <div className={styles.main}>
             <div className={styles.main_top}>
                 <h4>试卷列表</h4>
-                <div className={styles.top_right} onClick={tabs}>
+                <div className={styles.top_right} onClick={tabs} onClick={check}>
                     <p className={styles.active}>全部</p>
+                    <p>未开始</p>
                     <p>进行中</p>
                     <p>已结束</p>
                 </div>
             </div>
-            <Table columns={columns} dataSource={datas} />
+            <Table columns={columns} dataSource={examArr} rowKey={"exam_exam_id"} />
         </div>
     </div>
 }
@@ -195,6 +239,12 @@ const mapDisaptchToProps = dispatch => {
         examList(payload) {
             dispatch({
                 type: "exam/examList",
+                payload
+            })
+        },
+        changes(payload){
+            dispatch({
+                type:"exam/changes",
                 payload
             })
         }

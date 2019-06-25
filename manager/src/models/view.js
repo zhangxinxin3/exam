@@ -10,7 +10,8 @@ export default {
         examArr:[],
         questionArr:[],
         allArr:[],
-        types:[]
+        types:[],
+        typeGood:0
     },
 
     // 订阅路由跳转
@@ -49,7 +50,11 @@ export default {
         },
         *addQuestionType({payload},{call,put}){
             let data = yield call(addQuestionType,payload);
-            // console.log(data)
+            console.log("添加试题类型",data)
+            yield put({
+                type:'addQuestionTypes',
+                payload:data.code === 1 ? 1 : -1
+            })
         },
         *getAll({payload},{call,put}){
             let data = yield call(getAll);
@@ -89,6 +94,9 @@ export default {
         },
         getCondition(state,{payload}){
             return {...state,allArr:payload}
+        },
+        addQuestionTypes(state,{payload}){
+            return {...state,typeGood:payload}
         }
     }
 };

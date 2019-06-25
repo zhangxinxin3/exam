@@ -11,8 +11,17 @@ function View( props ) {
 
     useEffect(()=>{
         look()
+    },[])
+
+    useEffect(()=>{
         examType()
+    },[])
+
+    useEffect(()=>{
         questionType()
+    },[])
+
+    useEffect(()=>{
         getAll()
     },[])
 
@@ -30,7 +39,6 @@ function View( props ) {
 
     let chooseLess = (e) =>{
         upSubject(subject_id = e.target.getAttribute('value')) 
-        // console.log(e.target.getAttribute('value'))
         let arr = Array.from(e.target.parentNode.childNodes);
         arr.map(item=>{
             item.className = '';
@@ -149,9 +157,6 @@ function View( props ) {
             }
         </div>
     </div>
-}
-
-View.defaultProps = {
 }
 
 const mapStateToProps = state=>{

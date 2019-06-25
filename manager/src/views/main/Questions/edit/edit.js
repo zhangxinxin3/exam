@@ -21,14 +21,22 @@ function Edit(props) {
     useEffect(()=>{
         condition({
             questions_id:id
-        });
-        look(), 
-        examType(), 
+        })
+    },[])
+
+    useEffect(()=>{
+        look()
+    },[])
+
+    useEffect(()=>{
+        examType()
+    },[])
+
+    useEffect(()=>{
         questionType()
     },[])
 
     let handleChange = e =>{//题目
-        // console.log(e)
         upStem(stem = e)
     }
 

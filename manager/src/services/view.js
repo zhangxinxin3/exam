@@ -23,6 +23,7 @@ export function questionType(){
     })
 }
 
+//添加试题类型
 export function addQuestionType(params){
     return request({
         url: '/exam/insertQuestionsType?text='+params.text+'&sort='+params.sort,

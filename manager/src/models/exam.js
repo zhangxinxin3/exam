@@ -31,7 +31,11 @@ export default {
     reducers: {
         getexamList(state,{ payload }){
             // state.datas = 
-            return { ...state, examArr:payload,datas:[] }
+            return { ...state, examArr:payload,datas:payload }
+        },
+        changes(state,{ payload }){
+            console.log(payload)
+            return { ...state, examArr:payload.arr }
         }
     },
 

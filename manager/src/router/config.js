@@ -33,9 +33,12 @@ const student = dynamic({
 const approved = dynamic({
     component: () => import('@/views/main/Mark/approved/approved')
 })
-const addMark = dynamic({
-    component: () => import('@/views/main/Exam/addMark/addMark')
-})
+// const markList = dynamic({
+//     component: () => import('@/views/main/Mark/markList/markList')
+// })
+// const detail = dynamic({
+//     component: () => import('@/views/main/Mark/detail/detail')
+// })
 export default {
     routes: [{
         name: 'router.questions',

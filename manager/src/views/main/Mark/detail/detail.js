@@ -1,4 +1,4 @@
-import React,{ useState, useEffect } from 'react';
+import React,{ useEffect } from 'react';
 import { connect  } from 'dva';
 import { Button, Slider, Modal } from 'antd';
 import ReactMarkdown from 'react-markdown';
@@ -8,14 +8,10 @@ const confirm = Modal.confirm;
 
 function Detail(props){
 
-    let id = props.location.search.split('=')[1];
-
-    let { getDetail, detail, changeScore } = props;
-
+    let { detail, changeScore, getId, name, save } = props;
+    console.log(name)
     useEffect(()=>{
-        getDetail({
-            id
-        })
+        getId()
     },[])
 
 
@@ -37,15 +33,15 @@ function Detail(props){
                     content:"批改试卷成功 "+detail.student_name+"得分"+detail.score,
                     okText:"知道了",
                     onOk() {
-
-                        return new Promise((resolve, reject) => {
-                        setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
-                        }).catch(() => console.log('Oops errors!'));
+                        save({
+                            id:detail.grade_id,
+                            name:name
+                        })
+                        props.history.push({
+                            pathname:'/marking/classmate'
+                        })
                     }
                 });
-                return new Promise((resolve, reject) => {
-                setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
-                }).catch(() => console.log('Oops errors!'));
             },
             onCancel() {},
         });
@@ -76,7 +72,6 @@ function Detail(props){
                         </div>
                     })
                 }
-                
             </div>
             <div className={styles.wrapRight}>
                 <div className={styles.wrapFiexd}>
@@ -89,10 +84,8 @@ function Detail(props){
                         value={detail.score}
                     />
                     <Button className={styles.btns} onClick={sure}>确定</Button>
-
                 </div>   
             </div>
-            
         </div>
     </div>
 }
@@ -106,15 +99,20 @@ const mapStateToProps = state=>{
 
 const mapDisaptchToProps = dispatch=>{
     return {
-        getDetail(payload){
-            dispatch({
-                type:"class/getDetail",
-                payload
-            })
-        },
         changeScore(payload){
             dispatch({
                 type:"class/changeScore",
+                payload
+            })
+        },
+        getId(){
+            dispatch({
+                type:"class/getId"
+            })
+        },
+        save(payload){
+            dispatch({
+                type:"class/save",
                 payload
             })
         }

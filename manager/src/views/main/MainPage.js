@@ -7,6 +7,7 @@ import Menus from "../../components/Menus";
 import addMark from "../main/Exam/addMark/addMark";
 const { Header, Content, Sider } = Layout;
 const { Option } = Select;
+
 function MainPage(props) {
     console.log(props)
     if(!props.myView.length){
@@ -59,8 +60,8 @@ function MainPage(props) {
                 </Dropdown>
             </Header>
             <Layout className={styles.ant_layout}>
-                <Sider style={{overflowX:""}}>
-                    <Menus />
+                <Sider style={{overflowX:"",overflowY:'auto'}}>
+                    <Menus theme="dark" mode="inline" />
                 </Sider>
                 <Content className={styles.ant_layout_content} style={{ height: "100%" }}>
                     <Switch>

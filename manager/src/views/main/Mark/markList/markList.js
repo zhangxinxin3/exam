@@ -44,23 +44,30 @@ function MarkList(props){
             key: 'operation',
             render:operation=>(
                 <>
-                    <Link  to={{pathname:`/marking/detail?id=${operation}`}}>批卷</Link>
+                    <p onClick={()=>{
+                        detail(operation)
+                    }}>批卷</p>
                 </>
             ),
         }
-    ]
-    
-    let id = props.location.state.id;
-    let name = props.location.state.name;
+    ] 
 
-    let { grade, getList } = props;
-    let { gradeArr, children, child } = props;
-    
-    useEffect(()=>{
-        grade()
-        getList({
-            grade_id:id
+    let { grade, saveId } = props;
+    let { gradeArr, children, child, getSaves, name } = props;
+
+    let detail = e =>{
+        saveId({
+            id:e[0]
         })
+        props.history.push({
+            pathname:'/marking/detail'
+        })
+    }
+
+
+    useEffect(()=>{
+        getSaves()
+        grade()
     },[])
 
     children && children.map(item=>{
@@ -74,7 +81,7 @@ function MarkList(props){
                 startTime:new Date(parseInt(item.start_time)).toLocaleString().replace(/\//g, "-").replace(/上午/g, " "),
                 endTime:new Date(parseInt(item.end_time)).toLocaleString().replace(/\//g, "-").replace(/上午/g, " "),
                 yields:'-',
-                operation:item.exam_student_id
+                operation:[item.exam_student_id,name]
             })
         }
     })
@@ -103,6 +110,7 @@ function MarkList(props){
                         rules: [{ required: true, message: '班级号' }],
                     })(
                     <Select className={styles.select} placeholder="班级号">
+                        {/* <Option key="111">111</Option> */}
                         {
                             gradeArr && gradeArr.map(item=>{
                                 return <Option key={ item.grade_id } value={ item.grade_id }>{ item.grade_name }</Option>
@@ -135,6 +143,7 @@ const mapDisaptchToProps = dispatch=>{
             })
         },
         getList(payload){
+            console.log(payload)
             dispatch({
                 type:"class/getList",
                 payload
@@ -143,6 +152,17 @@ const mapDisaptchToProps = dispatch=>{
         getDetail(payload){
             dispatch({
                 type:"class/getDetail",
+                payload
+            })
+        },
+        getSaves(){
+            dispatch({
+                type:"class/getSaves"
+            })
+        },
+        saveId(payload){
+            dispatch({
+                type:"class/saveId",
                 payload
             })
         }

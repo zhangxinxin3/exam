@@ -15,14 +15,11 @@ function AddExam(props) {
     let startTimes = time1.getTime();
     let time2 = new Date(getEndTime);
     let endTimes = time2.getTime();
-    console.log(props)
-    // console.log(startTimes)
     useEffect(() => {
-        props.getallclass(),
-            props.getalltype(),
-            props.getcreatetest()
+        props.getAllClass(),
+        props.getAllType(),
+        props.getCreatetest()
     }, [])
-    // console.log(getName, getSelVal1, getSelVal3, getNum, startTimes, endTimes)
     let iptName = e => {
         setName(getName = e.target.value)
     }
@@ -42,9 +39,7 @@ function AddExam(props) {
         setEndTime(getEndTime = dataString)
     }
     let jumpView = () => {
-        // console.log(props)
         if (getName === "" || getSelVal1 === "" || getSelVal3 === "" || getNum === "" || getStartTime === "" || getEndTime === "") {
-            // console.log("input框值为空，请补全后再来操作")
             confirm({
                 title: '提示',
                 content: 'input框值为空，请补全后再来操作',
@@ -70,14 +65,14 @@ function AddExam(props) {
     }
     return (
         <div className={styles.wrap}>
-            <h1>添加考试</h1>
+            <h3>添加考试</h3>
             <div className={styles.container}>
                 <div>
-                    <h2>*试卷名称</h2>
+                    <h3>*试卷名称</h3>
                     <div className={styles.item}>
-                        <Input style={{ width: 500, height: 50 }} onChange={iptName} />
+                        <Input  style={{ width: 500, height: 35 }} onChange={iptName} />
                     </div>
-                    <h2>*选择考试类型</h2>
+                    <h3>*选择考试类型</h3>
                     <div className={styles.item}>
                         <Select defaultValue="周考1" style={{ width: 200, fontSize: "18px" }} onChange={selVal1}>
                             {props.getAllTypeArr.map((item, index) => {
@@ -85,7 +80,7 @@ function AddExam(props) {
                             })}
                         </Select>
                     </div>
-                    <h2>*选择课程</h2>
+                    <h3>*选择课程</h3>
                     <div className={styles.item}>
                         <Select defaultValue="JavaScript上" style={{ width: 200, fontSize: "18px" }} onChange={selVal2}>
                             {props.getAllClassArr.map((item, index) => {
@@ -93,11 +88,11 @@ function AddExam(props) {
                             })}
                         </Select>
                     </div>
-                    <h2>*设置题量</h2>
+                    <h3>*设置题量</h3>
                     <div className={styles.item}>
                         <InputNumber min={1} max={10} defaultValue={3} onChange={iptNum} />
                     </div>
-                    <h2>*考试时间</h2>
+                    <h3>*考试时间</h3>
                     <div className={styles.item} style={{ marginBottom: 0 }}>
                         <DatePicker showTime
                             format="YYYY-MM-DD HH:mm:ss"
@@ -130,17 +125,17 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-        getallclass() {
+        getAllClass() {
             dispatch({
                 type: "addExam/getallclass"
             })
         },
-        getalltype() {
+        getAllType() {
             dispatch({
                 type: "addExam/getalltype"
             })
         },
-        getcreatetest() {
+        getCreatetest() {
             dispatch({
                 type: "addExam/getcreatetest"
             })
