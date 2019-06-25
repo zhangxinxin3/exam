@@ -71,15 +71,31 @@ function ExamList(props) {
     }, [])
     console.log(props)
     // let newMessage = JSON.parse(decodeURI(props.history.location.search.slice(5)));
+    let val = localStorage.getItem('obj');
+    console.log(val)
+    let newVal = JSON.parse(val);
+    let newValArr = {
+        grade_id:["w7rz7t-1omw3-4rdv6b-okkgx"],
+        title:newVal.title,
+        grade_name:["1611B"],
+        room_id:["-qqts69-2pq07w-hiua58ddlo2b"],
+        room_text:["34403"],
+        end_time:newVal.end_time,
+        exam_id:newVal.exam_id,
+        start_time:newVal.start_time,
+        number:newVal.number,
+        subject_id:newVal.subject_id,
+        user_name:'chenmanjie'
+    }
+    newValArr.grade_id.push(newVal);
+    examArr.push(newValArr)
+    console.log(newValArr)
     console.log(examArr)
-    // examArr.push(newMessage)
     examArr && examArr.map(item => {
         let room = [];
-        // if(true){
             item.grade_name.map(val => {
                 room.push(val)
             })
-        // }
         let flag = datas.some(val => val.information === item.title);
         if (!flag) {
             return datas.push({
