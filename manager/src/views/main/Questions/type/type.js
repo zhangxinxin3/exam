@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { connect } from 'dva';
-import { Modal, Form, Input, Button, Table } from 'antd';
+import { Modal, Form, Input, Button, Table, message } from 'antd';
 import styles from './type.scss';
 
 function Type(props) {
-    let { getType, types, addQuestionType } = props;
+    let { getType, types, addQuestionType,typeGood } = props;
     let [showDialog, upDialog] = useState(false);
     let [typeValue, uptypeValue] = useState('');
     let [id, upId] = useState(props.questionArr.length);
@@ -13,6 +13,15 @@ function Type(props) {
     useEffect(() => {
         getType()
     }, [])
+
+    useEffect(()=>{
+        if(typeGood === 1){
+            message.success('添加成功');
+            getType()
+        }else if(typeGood === -1){
+            message.error("添加失败")
+        }
+    },[typeGood])
 
     const columns = [
         {

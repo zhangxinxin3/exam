@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <canvas id="canvas" style="width:400px;height:400px;"></canvas>     
+    <input type="file">
+    <div class="box"></div> 
+    <button>点击合成</button>
+    <img id="avatar"></img> 
+    <script>
+        var canvas = document.getElementById('canvas'),
+            ctx = canvas.getContext("2d"),
+            img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.src = 'http://img1.imgtn.bdimg.com/it/u=350542852,1064105787&fm=26&gp=0.jpg';
+        
+        img.onload = function() {
+          ctx.drawImage(img, 0, 0);
+        }
+
+        var ele = document.querySelector('input');
+        var box = document.querySelector('.box');
+        var btn = document.querySelector('button');
+        console.log(box)
+        ele.onchange = function(e){
+            let files = e.target.files;
+            var reader = new FileReader();
+            reader.onload = function(){
+                axios({
+                    method: 'post',
+                    url: 'http://123.206.55.50:11000/upload_base64',
+                    data: {base64: this.result}
+                }).then(body=>{
+                    console.log('body...', body);
+                    var imgs = new Image();
+                    imgs.crossOrigin = 'anonymous';
+                    imgs.src = body.data.data.path;
+                    imgs.onload = function() {
+                        ctx.drawImage(imgs, 0, 0,100,100);
+                    }
+                }).catch(e=>{
+                    console.log('e..', e);
+                })
+            }
+            reader.readAsDataURL(files[0]);
+        }
+        btn.onclick = function(e){
+            var base64 = canvas.toDataURL();
+            var img = document.getElementById('avatar');
+            img.setAttribute('src', base64);
+        }
+    </script>  
+</body>
+</html>

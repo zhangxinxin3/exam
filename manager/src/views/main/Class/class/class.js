@@ -8,7 +8,7 @@ const { Option } = Select;
 function Class(props){
 
     let { grade, gradeDelete, gradeUpdata, watch, roomAll, addGrade } = props;
-    let { gradeArr, datas, rooms, gradeGood, remove, changeGood } = props.class;
+    let { gradeArr, rooms, gradeGood, remove, changeGood } = props.class;
     let { data } = props.view;
     let [ showDialog, upShowDialog ] = useState(false);
     let [ showData, upShowData ] = useState(false);
@@ -16,8 +16,14 @@ function Class(props){
     let [classId,upClassId] = useState('')
 
     useEffect(()=>{
-        grade(),
-        watch(),
+        grade()
+    },[])
+
+    useEffect(()=>{
+        watch()
+    },[])
+
+    useEffect(()=>{
         roomAll()
     },[])
     

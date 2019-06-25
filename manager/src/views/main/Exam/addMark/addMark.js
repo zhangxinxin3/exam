@@ -7,23 +7,21 @@ const { Option } = Select;
 let newArr = [];
 function AddMark(props) {
     useEffect(() => {
-        props.gettest(),
-        props.createtest()
+        props.getTest()
     }, [])
-    console.log(props)
+    useEffect(() => {
+        props.createTest()
+    }, [])
     let visible = false;
     let title = props.location.search.split("=")[1];
     let [getShow, setShow] = useState(false);
     let showDrawer = e => {
-        console.log(e)
         setShow(getShow = true)
     }
     let onClose = e => {
-        console.log(1)
         setShow(getShow = true)
     }
     let addToContent = (index) => {
-        console.log(index)
         // newArr.push(props.getArr[1]);
     }
     let jumpToExamlist = e =>{
@@ -97,12 +95,12 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-        gettest() {
+        getTest() {
             dispatch({
                 type: "addMark/gettest"
             })
         },
-        createtest(){
+        createTest(){
             dispatch({
                 type:"/exam/exam"
             })

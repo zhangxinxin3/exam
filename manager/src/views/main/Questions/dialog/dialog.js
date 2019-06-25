@@ -10,7 +10,6 @@ function Dialog(props) {
             questions_id:id
         });
     },[])
-    // console.log(allArr)
 
     return <div className={styles.wrapper}>
         <h3 className={styles.title}>试题详情</h3>

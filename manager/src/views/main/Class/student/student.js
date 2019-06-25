@@ -1,10 +1,10 @@
 import React,{ useState, useEffect } from 'react';
 import { connect  } from 'dva';
-import { Form, Button, Select, Input, Table, Modal, message  } from 'antd'
+import { Form, Button, Select, Input, Table, message  } from 'antd'
 import styles from './student.scss';
 
 const { Option } = Select;
-// const confirm = Modal.confirm;
+
 function Student(props){
     
     const columns = [
@@ -46,12 +46,18 @@ function Student(props){
 
 
     let { grade, roomAll, getStudent, changeTypes, deleteStudent } = props;
-    let { gradeArr, rooms, students, types, studentGood } = props;
-    let { arr,upArr } = useState([]);
+    let { gradeArr, rooms, students, studentGood } = props;
+    let [ arr ] = useState([]);
 
     useEffect(()=>{
-        grade(), 
-        roomAll(), 
+        grade()
+    },[])
+
+    useEffect(()=>{
+        roomAll()
+    },[])
+
+    useEffect(()=>{
         getStudent()
     },[])
 

@@ -44,20 +44,25 @@ function MarkList(props){
             key: 'operation',
             render:operation=>(
                 <>
-                    <Link  to={{
-                        pathname:'/marking/detail',
-                        state:{
-                            id:operation[0],
-                            name:operation[1]
-                        }
-                    }}>批卷</Link>
+                    <p onClick={()=>{
+                        detail(operation)
+                    }}>批卷</p>
                 </>
             ),
         }
     ] 
 
-    let { grade, getList } = props;
+    let { grade, saveId } = props;
     let { gradeArr, children, child, getSaves, name } = props;
+
+    let detail = e =>{
+        saveId({
+            id:e[0]
+        })
+        props.history.push({
+            pathname:'/marking/detail'
+        })
+    }
 
 
     useEffect(()=>{
@@ -153,6 +158,12 @@ const mapDisaptchToProps = dispatch=>{
         getSaves(){
             dispatch({
                 type:"class/getSaves"
+            })
+        },
+        saveId(payload){
+            dispatch({
+                type:"class/saveId",
+                payload
             })
         }
     }

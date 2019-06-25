@@ -7,16 +7,11 @@ import styles from './detail.scss';
 const confirm = Modal.confirm;
 
 function Detail(props){
-    console.log(props.location)
-    let id = props.location.state.id;
-    let name = props.location.state.id;
 
-    let { getDetail, detail, changeScore } = props;
-
+    let { detail, changeScore, getId, name, save } = props;
+    console.log(name)
     useEffect(()=>{
-        getDetail({
-            id
-        })
+        getId()
     },[])
 
 
@@ -38,21 +33,15 @@ function Detail(props){
                     content:"批改试卷成功 "+detail.student_name+"得分"+detail.score,
                     okText:"知道了",
                     onOk() {
-                        props.history.push({
-                            pathname:'/marking/classmate',
-                            state:{
-                                id:detail.grade_id,
-                                name:name
-                            }
+                        save({
+                            id:detail.grade_id,
+                            name:name
                         })
-                        return new Promise((resolve, reject) => {
-                        setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
-                        }).catch(() => console.log('Oops errors!'));
+                        props.history.push({
+                            pathname:'/marking/classmate'
+                        })
                     }
                 });
-                return new Promise((resolve, reject) => {
-                setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
-                }).catch(() => console.log('Oops errors!'));
             },
             onCancel() {},
         });
@@ -95,10 +84,8 @@ function Detail(props){
                         value={detail.score}
                     />
                     <Button className={styles.btns} onClick={sure}>确定</Button>
-
                 </div>   
             </div>
-            
         </div>
     </div>
 }
@@ -112,21 +99,21 @@ const mapStateToProps = state=>{
 
 const mapDisaptchToProps = dispatch=>{
     return {
-        getDetail(payload){
-            dispatch({
-                type:"class/getDetail",
-                payload
-            })
-        },
         changeScore(payload){
             dispatch({
                 type:"class/changeScore",
                 payload
             })
         },
-        backTo(){
+        getId(){
             dispatch({
-                // routerRedux.push
+                type:"class/getId"
+            })
+        },
+        save(payload){
+            dispatch({
+                type:"class/save",
+                payload
             })
         }
     }

@@ -23,7 +23,8 @@ export default {
         changeGood:0,
         removeClassroom:0,
         classroomGood:0,
-        studentGood:0
+        studentGood:0,
+        name:''
     },
 
     subscriptions: {
@@ -125,6 +126,10 @@ export default {
             console.log(payload)
             setSave('save',JSON.stringify(payload))
         },
+        *saveId({ payload },{ call, put }){
+            console.log(payload)
+            setSave('saveId',JSON.stringify(payload))
+        },
         *getSaves({ payload },{ call, put }){
             let datas = getSave('save');
             let id = JSON.parse(datas).id;
@@ -138,6 +143,18 @@ export default {
                     data:data.exam,
                     name:JSON.parse(datas).name
                 }
+            })
+        },
+        *getId({ payload },{ call, put }){
+            let datas = getSave('saveId');
+            let id = JSON.parse(datas).id;
+            let data = yield call(getDetail,{
+                id
+            });
+            console.log("获取试卷学生详情",data)
+            yield put({
+                type:"getDetails",
+                payload:data.data
             })
         }
     },
@@ -154,7 +171,6 @@ export default {
             return {...state,students:payload,types:[],data:[]}
         },
         changeTypes(state,{payload}){
-            console.log(payload.arr)
             return {...state,students:payload.arr}
         },
         geLists(state,{payload}){
@@ -164,7 +180,7 @@ export default {
             return {...state,detail:payload}
         },
         changeScore(state,{payload}){
-            return {...state,detail:{...state.detail,score:payload.e}}
+            return {...state,detail:{...state.detail,score:payload.e,status:1}}
         },
         removesucc(state,{payload}){
             return {...state,remove:payload}

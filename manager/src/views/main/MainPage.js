@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React from 'react';
 import { connect } from 'dva';
 import { Layout, Select } from 'antd';
 import { Switch, Route, Redirect } from "dva/router";
@@ -23,18 +23,15 @@ import styles from './MainPage.scss';
 
 const { Header, Content, Sider } = Layout;
 const { Option } = Select;
+
 function MainPage(props) {
-    // useEffect(()=>{
-    //     props.getUser(),
-    //     props.changeLocale(),
-    //     props.getuserinfo()
-    // },[])
-    console.log(props)
+
     let change = e =>{
         props.changeLocale({
             e
         })
     }
+
     return (
         <Layout style={{height:"100%"}}>
             <Header className={styles.header} style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
@@ -45,8 +42,8 @@ function MainPage(props) {
                 </Select>
             </Header>
             <Layout className={styles.ant_layout}>
-                <Sider style={{overflowX:""}}>
-                    <Menus />
+                <Sider style={{overflowX:"",overflowY:'auto'}}>
+                    <Menus theme="dark" mode="inline" />
                 </Sider>
                 <Content className={styles.ant_layout_content} style={{ height: "100%" }}>
                     <Switch>

@@ -15,14 +15,11 @@ function AddExam(props) {
     let startTimes = time1.getTime();
     let time2 = new Date(getEndTime);
     let endTimes = time2.getTime();
-    console.log(props)
-    // console.log(startTimes)
     useEffect(() => {
-            props.getallclass(),
-            props.getalltype(),
-            props.getcreatetest()
+        props.getAllClass(),
+        props.getAllType(),
+        props.getCreatetest()
     }, [])
-    // console.log(getName, getSelVal1, getSelVal3, getNum, startTimes, endTimes)
     let iptName = e => {
         setName(getName = e.target.value)
     }
@@ -42,15 +39,12 @@ function AddExam(props) {
         setEndTime(getEndTime = dataString)
     }
     let jumpView = () => {
-        // console.log(props)
         if (getName === "" || getSelVal1 === "" || getSelVal3 === "" || getNum === "" || getStartTime === "" || getEndTime === "") {
-            // console.log("input框值为空，请补全后再来操作")
             confirm({
                 title: '提示',
                 content: 'input框值为空，请补全后再来操作',
             })
         } else {
-            // props.getcreatetest(getName, getSelVal1, getSelVal3, getNum, startTimes, endTimes)
             props.history.push("/exam/addMark?title="+getName)
             let obj = {
                 subject_id: getSelVal3,
@@ -62,9 +56,7 @@ function AddExam(props) {
             }
             props.getCreateTestArr.push(obj);
             let newObj = JSON.stringify(obj);
-            localStorage.setItem("obj",newObj);
-            console.log(props)
-            // props.history.push('/questions/examList')
+            localStorage.setItem("obj",newObj)
         }
     }
     return (
@@ -129,17 +121,17 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-        getallclass() {
+        getAllClass() {
             dispatch({
                 type: "addExam/getallclass"
             })
         },
-        getalltype() {
+        getAllType() {
             dispatch({
                 type: "addExam/getalltype"
             })
         },
-        getcreatetest() {
+        getCreatetest() {
             dispatch({
                 type: "addExam/getcreatetest"
             })

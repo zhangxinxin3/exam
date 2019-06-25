@@ -10,12 +10,11 @@ function Menus(props) {
     return <Menu
         theme="dark"
         mode="inline"
-        defaultSelectedKeys={['1']}
         defaultOpenKeys={['questions']}
         style={{ height: '100%', borderRight: 0, position: 'fixed', left: 0, width: "200px" }}
     >
         {
-            props.myView.map((item, index) => {
+            props.myView.map((item) => {
                 return <SubMenu key={item.name} title={
                     <span>
                         <Icon type={item.icon}></Icon>
@@ -26,7 +25,7 @@ function Menus(props) {
                 }>
                     {
                         item.children.map((value, key) => {
-                            return <Menu.Item key={key}>
+                            return <Menu.Item key={value.name}>
                                 <Link to={value.path}>{
                                     props.intl.formatMessage({ id: value.name })
                                 }</Link>
