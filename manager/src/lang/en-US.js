@@ -8,6 +8,7 @@ export default{
     "router.user.view":"ViewTest",
     "router.Test":"TestMaNagement",
     "router.Test.add":"AddTests",
+    "router.Test.mark":"AddMark",
     "router.Test.list":"ViewList",
     "router.Class":"ClassMaNagement",
     "router.Class.manager":"ClassManeger",

@@ -49,15 +49,15 @@ function MarkList(props){
             ),
         }
     ]
-
-    let id = props.location.search.split('&')[0].split('=')[1];
-    let name = props.location.search.split('&')[1].split('=')[1];
+    
+    let id = props.location.state.id;
+    let name = props.location.state.name;
 
     let { grade, getList } = props;
     let { gradeArr, children, child } = props;
     
     useEffect(()=>{
-        grade(),
+        grade()
         getList({
             grade_id:id
         })

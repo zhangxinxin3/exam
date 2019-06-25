@@ -3,7 +3,8 @@ import { connect } from 'dva';
 import { Layout, Select, Menu, Dropdown, message } from 'antd';
 import { Switch, Route, Redirect } from "dva/router";
 import styles from "./MainPage.scss";
-import Menus from "../../components/Menus"
+import Menus from "../../components/Menus";
+import addMark from "../main/Exam/addMark/addMark";
 const { Header, Content, Sider } = Layout;
 const { Option } = Select;
 function MainPage(props) {
@@ -58,7 +59,7 @@ function MainPage(props) {
                 </Dropdown>
             </Header>
             <Layout className={styles.ant_layout}>
-                <Sider >
+                <Sider style={{overflowX:""}}>
                     <Menus />
                 </Sider>
                 <Content className={styles.ant_layout_content} style={{ height: "100%" }}>
@@ -73,14 +74,17 @@ function MainPage(props) {
                                 }
                             })
                         }
-                        {/* 403路由 */}
+                        403路由
                         {
                             props.forbiddenView.map(item=>{
                                 return <Redirect key={item} from={item} to="/403" />
                             })
                         }
-                        {/* 剩余路由去404 */}
+                        {/* 剩余路由去404  */}
                         <Redirect to="/404" />
+                    </Switch>
+                    <Switch>
+                        <Route to="/exam/Mark" component={addMark}></Route>
                     </Switch>
                 </Content>
             </Layout>

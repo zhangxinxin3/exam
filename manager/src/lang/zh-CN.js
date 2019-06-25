@@ -8,6 +8,7 @@ export default{
     "router.user.view":"用户展示",  
     "router.Test":"考试管理",
     "router.Test.add":"添加考试",
+    "router.Test.mark":"添加考试~",
     "router.Test.list":"考试列表",    
     "router.Class":"班级管理",
     "router.Class.manager":"班级管理",
