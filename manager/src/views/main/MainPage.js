@@ -1,45 +1,62 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'dva';
-import { Layout, Select } from 'antd';
+import { Layout, Select, Menu, Dropdown, message } from 'antd';
 import { Switch, Route, Redirect } from "dva/router";
-import Menus from "@/components/Menu";
-import Add from "@/views/main/Questions/add/add";
-import Type from "@/views/main/Questions/type/type";
-import View from "@/views/main/Questions/view/view";
-import Dialog from "./Questions/dialog/dialog";
-import Edit from "./Questions/edit/edit";
-import Exhibition from "./User/exhibition/exhibition";
-import AddExam from "./Exam/addExam/addExam";
-import AddMark from "./Exam/addMark/addMark"
-import Adduser from './User/addUser/addUser';
-import ExamList from './Exam/examList/examList';
-import Class from './Class/class/class';
-import Classroom from './Class/classroom/classroom';
-import Student from './Class/student/student';
-import Mark from './Mark/approved/approved';
-import MarkList from './Mark/markList/markList';
-import Detail from './Mark/detail/detail';
-import styles from './MainPage.scss';
-
+import styles from "./MainPage.scss";
+import Menus from "../../components/Menus"
 const { Header, Content, Sider } = Layout;
 const { Option } = Select;
 
 function MainPage(props) {
-
-    let change = e =>{
+    console.log(props)
+    if(!props.myView.length){
+        return null;
+    }
+    useEffect(() => {
+        // props.getUser(),
+        // props.changeLocale(),
+        // props.getuserinfo(),
+        // props.removeToken()
+    }, [])
+    console.log(props)
+    let logOut = ({ key }) => {
+        if (key === '4') {
+            props.removeToken();
+            <Switch>
+                <Redirect to="/login" />
+            </Switch>
+        }
+    }
+    const menu = (
+        <Menu onClick={logOut}>
+            <Menu.Item key="1">个人中心</Menu.Item>
+            <Menu.Item key="2">我的班级</Menu.Item>
+            <Menu.Item key="3">设置</Menu.Item>
+            <Menu.Item key="4">退出登录</Menu.Item>
+        </Menu>
+    );
+    let change = e => {
         props.changeLocale({
             e
         })
     }
-
+    let updateImg = e => {
+        console.log(e)
+    }
     return (
-        <Layout style={{height:"100%"}}>
+        <Layout style={{ height: "100%" }}>
             <Header className={styles.header} style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
-                <div><img src="../../images/logo.png" alt=""/></div>
-                <Select onChange={change} placeholder="中文">
+                <div><img src="../../images/logo.png" alt="" /></div>
+                <Select onChange={change} placeholder="中文" className={styles.lang}>
                     <Option key="zh">中文</Option>
                     <Option key="en">英文</Option>
                 </Select>
+                <Dropdown overlay={menu}>
+                    <a href="#" className="ant-dropdown-link" className={styles.hover}>
+                        <div className={styles.img}></div>
+                        <div className={styles.titName}>123456789</div>
+                    </a>
+                </Dropdown>
             </Header>
             <Layout className={styles.ant_layout}>
                 <Sider style={{overflowX:"",overflowY:'auto'}}>
@@ -48,22 +65,23 @@ function MainPage(props) {
                 <Content className={styles.ant_layout_content} style={{ height: "100%" }}>
                     <Switch>
                         <Redirect exact from="/" to="/questions/add"></Redirect>
-                        <Route path="/questions/type" component={Type}></Route>
-                        <Route path="/questions/view" component={View}></Route>
-                        <Route path="/questions/dialog" component={Dialog}/>
-                        <Route path="/questions/edit" component={Edit}/>
-                        <Route path="/user/addUser" component={Adduser}></Route>
-                        <Route path="/exam/examList" component={ExamList}></Route>
-                        <Route path="/user/show" component={Exhibition}></Route>
-                        <Route path="/exam/addExam" component={AddExam}></Route>
-                        <Route path="/exam/addMark" component={AddMark}></Route>
-                        <Route path="/class/class" component={Class}></Route>
-                        <Route path="/class/classroom" component={Classroom}></Route>
-                        <Route path="/class/student" component={Student}></Route>
-                        <Route path="/marking/approved" component={Mark}></Route>
-                        <Route path="/marking/classmate" component={MarkList}></Route>
-                        <Route path="/marking/detail" component={Detail}></Route>
-                        <Route path="/questions/add" component={Add}></Route>
+                        {
+                            props.myView.map(item=>{
+                                if(item.children){
+                                    return item.children.map((value,key)=>{
+                                        return <Route key={value.path} path={value.path} component={value.component} />
+                                    })
+                                }
+                            })
+                        }
+                        {/* 403路由 */}
+                        {
+                            props.forbiddenView.map(item=>{
+                                return <Redirect key={item} from={item} to="/403" />
+                            })
+                        }
+                        {/* 剩余路由去404 */}
+                        <Redirect to="/404" />
                     </Switch>
                 </Content>
             </Layout>
@@ -71,9 +89,11 @@ function MainPage(props) {
     );
 }
 
-const mapStateToProps = state =>{
+const mapStateToProps = state => {
     return {
-        locale:state.global.locale
+        locale: state.global.locale,
+        myView: state.user.myView,
+        forbiddenView:state.user.forbiddenView
     }
 }
 
@@ -90,10 +110,15 @@ const mapDispatchToProps = dispatch => {
                 payload
             })
         },
-        changeLocale:payload=>{
+        changeLocale: payload => {
             dispatch({
-                type:"global/changeLocale",
+                type: "global/changeLocale",
                 payload
+            })
+        },
+        removeToken() {
+            dispatch({
+                type: 'user/logout'
             })
         }
     }

@@ -1,5 +1,5 @@
 import { login, getUserInfo, getViewAuthority } from '@/services'
-import { setToken, getToken } from '@/utils/user'
+import { setToken, getToken, removeToken } from '@/utils/user'
 import { routerRedux } from 'dva/router';
 
 //引入路由表
@@ -25,31 +25,31 @@ subscriptions: {
             //1.判断去的页面是否是登录页面
             if (pathname.indexOf('/login') === -1) {
             //1.1判断是否有登录态
-            if (!getToken()) {
-                //1.1.1没有登录态，利用redux做路由跳转
-                dispatch(routerRedux.replace({
-                pathname: `/login`,
-                search: `?redirect=${encodeURIComponent(pathname)}`
-                }))
-            } else {
-                ///1.1.2去登录页面，如果以登陆调回首页
-                dispatch({
-                type: 'getuserinfo'
-                })
-            }
+                if (!getToken()) {
+                    //1.1.1没有登录态，利用redux做路由跳转
+                    dispatch(routerRedux.replace({
+                    pathname: `/login`,
+                    search: `?redirect=${encodeURIComponent(pathname)}`
+                    }))
+                } else {
+                    ///1.1.2去登录页面，如果以登陆调回首页
+                    dispatch({
+                    type: 'getuserinfo'
+                    })
+                }
             //1.2用户没有登录态
             } else {
             //1.2.1去登录页面，如果以登陆调回首页
-            if (getToken()) {
-                //利用redux做路由跳转
-                dispatch(routerRedux.replace({
-                pathname: `/`
-                }))
-            }
+                if (getToken()) {
+                    //利用redux做路由跳转
+                    dispatch(routerRedux.replace({
+                    pathname: `/`
+                    }))
+                }
             }
         });
     },
-  },
+},
 
   // 异步操作
   effects: {
@@ -104,16 +104,23 @@ reducers: {
         forbiddenView = [];
         myView.forEach(item => {
             item.children = item.children.filter(value => {
-            if (payload.findIndex(id => id.view_id === value.id) !== -1) {
-                return true;
-            } else {
-                forbiddenView.push(value.path);
-                return false;
-            }
+                if (payload.findIndex(id => id.view_id === value.id) !== -1) {
+                    return true;
+                } else {
+                    forbiddenView.push(value.path);
+                    return false;
+                }
             })
         })
-        console.log('myview...', myView);
         return { ...state, viewAuthority: payload, myView, forbiddenView }
-    }
+    },
+    logout(state) {
+      //1.清楚登录态
+      removeToken('');
+      //2.清楚权限
+      return {
+        ...state, userInfo: {}, myView: [], forbiddenView: [], viewAuthority: []
+      }
+    },
   }
 };
