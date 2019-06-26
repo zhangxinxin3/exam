@@ -80,8 +80,8 @@ export default {
             name: 'router.Test.add',
             id: 'main-addExam',
             path: '/exam/addExam',
-            component: addExam
-        }, {
+            component: addExam,
+        },  {
             name: 'router.Test.list',
             id: 'main-examList',
             path: '/exam/examList',

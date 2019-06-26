@@ -45,7 +45,8 @@ function AddExam(props) {
                 content: 'input框值为空，请补全后再来操作',
             })
         } else {
-            props.history.push("/exam/addMark?title="+getName)
+            // props.getcreatetest(getName, getSelVal1, getSelVal3, getNum, startTimes, endTimes)
+            // props.history.push("/exam/addMark?title=" + getName)
             let obj = {
                 subject_id: getSelVal3,
                 exam_id: getSelVal1,
@@ -56,7 +57,10 @@ function AddExam(props) {
             }
             props.getCreateTestArr.push(obj);
             let newObj = JSON.stringify(obj);
-            localStorage.setItem("obj",newObj)
+            localStorage.setItem("obj", newObj);
+            props.history.push("/exam/examList")
+            console.log(props)
+            // props.history.push('/questions/examList')
         }
     }
     return (
@@ -70,17 +74,17 @@ function AddExam(props) {
                     </div>
                     <h3>*选择考试类型</h3>
                     <div className={styles.item}>
-                        <Select defaultValue="周考1" style={{ width: 200, fontSize:"18px" }} onChange={selVal1}>
+                        <Select defaultValue="周考1" style={{ width: 200, fontSize: "18px" }} onChange={selVal1}>
                             {props.getAllTypeArr.map((item, index) => {
-                                return <Option key={index} value={item.exam_id} style={{ fontSize:"18px" }}>{item.exam_name}</Option>
+                                return <Option key={index} value={item.exam_id} style={{ fontSize: "18px" }}>{item.exam_name}</Option>
                             })}
                         </Select>
                     </div>
                     <h3>*选择课程</h3>
                     <div className={styles.item}>
-                        <Select defaultValue="JavaScript上" style={{ width: 200, fontSize:"18px"}} onChange={selVal2}>
+                        <Select defaultValue="JavaScript上" style={{ width: 200, fontSize: "18px" }} onChange={selVal2}>
                             {props.getAllClassArr.map((item, index) => {
-                                return <Option key={index} value={item.subject_id} style={{ fontSize:"18px" }}>{item.subject_text}</Option>
+                                return <Option key={index} value={item.subject_id} style={{ fontSize: "18px" }}>{item.subject_text}</Option>
                             })}
                         </Select>
                     </div>

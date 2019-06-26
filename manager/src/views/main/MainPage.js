@@ -8,7 +8,7 @@ import Dialog from "./Questions/dialog/dialog";
 import Edit from "./Questions/edit/edit";
 import MarkList from './Mark/markList/markList';
 import Detail from './Mark/detail/detail';
-
+import addMark from "../main/Exam/addMark/addMark";
 const { Header, Content, Sider } = Layout;
 
 const { Option } = Select;
@@ -87,14 +87,17 @@ function MainPage(props) {
                                 }
                             })
                         }
-                        {/* 403路由 */}
+                        403路由
                         {
                             props.forbiddenView.map(item=>{
                                 return <Redirect key={item} from={item} to="/403" />
                             })
                         }
-                        {/* 剩余路由去404 */}
+                        {/* 剩余路由去404  */}
                         <Redirect to="/404" />
+                    </Switch>
+                    <Switch>
+                        <Route to="/exam/Mark" component={addMark}></Route>
                     </Switch>
                 </Content>
             </Layout>
