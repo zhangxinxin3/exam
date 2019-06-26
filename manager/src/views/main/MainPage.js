@@ -32,14 +32,15 @@ function MainPage(props) {
                 <Redirect to="/login" />
             </Switch>
         }else if(key === '1'){
-            console.log('上传头像')
+            props.history.push({
+                pathname:"/upload"
+            })
         }
     }
+
     const menu = (
         <Menu onClick={logOut}>
-            <Menu.Item key="1">
-                 上传头像
-            </Menu.Item>
+            <Menu.Item key="1">上传头像</Menu.Item>
             <Menu.Item key="2">我的班级</Menu.Item>
             <Menu.Item key="3">设置</Menu.Item>
             <Menu.Item key="4">退出登录</Menu.Item>
@@ -50,9 +51,7 @@ function MainPage(props) {
             e
         })
     }
-    let updateImg = e => {
-        console.log(e)
-    }
+    
     return (
         <Layout style={{ height: "100%" }}>
             <Header className={styles.header} style={{ position: 'fixed', zIndex: 1, width: '100%' }}>

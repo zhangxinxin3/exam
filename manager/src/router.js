@@ -12,6 +12,7 @@ import en from "react-intl/locale-data/en";
 import zh from "react-intl/locale-data/zh";
 import zhCN from "@/lang/zh-CN.js";
 import enUS from "@/lang/en-US.js";
+import upLoad from './views/login/upLoad';
 const localMap = {
     en:enUS,
     zh:zhCN
@@ -31,6 +32,7 @@ const RouterView = connect(mapStateToProps)(({locale, history}) => {
         <Route path="/login" component={LoginPage} />
         <Route path="/403" component={AccessForbiddenPage} />
         <Route path="/404" component={NotFoundPage} />
+        <Route path="/upload" component={upLoad}></Route>
         <Route path="/" component={MainPage} />
       </Switch>
     </Router>
